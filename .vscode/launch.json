@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cmake",
+            "request": "launch",
+            "name": "CMake: Debug configure project",
+            "cmakeDebugType": "configure",
+            "clean": false,
+            "configureAll": false
+        },
+        {
+            "name": "MSVC Editor debug",
+            "type": "cppvsdbg",
+            "request": "launch",
+            // TODO#1
+            "program": "build/artifacts/bin/sola-editor.exe",
+            "args": [
+                "test"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "${env:PATH}:build/artifacts/bin/"
+                },
+            ]
+        }
+    ]
+}

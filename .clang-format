@@ -1,0 +1,20 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortBlocksOnASingleLine: Empty
+IndentCaseLabels: true
+ColumnLimit: 120
+AccessModifierOffset: -4
+NamespaceIndentation: All
+FixNamespaceComments: true
+LineEnding: LF
+AlignConsecutiveMacros: Consecutive
+InsertBraces: true
+InsertNewlineAtEOF: true
+IndentPPDirectives: AfterHash

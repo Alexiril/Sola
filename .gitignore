@@ -1,0 +1,14 @@
+# -- General ignores --
+
+# Main C++ build folder
+build/*
+
+# Test project folder
+test/*
+
+# All the python cache. Anywhere.
+__pycache__
+
+# Third party libraries sources. Except the readme file and patches folder
+vendor/sdl
+vendor/cpython

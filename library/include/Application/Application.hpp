@@ -1,7 +1,7 @@
 #ifndef SOLA_APPLICATION_APPLICATION
 #define SOLA_APPLICATION_APPLICATION
 
-#include "Graphics/SDLModules.hpp"
+#include "Application/Modules.hpp"
 #include "Python/Interpreter.hpp"
 #include "sola_common.hpp"
 
@@ -34,7 +34,7 @@ namespace Sola
             EXPORTED const std::string &get_copyright(void) const noexcept;
             EXPORTED const std::string &get_url(void) const noexcept;
             EXPORTED PyObject *get_project_configuration(void) const noexcept;
-            
+
             // setters
             EXPORTED void set_project_configuration(PyObject *configuration);
 
@@ -60,10 +60,10 @@ namespace Sola
             std::string app_creator;
             std::string app_copyright;
             std::string app_url;
-            std::vector<Graphics::SDLModule> sdl_modules;
+            std::vector<Module> modules;
             u64 cmd_arguments_count;
             char *const *cmd_arguments;
-            
+
             std::string app_project_dir;
             PyObject *project_configuration;
 

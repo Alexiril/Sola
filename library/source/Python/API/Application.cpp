@@ -10,14 +10,12 @@ namespace Sola
         {
             namespace Application
             {
-                PyObject *is_app_editor(PyObject *, PyObject *args)
+                PyObject *is_app_editor(PyObject *, PyObject *)
                 {
                     auto application = Sola::Application::Application::get();
-                    if (application == nullptr || !PyArg_ParseTuple(args, ":is_app_editor"))
+                    if (application == nullptr)
                     {
-                        PyErr_SetString(PyExc_RuntimeError, application == nullptr
-                                                                ? application_is_not_initialized_error
-                                                                : formatting_error);
+                        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);
                         return nullptr;
                     }
                     PyObject *result = application->is_editor() ? Py_True : Py_False;
@@ -28,47 +26,39 @@ namespace Sola
                 // I had no choice
                 // Hah just kidding
                 // I'm not sorry.
-#define GET_SOLA_APP_STRING_PARAM(py_function_name, app_function_name)                                                 \
+#define GET_SOLA_APP_STRING_PARAM(app_function_name)                                                                   \
     auto application = Sola::Application::Application::get();                                                          \
-    if (application == nullptr || !PyArg_ParseTuple(args, py_function_name))                                           \
+    if (application == nullptr)                                                                                        \
     {                                                                                                                  \
-        PyErr_SetString(PyExc_RuntimeError,                                                                            \
-                        application == nullptr ? application_is_not_initialized_error : formatting_error);             \
+        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);                                     \
         return nullptr;                                                                                                \
     }                                                                                                                  \
     const std::string &value = application->app_function_name();                                                       \
     PyObject *result = PyUnicode_FromStringAndSize(value.c_str(), value.size());                                       \
     return result;
 
-                PyObject *get_project_dir(PyObject *, PyObject *args){
-                    GET_SOLA_APP_STRING_PARAM(":get_project_dir", get_project_dir)}
+                PyObject *get_project_dir(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_project_dir)}
 
-                PyObject *get_app_name(PyObject *, PyObject *args){GET_SOLA_APP_STRING_PARAM(":get_app_name", get_name)}
+                PyObject *get_app_name(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_name)}
 
-                PyObject *get_app_version(PyObject *,
-                                          PyObject *args){GET_SOLA_APP_STRING_PARAM(":get_app_version", get_version)}
+                PyObject *get_app_version(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_version)}
 
-                PyObject *get_app_identifier(PyObject *, PyObject *args){
-                    GET_SOLA_APP_STRING_PARAM(":get_app_identifier", get_identifier)}
+                PyObject *get_app_identifier(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_identifier)}
 
-                PyObject *get_app_creator(PyObject *,
-                                          PyObject *args){GET_SOLA_APP_STRING_PARAM(":get_app_creator", get_creator)}
+                PyObject *get_app_creator(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_creator)}
 
-                PyObject *get_app_copyright(PyObject *, PyObject *args){
-                    GET_SOLA_APP_STRING_PARAM(":get_app_copyright", get_copyright)}
+                PyObject *get_app_copyright(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_copyright)}
 
-                PyObject *get_app_url(PyObject *, PyObject *args){GET_SOLA_APP_STRING_PARAM(":get_app_url", get_url)}
+                PyObject *get_app_url(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_url)}
 
 #undef GET_SOLA_APP_STRING_PARAM
 
-                PyObject *get_project_configuration(PyObject *, PyObject *args)
+                PyObject *get_project_configuration(PyObject *, PyObject *)
                 {
                     auto application = Sola::Application::Application::get();
-                    if (application == nullptr || !PyArg_ParseTuple(args, ":get_project_configuration"))
+                    if (application == nullptr)
                     {
-                        PyErr_SetString(PyExc_RuntimeError, application == nullptr
-                                                                ? application_is_not_initialized_error
-                                                                : formatting_error);
+                        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);
                         return nullptr;
                     }
                     PyObject *value = application->get_project_configuration();
@@ -79,13 +69,15 @@ namespace Sola
                     return value;
                 }
 
-                PyObject *set_project_configuration(PyObject *, PyObject *args)
+                PyObject *set_project_configuration(PyObject *, PyObject *args, PyObject *kwds)
                 {
                     PyObject *configuration = nullptr;
+                    static const char *kwlist[] = {"config", nullptr};
                     auto application = Sola::Application::Application::get();
                     if (application == nullptr ||
-                        !PyArg_ParseTuple(args, "O:set_project_configuration", &configuration) ||
-                        configuration == nullptr)
+                        !PyArg_ParseTupleAndKeywords(args, kwds, "O:set_project_configuration",
+                                                      static_cast<const char *const *>(kwlist), &configuration) ||
+                        configuration == nullptr || PyDict_Check(configuration) == 0)
                     {
                         PyErr_SetString(PyExc_RuntimeError, application == nullptr
                                                                 ? application_is_not_initialized_error

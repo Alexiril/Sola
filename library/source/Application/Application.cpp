@@ -67,7 +67,7 @@ namespace Sola
                                  const std::string &app_copyright, const std::string &app_url)
             : is_editor_(is_editor), app_project_dir(project_dir), app_name(app_name), app_version(app_version),
               app_identifier(app_identifier), app_creator(app_creator), app_copyright(app_copyright), app_url(app_url),
-              sdl_modules(), cmd_arguments_count(argc), cmd_arguments(argv), project_configuration(nullptr)
+              modules(), cmd_arguments_count(argc), cmd_arguments(argv), project_configuration(nullptr)
         {
         }
 
@@ -137,7 +137,7 @@ namespace Sola
             py_project_dir = nullptr;
 
             // TODO#2
-            sdl_modules.push_back(Graphics::SDLModule::VIDEO);
+            modules.push_back(Module::VIDEO);
 
             /* -- Project is ready to be started -- */
         }
@@ -157,9 +157,9 @@ namespace Sola
 
             u32 init_modules_flags = 0;
 
-            for (auto &&module : sdl_modules)
+            for (auto &&module : modules)
             {
-                init_modules_flags |= Graphics::SDLModuleFunctions::to_sdlcode(module);
+                init_modules_flags |= ModuleFunctions::to_sdlcode(module);
             }
 
             if (!SDL_InitSubSystem(init_modules_flags))

@@ -58,15 +58,15 @@ namespace Sola
 
                 EXPORTED PyObject *get_project_configuration(PyObject *self, PyObject *args);
 
-                static PyMethodDef get_project_configuration_def = {"get_project_configuration", get_project_configuration,
-                                                                METH_VARARGS,
-                                                                "Returns the current project configuration."};
+                static PyMethodDef get_project_configuration_def = {"get_project_configuration",
+                                                                    get_project_configuration, METH_VARARGS,
+                                                                    "Returns the current project configuration."};
 
-                EXPORTED PyObject *set_project_configuration(PyObject *self, PyObject *args);
+                EXPORTED PyObject *set_project_configuration(PyObject *self, PyObject *args, PyObject *kwds);
 
-                static PyMethodDef set_project_configuration_def = {"set_project_configuration",
-                                                                    set_project_configuration, METH_VARARGS,
-                                                                    "Saves the current project configuration data"};
+                static PyMethodDef set_project_configuration_def = {
+                    "set_project_configuration", reinterpret_cast<PyCFunction>(set_project_configuration),
+                    METH_VARARGS | METH_KEYWORDS, "Saves the current project configuration data"};
 
                 EXPORTED std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module);
             } // namespace Application

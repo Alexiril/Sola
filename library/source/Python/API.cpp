@@ -2,6 +2,7 @@
 #include "Logger/Logger.hpp"
 #include "Python/API/Application.hpp"
 #include "Python/API/Errors.hpp"
+#include "Python/API/Graphics.hpp"
 #include "Python/API/Logger.hpp"
 #include "Python/ModuleHelper.hpp"
 
@@ -11,25 +12,26 @@ namespace Sola
     {
         namespace API
         {
-
-            PyObject *init(PyObject *, PyObject *args)
+            PyObject *get_engine_version(PyObject *, PyObject *)
             {
-                // It literally doesn't do anything yet
-                if (!PyArg_ParseTuple(args, ":init"))
+                PyObject *result = PyLong_FromLongLong(Sola::get_engine_version());
+                if (result == nullptr)
                 {
+                    PyErr_SetString(PyExc_RuntimeError, solaapi_error);
                     return nullptr;
                 }
-                print_debug("API initialization call");
-                return Py_None;
+                Py_INCREF(result);
+                return result;
             }
 
-            PyObject *get_engine_version(PyObject *, PyObject *args)
+            PyObject *get_engine_version_readable(PyObject *, PyObject *)
             {
-                if (!PyArg_ParseTuple(args, ":get_engine_version"))
+                PyObject *result = PyUnicode_FromString(Sola::get_engine_version_readable().c_str());
+                if (result == nullptr)
                 {
+                    PyErr_SetString(PyExc_RuntimeError, solaapi_error);
                     return nullptr;
                 }
-                PyObject *result = PyLong_FromLongLong(Sola::get_engine_version());
                 Py_INCREF(result);
                 return result;
             }
@@ -52,6 +54,9 @@ namespace Sola
 
                 submodule = ModuleHelper::create_python_submodule(main_module, Logger::module_name);
                 ModuleHelper::fill_python_module(submodule, Logger::get_module_fields(submodule));
+
+                submodule = ModuleHelper::create_python_submodule(main_module, Graphics::module_name);
+                ModuleHelper::fill_python_module(submodule, Graphics::get_module_fields(submodule));
 
                 return main_module;
             }

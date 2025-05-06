@@ -1,8 +1,5 @@
 {
     "editor.formatOnSave": true,
-    "python.analysis.extraPaths": [
-        "./build/library/Debug"
-    ],
     "python.analysis.exclude": [
         "vendor/sdl",
         "vendor/cpython",

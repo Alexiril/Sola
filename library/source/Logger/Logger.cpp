@@ -6,17 +6,13 @@ namespace Sola
     {
         static std::mutex output_mutex;
 
-        void print_log(const std::string &file, u64 line, const std::string &what,
-                       Severity severity)
+        void print_log(const std::string &file, u64 line, const std::string &what, Severity severity)
         {
             std::ostringstream output;
 
-            output << severity_to_text(severity) << " [" << file << " : " << line
-                   << "]\n"
-                   << what;
+            output << SeverityFunctions::to_text(severity) << " [" << file << " : " << line << "]\n" << what;
 
-            std::lock_guard<std::mutex> lock(
-                output_mutex); // It's released when functions ends
+            std::lock_guard<std::mutex> lock(output_mutex); // It's released when functions ends
             switch (severity)
             {
                 case Severity::debug:

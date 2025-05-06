@@ -1,6 +1,6 @@
 from typing import Any
 from Sola.Interfaces.IProjectLoader import IProjectLoader
-from Sola.Exceptions.ProjectImportException import ProjectImportException
+from Sola.Exception.ProjectImportException import ProjectImportException
 
 
 class ProjectLoader(IProjectLoader):

@@ -13,7 +13,7 @@ namespace Sola
             class MessageBoxDataWithCallback
             {
             public:
-                MessageBoxDataWithCallback(MessageBoxSeverity severity, const std::string &title,
+                MessageBoxDataWithCallback(Logger::Severity severity, const std::string &title,
                                            const std::string &message, const std::vector<ButtonData> &buttons,
                                            const std::function<void(i32)> &function)
                     : function(function)
@@ -22,16 +22,16 @@ namespace Sola
                     mbdata->flags = SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT;
                     switch (severity)
                     {
-                        case MessageBoxSeverity::info:
+                        case Logger::Severity::info:
                             mbdata->flags |= SDL_MESSAGEBOX_INFORMATION;
                             break;
-                        case MessageBoxSeverity::warning:
+                        case Logger::Severity::warning:
                             mbdata->flags |= SDL_MESSAGEBOX_WARNING;
                             break;
-                        case MessageBoxSeverity::error:
+                        case Logger::Severity::error:
+                        case Logger::Severity::fatal:
                             mbdata->flags |= SDL_MESSAGEBOX_ERROR;
                             break;
-                        case MessageBoxSeverity::none:
                         default:
                             break;
                     }
@@ -89,10 +89,10 @@ namespace Sola
                 function(*hit_button);
             }
 
-            void show_message_box(MessageBoxSeverity severity, const std::string &title, const std::string &message,
+            void show_message_box(Logger::Severity severity, const std::string &title, const std::string &message,
                                   const std::vector<ButtonData> &buttons, const std::function<void(i32)> &callback)
             {
-                // -- delete --
+                // -- delete required --
                 MessageBoxDataWithCallback *data =
                     new MessageBoxDataWithCallback(severity, title, message, buttons, callback);
 
@@ -107,13 +107,13 @@ namespace Sola
 
             void show_warning_message_box(const std::string &message)
             {
-                show_message_box(MessageBoxSeverity::warning, "Sola warning", message,
+                show_message_box(Logger::Severity::warning, "Sola warning", message,
                                  {ButtonData(0, true, true, "Ignore")}, [](i32) {});
             }
 
             void show_error_message_box(const std::string &message)
             {
-                show_message_box(MessageBoxSeverity::error, "Sola error", message,
+                show_message_box(Logger::Severity::error, "Sola error", message,
                                  {ButtonData(0, true, false, "Ignore"), ButtonData(1, false, true, "Quit")},
                                  [](i32 choice)
                                  {
@@ -126,7 +126,7 @@ namespace Sola
 
             void show_fatal_message_box(const std::string &message)
             {
-                show_message_box(MessageBoxSeverity::error, "Sola fatal", message, {ButtonData(0, true, true, "Quit")},
+                show_message_box(Logger::Severity::fatal, "Sola fatal", message, {ButtonData(0, true, true, "Quit")},
                                  [](i32) { exit(-1); });
             }
 

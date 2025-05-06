@@ -1,6 +1,6 @@
-#include "Python/API.hpp"
 #include "Python/API/Logger.hpp"
 #include "Logger/Logger.hpp"
+#include "Python/API.hpp"
 
 namespace Sola
 {
@@ -10,42 +10,45 @@ namespace Sola
         {
             namespace Logger
             {
-                PyObject *py_print_log(PyObject *args, const std::string &function_name,
+                PyObject *py_print_log(PyObject *args, PyObject *kwds, const std::string &function_name,
                                        Sola::Logger::Severity severity)
                 {
-                    char *text = nullptr;
-                    if (!PyArg_ParseTuple(args, ("s:" + function_name).c_str(), &text) || text == nullptr)
+                    static const char *kwlist[] = {"what", nullptr};
+                    const char *what = nullptr;
+                    if (!PyArg_ParseTupleAndKeywords(args, kwds, ("s:" + function_name).c_str(),
+                                                     static_cast<const char *const *>(kwlist), &what) ||
+                        what == nullptr)
                     {
                         PyErr_SetString(PyExc_RuntimeError, formatting_error);
                         return nullptr;
                     }
-                    print(text, severity);
+                    print(what, severity);
                     return Py_None;
                 }
 
-                PyObject *py_print_debug(PyObject *, PyObject *args)
+                PyObject *py_print_debug(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    return py_print_log(args, "print_debug", Sola::Logger::Severity::debug);
+                    return py_print_log(args, kwds, "print_debug", Sola::Logger::Severity::debug);
                 }
 
-                PyObject *py_print_info(PyObject *, PyObject *args)
+                PyObject *py_print_info(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    return py_print_log(args, "print_info", Sola::Logger::Severity::info);
+                    return py_print_log(args, kwds, "print_info", Sola::Logger::Severity::info);
                 }
 
-                PyObject *py_print_warning(PyObject *, PyObject *args)
+                PyObject *py_print_warning(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    return py_print_log(args, "print_warning", Sola::Logger::Severity::warning);
+                    return py_print_log(args, kwds, "print_warning", Sola::Logger::Severity::warning);
                 }
 
-                PyObject *py_print_error(PyObject *, PyObject *args)
+                PyObject *py_print_error(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    return py_print_log(args, "print_error", Sola::Logger::Severity::error);
+                    return py_print_log(args, kwds, "print_error", Sola::Logger::Severity::error);
                 }
 
-                PyObject *py_print_fatal(PyObject *, PyObject *args)
+                PyObject *py_print_fatal(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    return py_print_log(args, "print_fatal", Sola::Logger::Severity::fatal);
+                    return py_print_log(args, kwds, "print_fatal", Sola::Logger::Severity::fatal);
                 }
 
                 std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module)

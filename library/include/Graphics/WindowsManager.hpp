@@ -1,6 +1,7 @@
 #ifndef SOLA_GRAPHICS_WINDOWSMANAGER
 #define SOLA_GRAPHICS_WINDOWSMANAGER
 
+#include "Logger/Severity.hpp"
 #include "sola_common.hpp"
 
 namespace Sola
@@ -9,14 +10,6 @@ namespace Sola
     {
         namespace WindowsManager
         {
-            enum class MessageBoxSeverity
-            {
-                none,
-                info,
-                warning,
-                error,
-            };
-
             struct ButtonData
             {
             public:
@@ -32,7 +25,7 @@ namespace Sola
                 std::string text;
             };
 
-            EXPORTED void show_message_box(MessageBoxSeverity severity, const std::string &title,
+            EXPORTED void show_message_box(Logger::Severity severity, const std::string &title,
                                            const std::string &message, const std::vector<ButtonData> &buttons,
                                            const std::function<void(i32)> &callback);
 

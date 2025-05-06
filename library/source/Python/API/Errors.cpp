@@ -11,42 +11,53 @@ namespace Sola
         {
             namespace Errors
             {
-                PyObject *raise_warning(PyObject *, PyObject *args)
+                std::optional<std::string> parse_args(const std::string &function_name, PyObject *args, PyObject *kwds)
                 {
-                    const char *text = nullptr;
-                    if (!PyArg_ParseTuple(args, "s:raise_warning", &text) || text == nullptr)
+                    static const char *kwlist[] = {"what", nullptr};
+                    const char *what = nullptr;
+                    if (!PyArg_ParseTupleAndKeywords(args, kwds, ("s:" + function_name).c_str(),
+                                                     static_cast<const char *const *>(kwlist), &what) ||
+                        what == nullptr)
                     {
                         PyErr_SetString(PyExc_RuntimeError, formatting_error);
+                        return std::nullopt;
+                    }
+                    return std::string(what);
+                }
+
+                PyObject *raise_warning(PyObject *, PyObject *args, PyObject *kwds)
+                {
+                    std::optional<std::string> text = parse_args("raise_warning", args, kwds);
+                    if (!text.has_value())
+                    {
                         return nullptr;
                     }
-                    print_warning(text);
-                    Graphics::WindowsManager::show_warning_message_box(text);
+                    print_warning(text.value());
+                    Graphics::WindowsManager::show_warning_message_box(text.value());
                     return Py_None;
                 }
 
-                PyObject *raise_error(PyObject *, PyObject *args)
+                PyObject *raise_error(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    const char *text = nullptr;
-                    if (!PyArg_ParseTuple(args, "s:raise_error", &text) || text == nullptr)
+                    std::optional<std::string> text = parse_args("raise_error", args, kwds);
+                    if (!text.has_value())
                     {
-                        PyErr_SetString(PyExc_RuntimeError, formatting_error);
                         return nullptr;
                     }
-                    print_error(text);
-                    Graphics::WindowsManager::show_error_message_box(text);
+                    print_error(text.value());
+                    Graphics::WindowsManager::show_error_message_box(text.value());
                     return Py_None;
                 }
 
-                PyObject *raise_fatal(PyObject *, PyObject *args)
+                PyObject *raise_fatal(PyObject *, PyObject *args, PyObject *kwds)
                 {
-                    const char *text = nullptr;
-                    if (!PyArg_ParseTuple(args, "s:raise_fatal", &text) || text == nullptr)
+                    std::optional<std::string> text = parse_args("raise_fatal", args, kwds);
+                    if (!text.has_value())
                     {
-                        PyErr_SetString(PyExc_RuntimeError, formatting_error);
                         return nullptr;
                     }
-                    print_fatal(text);
-                    Graphics::WindowsManager::show_fatal_message_box(text);
+                    print_fatal(text.value());
+                    Graphics::WindowsManager::show_fatal_message_box(text.value());
                     return Py_None;
                 }
 

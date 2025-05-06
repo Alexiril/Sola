@@ -101,27 +101,29 @@ def main() -> None:
     for arg in argv[1:]:
         if arg == "--no-update":
             update = False
-    vendored(
-        "Python",
-        "cpython",
-        VendoredType.GITREPO,
-        "https://github.com/python/cpython.git",
-        update,
-    )
-    patch_over("cpython/CMakeLists.txt", "cpython", "CMakeLists.txt")
-    patch_over(
-        "cpython/PCbuild",
-        "cpython",
-        "PCbuild",
-    )
-    vendored(
-        "SDL",
-        "sdl",
-        VendoredType.GITREPO,
-        "https://github.com/libsdl-org/SDL.git",
-        update,
-    )
-
+    try:
+        vendored(
+            "Python",
+            "cpython",
+            VendoredType.GITREPO,
+            "https://github.com/python/cpython.git",
+            update,
+        )
+        patch_over("cpython/CMakeLists.txt", "cpython", "CMakeLists.txt")
+        patch_over(
+            "cpython/PCbuild",
+            "cpython",
+            "PCbuild",
+        )
+        vendored(
+            "SDL",
+            "sdl",
+            VendoredType.GITREPO,
+            "https://github.com/libsdl-org/SDL.git",
+            update,
+        )
+    except Exception as e:
+        print(e)
 
 if __name__ == "__main__":
     main()

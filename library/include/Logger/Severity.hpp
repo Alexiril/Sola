@@ -17,7 +17,11 @@ namespace Sola
             fatal
         };
 
-        EXPORTED std::string severity_to_text(Severity severity);
+        namespace SeverityFunctions
+        {
+            EXPORTED Severity from_text(const std::string &text);
+            EXPORTED std::string to_text(Severity severity);
+        } // namespace SeverityFunctions
     } // namespace Logger
 } // namespace Sola
 

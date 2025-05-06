@@ -78,6 +78,11 @@ namespace Sola
                 PyObject *module_dictionary = PyModule_GetDict(module);
                 for (auto &&item : items)
                 {
+                    if (item.value == nullptr)
+                    {
+                        PyErr_Print();
+                        continue;
+                    }
                     if (PyDict_SetItemString(module_dictionary, item.name.c_str(), item.value) < 0)
                     {
                         const std::string module_name = PyModule_GetName(module);

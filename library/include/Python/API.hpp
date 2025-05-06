@@ -13,13 +13,16 @@ namespace Sola
 
             static const char *formatting_error = "Failed to parse arguments";
 
-            EXPORTED PyObject *init(PyObject *self, PyObject *args);
+            static const char *solaapi_error = "SolaAPI unknown error. This should not happen.";
 
             EXPORTED PyObject *get_engine_version(PyObject *self, PyObject *args);
 
-            static PyMethodDef Methods[] = {{"init", init, METH_VARARGS, "Initializes the API internals."},
-                                            {"get_engine_version", get_engine_version, METH_VARARGS,
+            EXPORTED PyObject *get_engine_version_readable(PyObject *self, PyObject *args);
+
+            static PyMethodDef Methods[] = {{"get_engine_version", get_engine_version, METH_VARARGS,
                                              "Returns the current engine version in number format."},
+                                            {"get_engine_version_readable", get_engine_version_readable, METH_VARARGS,
+                                             "Returns the current engine version in human readable format."},
                                             {NULL, NULL, 0, NULL}};
 
             static PyModuleDef Module = {PyModuleDef_HEAD_INIT, module_name, NULL, -1, Methods, NULL, NULL, NULL, NULL};

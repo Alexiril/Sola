@@ -59,7 +59,7 @@ namespace Sola
         {
             if (!_initialized || _modules.count(module_name) == 0)
             {
-                return {};
+                return std::nullopt;
             }
 
             // No clear reference
@@ -71,7 +71,7 @@ namespace Sola
             {
                 print_warning("Python object '" + module_name + "." + function_name +
                               "' can't be used (does it exist?).");
-                return {};
+                return std::nullopt;
             }
 
             if (!PyCallable_Check(func))
@@ -79,7 +79,7 @@ namespace Sola
                 Py_DECREF(func);
                 print_warning("Python object '" + module_name + "." + function_name +
                               "' is not callable.");
-                return {};
+                return std::nullopt;
             }
 
             PyObject *py_args = PyTuple_New(args.size());
@@ -111,7 +111,7 @@ namespace Sola
                 }
                 print_warning("Python function '" + module_name + "." + function_name +
                               "' call failed.");
-                return {};
+                return std::nullopt;
             }
 
             return result;

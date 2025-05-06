@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from pathlib import Path
 from typing import Any
 
-from Sola.Exceptions.ProjectImportException import ProjectImportException
+from Sola.Exception.ProjectImportException import ProjectImportException
 
 
 class IProjectLoader(metaclass=ABCMeta):

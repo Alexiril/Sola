@@ -6,19 +6,19 @@ message("Working on Sola C++ / Python Library")
 
 set(SOLA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SOLA_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
-set(SOLA_PYTHON  ${CMAKE_CURRENT_SOURCE_DIR}/python-library)
+set(SOLA_PYTHON  ${CMAKE_CURRENT_SOURCE_DIR}/Sola)
 set(SOLA_PYTHON_MODULE_NAME Sola)
 
 set(PUBLIC_HEADERS
     # General
     ${SOLA_INCLUDE_DIR}/sola.hpp ${SOLA_INCLUDE_DIR}/sola_common.hpp
     # Application
-    ${SOLA_INCLUDE_DIR}/Application/Application.hpp
+    ${SOLA_INCLUDE_DIR}/Application/Application.hpp ${SOLA_INCLUDE_DIR}/Application/Modules.hpp
     # Exception
     ${SOLA_INCLUDE_DIR}/Exception/BasicException.hpp ${SOLA_INCLUDE_DIR}/Exception/ApplicationException.hpp
     ${SOLA_INCLUDE_DIR}/Exception/SDLException.hpp
     # Graphics
-    ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp ${SOLA_INCLUDE_DIR}/Graphics/SDLModules.hpp
+    ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp 
     # Helpers
     ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp
     # Logger
@@ -27,16 +27,16 @@ set(PUBLIC_HEADERS
     ${SOLA_INCLUDE_DIR}/Python/Interpreter.hpp ${SOLA_INCLUDE_DIR}/Python/ModuleHelper.hpp
     ${SOLA_INCLUDE_DIR}/Python/API.hpp
     ${SOLA_INCLUDE_DIR}/Python/API/Errors.hpp ${SOLA_INCLUDE_DIR}/Python/API/Logger.hpp
-    ${SOLA_INCLUDE_DIR}/Python/API/Application.hpp
+    ${SOLA_INCLUDE_DIR}/Python/API/Application.hpp ${SOLA_INCLUDE_DIR}/Python/API/Graphics.hpp
 )
 
 set(SOLA_SOURCES
     # General
     ${SOLA_SOURCE_DIR}/sola_common.cpp
     # Application
-    ${SOLA_SOURCE_DIR}/Application/Application.cpp
+    ${SOLA_SOURCE_DIR}/Application/Application.cpp ${SOLA_SOURCE_DIR}/Application/Modules.cpp
     # Graphics
-    ${SOLA_SOURCE_DIR}/Graphics/WindowsManager.cpp ${SOLA_SOURCE_DIR}/Graphics/SDLModules.cpp
+    ${SOLA_SOURCE_DIR}/Graphics/WindowsManager.cpp
     # Helpers
     ${SOLA_SOURCE_DIR}/Helpers/FileSystem.cpp
     # Logger
@@ -45,7 +45,7 @@ set(SOLA_SOURCES
     ${SOLA_SOURCE_DIR}/Python/Interpreter.cpp ${SOLA_SOURCE_DIR}/Python/ModuleHelper.cpp
     ${SOLA_SOURCE_DIR}/Python/API.cpp
     ${SOLA_SOURCE_DIR}/Python/API/Errors.cpp ${SOLA_SOURCE_DIR}/Python/API/Logger.cpp
-    ${SOLA_SOURCE_DIR}/Python/API/Application.cpp
+    ${SOLA_SOURCE_DIR}/Python/API/Application.cpp ${SOLA_SOURCE_DIR}/Python/API/Graphics.cpp
 )
 
 # -- Includes --
@@ -126,7 +126,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.pkgconfig.in ${PROJEC
 
 # -- Installing --
 
-install(DIRECTORY $<TARGET_FILE_DIR:${PROJECT_NAME}>/${SOLA_PYTHON_MODULE_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(DIRECTORY $<TARGET_FILE_DIR:${PROJECT_NAME}>/${SOLA_PYTHON_MODULE_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR}/Lib)
 
 install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

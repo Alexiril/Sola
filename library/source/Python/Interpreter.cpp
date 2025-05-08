@@ -51,15 +51,13 @@ namespace Sola
             return true;
         }
 
-        std::optional<PyObject *>
-        Interpreter::RunFunction(const std::string &module_name,
-                                 const std::string &function_name,
-                                 std::vector<PyObject *> args,
-                                 std::unordered_map<std::string, PyObject *> kwargs)
+        std::expected<PyObject *, InterpreterError>
+        Interpreter::RunFunction(const std::string &module_name, const std::string &function_name,
+                                 std::vector<PyObject *> args, std::unordered_map<std::string, PyObject *> kwargs)
         {
             if (!_initialized || _modules.count(module_name) == 0)
             {
-                return std::nullopt;
+                return std::unexpected(InterpreterError::RunFunctionInterpNotInitialized);
             }
 
             // No clear reference
@@ -71,15 +69,14 @@ namespace Sola
             {
                 print_warning("Python object '" + module_name + "." + function_name +
                               "' can't be used (does it exist?).");
-                return std::nullopt;
+                return std::unexpected(InterpreterError::RunFunctionObjectDoesNotExist);
             }
 
             if (!PyCallable_Check(func))
             {
                 Py_DECREF(func);
-                print_warning("Python object '" + module_name + "." + function_name +
-                              "' is not callable.");
-                return std::nullopt;
+                print_warning("Python object '" + module_name + "." + function_name + "' is not callable.");
+                return std::unexpected(InterpreterError::RunFunctionObjectIsNotCallable);
             }
 
             PyObject *py_args = PyTuple_New(args.size());
@@ -96,7 +93,10 @@ namespace Sola
                 {
                     print_warning("Cannot convert key '" + key + "' to Python Unicode");
                 }
-                PyDict_SetItem(py_kwargs, py_key, value);
+                else
+                {
+                    PyDict_SetItem(py_kwargs, py_key, value);
+                }
             }
 
             PyObject *result = PyObject_Call(func, py_args, py_kwargs);
@@ -109,9 +109,8 @@ namespace Sola
                 {
                     PyErr_Print();
                 }
-                print_warning("Python function '" + module_name + "." + function_name +
-                              "' call failed.");
-                return std::nullopt;
+                print_warning("Python function '" + module_name + "." + function_name + "' call failed.");
+                return std::unexpected(InterpreterError::RunFunctionCallFailed);
             }
 
             return result;

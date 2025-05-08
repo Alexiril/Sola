@@ -12,12 +12,20 @@ namespace Sola
         class Application
         {
         public:
-            EXPORTED static Application *init_application(bool is_editor, const std::string &project_dir, u64 argc,
-                                                          char *const *argv, const std::string &app_name,
-                                                          const std::string &app_version,
-                                                          const std::string &app_identifier,
-                                                          const std::string &app_creator,
-                                                          const std::string &app_copyright, const std::string &app_url);
+            enum class ApplicationError
+            {
+                AppIsAlreadyInitialized,
+                PythonInitializationFailed,
+                SolaModuleImportFailed,
+                ProjectInitializationFailed,
+                SDLInitializationFailed,
+            };
+
+            EXPORTED static std::expected<Application *, ApplicationError>
+            init_application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
+                             const std::string &app_name, const std::string &app_version,
+                             const std::string &app_identifier, const std::string &app_creator,
+                             const std::string &app_copyright, const std::string &app_url);
 
             EXPORTED static Application *get(void) noexcept;
 
@@ -44,11 +52,11 @@ namespace Sola
                         const std::string &app_creator, const std::string &app_copyright, const std::string &app_url);
             ~Application(void) noexcept;
 
-            void initialize_python(void);
-            void initialize_project(void);
-            void initialize_sdl(void);
+            std::expected<void, ApplicationError> initialize_python(void);
+            std::expected<void, ApplicationError> initialize_project(void);
+            std::expected<void, ApplicationError> initialize_sdl(void);
 
-            void set_sdl_metadata(const char *metadata_name, const std::string &value);
+            std::expected<void, ApplicationError> set_sdl_metadata(const char *metadata_name, const std::string &value);
 
             void quit_python(void);
             void quit_sdl(void);

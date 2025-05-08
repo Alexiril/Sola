@@ -1,7 +1,7 @@
 #ifndef SOLA_PYTHON_API_GRAPHICS
 #define SOLA_PYTHON_API_GRAPHICS
 
-#include "Python/ModuleHelper.hpp"
+#include "Helpers/PythonModule.hpp"
 #include "sola_common.hpp"
 
 namespace Sola
@@ -52,7 +52,7 @@ namespace Sola
                     .tp_new = static_cast<newfunc>(ButtonData::new_object),
                 };
 
-                EXPORTED std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module);
+                EXPORTED std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module);
             } // namespace Graphics
         } // namespace API
     } // namespace Python

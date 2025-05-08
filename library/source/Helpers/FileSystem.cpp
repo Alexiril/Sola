@@ -1,5 +1,5 @@
 #include "Helpers/FileSystem.hpp"
-#include "Exception/FileSystemException.hpp"
+#include "Logger/Logger.hpp"
 
 #ifdef _WIN32
 #    define WIN32_LEAN_AND_MEAN
@@ -7,7 +7,7 @@
 #elif __APPLE__
 #    include <climits>
 #    include <mach-o/dyld.h>
-#elif
+#else
 #    include <unistd.h>
 #endif
 
@@ -17,30 +17,28 @@ namespace Sola
     {
         namespace FileSystem
         {
-            std::filesystem::path Sola::Helpers::FileSystem::get_executable_directory()
+            std::expected<std::filesystem::path, FileSystemError> Sola::Helpers::FileSystem::get_executable_directory()
             {
 #ifdef _WIN32
                 wchar_t szPath[MAX_PATH];
-                GetModuleFileNameW(nullptr, szPath, MAX_PATH);
+                if (GetModuleFileNameW(nullptr, szPath, MAX_PATH) == 0)
+                {
+                    print_warning("GetModuleFileNameW failed with error code: " + std::to_string(GetLastError()));
+                    return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
+                }
 #elif __APPLE__
                 char szPath[PATH_MAX];
                 uint32_t bufsize = PATH_MAX;
                 if (_NSGetExecutablePath(szPath, &bufsize))
                 {
-                    throw Exception::FileSystemException::
-                        ExecutableDirectoryUnavailableException(
-                            "_NSGetExecutablePath returned error",
-                            Logger::Severity::warning);
+                    return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
                 }
 #else
                 char szPath[PATH_MAX];
                 ssize_t count = readlink("/proc/self/exe", szPath, PATH_MAX);
                 if (count < 0 || count >= PATH_MAX)
                 {
-                    throw Exception::FileSystemException::
-                        ExecutableDirectoryUnavailableException(
-                            "/proc/self/exe link size was incorrect",
-                            Logger::Severity::warning);
+                    return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
                 }
                 szPath[count] = '\0';
 #endif

@@ -10,6 +10,11 @@ namespace Sola
     {
         namespace WindowsManager
         {
+            enum class WindowsManagerError
+            {
+                SHOW_MESSAGE_BOX_FAILED = 1,
+            };
+
             struct ButtonData
             {
             public:
@@ -25,9 +30,9 @@ namespace Sola
                 std::string text;
             };
 
-            EXPORTED void show_message_box(Logger::Severity severity, const std::string &title,
-                                           const std::string &message, const std::vector<ButtonData> &buttons,
-                                           const std::function<void(i32)> &callback);
+            EXPORTED std::expected<void, WindowsManagerError>
+            show_message_box(Logger::Severity severity, const std::string &title, const std::string &message,
+                             const std::vector<ButtonData> &buttons, const std::function<void(i32)> &callback);
 
             EXPORTED void show_warning_message_box(const std::string &message);
             EXPORTED void show_error_message_box(const std::string &message);

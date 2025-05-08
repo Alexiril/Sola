@@ -6,7 +6,7 @@ namespace Sola
     {
         namespace ModuleFunctions
         {
-            Module from_text(std::string text)
+            Module from_text(const std::string &text)
             {
                 if (text == "AUDIO")
                 {

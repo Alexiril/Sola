@@ -1,10 +1,10 @@
 #include "Python/API.hpp"
+#include "Helpers/PythonModule.hpp"
 #include "Logger/Logger.hpp"
 #include "Python/API/Application.hpp"
 #include "Python/API/Errors.hpp"
 #include "Python/API/Graphics.hpp"
 #include "Python/API/Logger.hpp"
-#include "Python/ModuleHelper.hpp"
 
 namespace Sola
 {
@@ -46,17 +46,17 @@ namespace Sola
 
                 PyObject *submodule = nullptr;
 
-                submodule = ModuleHelper::create_python_submodule(main_module, Application::module_name);
-                ModuleHelper::fill_python_module(submodule, Application::get_module_fields(submodule));
+                submodule = Helpers::PythonModule::create_python_submodule(main_module, Application::module_name).value_or(nullptr);
+                Helpers::PythonModule::fill_python_module(submodule, Application::get_module_fields(submodule));
 
-                submodule = ModuleHelper::create_python_submodule(main_module, Errors::module_name);
-                ModuleHelper::fill_python_module(submodule, Errors::get_module_fields(submodule));
+                submodule = Helpers::PythonModule::create_python_submodule(main_module, Errors::module_name).value_or(nullptr);
+                Helpers::PythonModule::fill_python_module(submodule, Errors::get_module_fields(submodule));
 
-                submodule = ModuleHelper::create_python_submodule(main_module, Logger::module_name);
-                ModuleHelper::fill_python_module(submodule, Logger::get_module_fields(submodule));
+                submodule = Helpers::PythonModule::create_python_submodule(main_module, Logger::module_name).value_or(nullptr);
+                Helpers::PythonModule::fill_python_module(submodule, Logger::get_module_fields(submodule));
 
-                submodule = ModuleHelper::create_python_submodule(main_module, Graphics::module_name);
-                ModuleHelper::fill_python_module(submodule, Graphics::get_module_fields(submodule));
+                submodule = Helpers::PythonModule::create_python_submodule(main_module, Graphics::module_name).value_or(nullptr);
+                Helpers::PythonModule::fill_python_module(submodule, Graphics::get_module_fields(submodule));
 
                 return main_module;
             }

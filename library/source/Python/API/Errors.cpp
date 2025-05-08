@@ -11,12 +11,12 @@ namespace Sola
         {
             namespace Errors
             {
+                static const char *const kwlist[] = {"what", nullptr};
+
                 std::optional<std::string> parse_args(const std::string &function_name, PyObject *args, PyObject *kwds)
                 {
-                    static const char *kwlist[] = {"what", nullptr};
                     const char *what = nullptr;
-                    if (!PyArg_ParseTupleAndKeywords(args, kwds, ("s:" + function_name).c_str(),
-                                                     static_cast<const char *const *>(kwlist), &what) ||
+                    if (!PyArg_ParseTupleAndKeywords(args, kwds, ("s:" + function_name).c_str(), kwlist, &what) ||
                         what == nullptr)
                     {
                         PyErr_SetString(PyExc_RuntimeError, formatting_error);
@@ -61,14 +61,14 @@ namespace Sola
                     return Py_None;
                 }
 
-                std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module)
+                std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module)
                 {
-                    return {ModuleHelper::NamedPythonObject("raise_warning",
-                                                            PyCFunction_NewEx(&raise_warning_def, nullptr, module)),
-                            ModuleHelper::NamedPythonObject("raise_error",
-                                                            PyCFunction_NewEx(&raise_error_def, nullptr, module)),
-                            ModuleHelper::NamedPythonObject("raise_fatal",
-                                                            PyCFunction_NewEx(&raise_fatal_def, nullptr, module))};
+                    return {Helpers::PythonModule::NamedPythonObject(
+                                "raise_warning", PyCFunction_NewEx(&raise_warning_def, nullptr, module)),
+                            Helpers::PythonModule::NamedPythonObject(
+                                "raise_error", PyCFunction_NewEx(&raise_error_def, nullptr, module)),
+                            Helpers::PythonModule::NamedPythonObject(
+                                "raise_fatal", PyCFunction_NewEx(&raise_fatal_def, nullptr, module))};
                 }
             } // namespace Errors
         } // namespace API

@@ -8,12 +8,14 @@
 
 #include <array>
 #include <cstdint>
+#include <expected>
 #include <filesystem>
 #include <format>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <mutex>
+#include <numeric>
 #include <optional>
 #include <sstream>
 #include <string>
@@ -39,7 +41,7 @@ namespace Sola
     /// \x00\x02 = 4_310_695_938).
     u64 get_engine_version(void);
 
-    const std::string& get_engine_version_readable(void);
+    const std::string &get_engine_version_readable(void);
 } // namespace Sola
 
 // For shared library (windows mostly)

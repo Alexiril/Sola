@@ -10,4 +10,12 @@ Sola is a software suite aimed at providing third-party software developers with
 
 ### Third-party software
 
-### SAST tools
+SDL
+
+Vulkan
+
+Python
+
+### Source Code Analysis Tools / SAST tools
+
+[Cppcheck](https://cppcheck.sourceforge.io/) ([github](https://github.com/danmar/cppcheck)) - A tool for static C/C++ code analysis .

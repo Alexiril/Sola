@@ -1,7 +1,7 @@
 #ifndef SOLA_PYTHON_API_APLICATION
 #define SOLA_PYTHON_API_APLICATION
 
-#include "Python/ModuleHelper.hpp"
+#include "Helpers/PythonModule.hpp"
 #include "sola_common.hpp"
 
 namespace Sola
@@ -68,7 +68,7 @@ namespace Sola
                     "set_project_configuration", reinterpret_cast<PyCFunction>(set_project_configuration),
                     METH_VARARGS | METH_KEYWORDS, "Saves the current project configuration data"};
 
-                EXPORTED std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module);
+                EXPORTED std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module);
             } // namespace Application
         } // namespace API
     } // namespace Python

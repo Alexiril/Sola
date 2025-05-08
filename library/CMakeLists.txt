@@ -15,16 +15,15 @@ set(PUBLIC_HEADERS
     # Application
     ${SOLA_INCLUDE_DIR}/Application/Application.hpp ${SOLA_INCLUDE_DIR}/Application/Modules.hpp
     # Exception
-    ${SOLA_INCLUDE_DIR}/Exception/BasicException.hpp ${SOLA_INCLUDE_DIR}/Exception/ApplicationException.hpp
-    ${SOLA_INCLUDE_DIR}/Exception/SDLException.hpp
+    ${SOLA_INCLUDE_DIR}/Exception/GeneralException.hpp
     # Graphics
     ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp 
     # Helpers
-    ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp
+    ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp ${SOLA_INCLUDE_DIR}/Helpers/PythonModule.hpp
     # Logger
     ${SOLA_INCLUDE_DIR}/Logger/Logger.hpp ${SOLA_INCLUDE_DIR}/Logger/Severity.hpp
     # Python
-    ${SOLA_INCLUDE_DIR}/Python/Interpreter.hpp ${SOLA_INCLUDE_DIR}/Python/ModuleHelper.hpp
+    ${SOLA_INCLUDE_DIR}/Python/Interpreter.hpp
     ${SOLA_INCLUDE_DIR}/Python/API.hpp
     ${SOLA_INCLUDE_DIR}/Python/API/Errors.hpp ${SOLA_INCLUDE_DIR}/Python/API/Logger.hpp
     ${SOLA_INCLUDE_DIR}/Python/API/Application.hpp ${SOLA_INCLUDE_DIR}/Python/API/Graphics.hpp
@@ -38,11 +37,11 @@ set(SOLA_SOURCES
     # Graphics
     ${SOLA_SOURCE_DIR}/Graphics/WindowsManager.cpp
     # Helpers
-    ${SOLA_SOURCE_DIR}/Helpers/FileSystem.cpp
+    ${SOLA_SOURCE_DIR}/Helpers/FileSystem.cpp ${SOLA_SOURCE_DIR}/Helpers/PythonModule.cpp
     # Logger
     ${SOLA_SOURCE_DIR}/Logger/Logger.cpp ${SOLA_SOURCE_DIR}/Logger/Severity.cpp
     # Python
-    ${SOLA_SOURCE_DIR}/Python/Interpreter.cpp ${SOLA_SOURCE_DIR}/Python/ModuleHelper.cpp
+    ${SOLA_SOURCE_DIR}/Python/Interpreter.cpp
     ${SOLA_SOURCE_DIR}/Python/API.cpp
     ${SOLA_SOURCE_DIR}/Python/API/Errors.cpp ${SOLA_SOURCE_DIR}/Python/API/Logger.cpp
     ${SOLA_SOURCE_DIR}/Python/API/Application.cpp ${SOLA_SOURCE_DIR}/Python/API/Graphics.cpp
@@ -92,10 +91,6 @@ endif()
 
 # -- Dependencies / PRE_BUILD --
 
-# find_package(Python REQUIRED COMPONENTS Development.Embed)
-
-# target_link_libraries(${PROJECT_NAME} PRIVATE Python::Python)
-
 add_dependencies(${PROJECT_NAME} python)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE python)
@@ -105,6 +100,8 @@ add_custom_target(solalib_python_cache COMMAND py -m compileall -j 0 -o 1 "${SOL
 add_dependencies(${PROJECT_NAME} solalib_python_cache)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+
+add_dependencies(${PROJECT_NAME} cppcheck)
 
 # -- Sources / Headers --
 

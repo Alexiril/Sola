@@ -1,7 +1,7 @@
 #ifndef SOLA_PYTHON_API_ERRORS
 #define SOLA_PYTHON_API_ERRORS
 
-#include "Python/ModuleHelper.hpp"
+#include "Helpers/PythonModule.hpp"
 #include "sola_common.hpp"
 
 namespace Sola
@@ -30,7 +30,7 @@ namespace Sola
                 static PyMethodDef raise_fatal_def = {"raise_fatal", reinterpret_cast<PyCFunction>(raise_fatal),
                                                       METH_VARARGS | METH_KEYWORDS, "Raises fatal inside C++ backend"};
 
-                EXPORTED std::vector<ModuleHelper::NamedPythonObject> get_module_fields(PyObject *module);
+                EXPORTED std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module);
             } // namespace Errors
         } // namespace API
     } // namespace Python

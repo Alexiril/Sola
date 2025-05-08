@@ -106,6 +106,18 @@
         "filesystem": "cpp",
         "cinttypes": "cpp",
         "complex": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "bitset": "cpp",
+        "codecvt": "cpp",
+        "csignal": "cpp",
+        "cstdarg": "cpp",
+        "future": "cpp",
+        "regex": "cpp",
+        "shared_mutex": "cpp",
+        "stack": "cpp",
+        "unordered_set": "cpp",
+        "variant": "cpp",
+        "expected": "cpp",
+        "*.inc": "cpp"
     },
 }

@@ -1,5 +1,4 @@
 #include "Application/Application.hpp"
-#include "Exception/ApplicationException.hpp"
 #include "Helpers/FileSystem.hpp"
 #include "Logger/Severity.hpp"
 #include "Python/API.hpp"
@@ -10,15 +9,15 @@ namespace Sola
     {
         Application *Application::instance = nullptr;
 
-        Application *Application::init_application(bool is_editor, const std::string &project_dir, u64 argc,
-                                                   char *const *argv, const std::string &app_name,
-                                                   const std::string &app_version, const std::string &app_identifier,
-                                                   const std::string &app_creator, const std::string &app_copyright,
-                                                   const std::string &app_url)
+        std::expected<Application *, Application::ApplicationError>
+        Application::init_application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
+                                      const std::string &app_name, const std::string &app_version,
+                                      const std::string &app_identifier, const std::string &app_creator,
+                                      const std::string &app_copyright, const std::string &app_url)
         {
             if (instance != nullptr)
             {
-                throw std::runtime_error("Application is already initialized");
+                return std::unexpected(ApplicationError::AppIsAlreadyInitialized);
             }
 
             instance = new Application(is_editor, project_dir, argc, argv, app_name, app_version, app_identifier,
@@ -79,7 +78,7 @@ namespace Sola
             quit_sdl();
         }
 
-        void Application::initialize_python()
+        std::expected<void, Application::ApplicationError> Application::initialize_python()
         {
             /* -- Initializing Python interpreter -- */
 
@@ -89,50 +88,53 @@ namespace Sola
             PyStatus status = PyConfig_SetBytesArgv(&config, cmd_arguments_count, cmd_arguments);
             if (status._type != PyStatus::_PyStatus_TYPE_OK)
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    std::string("Python initialization error: ") + status.err_msg, Logger::Severity::fatal);
+                print_error(status.err_msg);
+                return std::unexpected(ApplicationError::PythonInitializationFailed);
             }
-            status = PyConfig_SetString(&config, &config.home,
-                                        Helpers::FileSystem::get_executable_directory().wstring().c_str());
-            if (status._type != PyStatus::_PyStatus_TYPE_OK)
+            std::expected<std::filesystem::path, Helpers::FileSystem::FileSystemError> exe_dir =
+                Helpers::FileSystem::get_executable_directory();
+            if (exe_dir.has_value())
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    std::string("Python initialization error: ") + status.err_msg, Logger::Severity::fatal);
+                status = PyConfig_SetString(&config, &config.home, exe_dir.value().wstring().c_str());
+                if (status._type != PyStatus::_PyStatus_TYPE_OK)
+                {
+                    print_error(status.err_msg);
+                    return std::unexpected(ApplicationError::PythonInitializationFailed);
+                }
             }
             Python::InternalModule module = {Python::API::module_name, Python::API::create_python_module};
             interpreter = std::make_unique<Python::Interpreter>(config, std::array<Python::InternalModule, 1>{module});
             if (!interpreter->IsInitialized())
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    "Python interpreter was not initialized", Logger::Severity::fatal);
+                print_error("Python interpreter was not initialized");
+                return std::unexpected(ApplicationError::PythonInitializationFailed);
             }
             if (!interpreter->ImportModule("Sola"))
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    "Couldn't load Sola core python module", Logger::Severity::fatal);
+                print_error("Couldn't import Sola core python module");
+                return std::unexpected(ApplicationError::SolaModuleImportFailed);
             }
 
             /* -- Python interpreter is ready -- */
+
+            return {};
         }
 
-        void Application::initialize_project()
+        std::expected<void, Application::ApplicationError> Application::initialize_project()
         {
             /* -- Initialize project -- */
 
             PyObject *py_project_dir = PyUnicode_FromString(app_project_dir.c_str());
             if (py_project_dir == 0)
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    "Couldn't convert project directory to Python Unicode: " + app_project_dir,
-                    Logger::Severity::fatal);
+                print_error("Couldn't convert project directory to Python Unicode: " + app_project_dir);
+                return std::unexpected(ApplicationError::ProjectInitializationFailed);
             }
 
             if (!interpreter->RunFunction("Sola", "sola_init", {}, {{"project_dir", py_project_dir}}).has_value())
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    "Sola core python module was not able to initialize the "
-                    "application",
-                    Logger::Severity::fatal);
+                print_error("Couldn't initialize project: " + app_project_dir);
+                return std::unexpected(ApplicationError::ProjectInitializationFailed);
             }
             py_project_dir = nullptr;
 
@@ -140,47 +142,63 @@ namespace Sola
             modules.push_back(Module::VIDEO);
 
             /* -- Project is ready to be started -- */
+
+            return {};
         }
 
-        void Application::initialize_sdl()
+        std::expected<void, Application::ApplicationError> Application::initialize_sdl()
         {
             /* -- Initializing SDL3 -- */
 
             // TODO#3
 
-            set_sdl_metadata(SDL_PROP_APP_METADATA_NAME_STRING, app_name.c_str());
-            set_sdl_metadata(SDL_PROP_APP_METADATA_VERSION_STRING, app_version.c_str());
-            set_sdl_metadata(SDL_PROP_APP_METADATA_IDENTIFIER_STRING, app_identifier.c_str());
-            set_sdl_metadata(SDL_PROP_APP_METADATA_CREATOR_STRING, app_creator.c_str());
-            set_sdl_metadata(SDL_PROP_APP_METADATA_COPYRIGHT_STRING, app_copyright.c_str());
-            set_sdl_metadata(SDL_PROP_APP_METADATA_URL_STRING, app_url.c_str());
+            set_sdl_metadata(SDL_PROP_APP_METADATA_NAME_STRING, app_name);
+            set_sdl_metadata(SDL_PROP_APP_METADATA_VERSION_STRING, app_version);
+            set_sdl_metadata(SDL_PROP_APP_METADATA_IDENTIFIER_STRING, app_identifier);
+            set_sdl_metadata(SDL_PROP_APP_METADATA_CREATOR_STRING, app_creator);
+            set_sdl_metadata(SDL_PROP_APP_METADATA_COPYRIGHT_STRING, app_copyright);
+            set_sdl_metadata(SDL_PROP_APP_METADATA_URL_STRING, app_url);
 
             u32 init_modules_flags = 0;
 
-            for (auto &&module : modules)
-            {
-                init_modules_flags |= ModuleFunctions::to_sdlcode(module);
-            }
+            init_modules_flags =
+                std::accumulate(modules.begin(), modules.end(), init_modules_flags,
+                                [](u32 acc, Module module) { return acc | ModuleFunctions::to_sdlcode(module); });
 
             if (!SDL_InitSubSystem(init_modules_flags))
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    std::string("Couldn't initialize SDL: ") + SDL_GetError(), Logger::Severity::fatal);
+                print_error("Couldn't initialize SDL: " + std::string(SDL_GetError()));
+                return std::unexpected(ApplicationError::SDLInitializationFailed);
             }
 
             /* -- SDL3 is ready -- */
+
+            return {};
         }
 
-        void Application::set_sdl_metadata(const char *metadata_name, const std::string &value)
+        std::expected<void, Application::ApplicationError> Application::set_sdl_metadata(const char *metadata_name,
+                                                                                         const std::string &value)
         {
             if (!SDL_SetAppMetadataProperty(metadata_name, value.c_str()))
             {
-                throw Exception::ApplicationException::ApplicationInitializationException(
-                    std::string("Couldn't set SDL metadata: ") + SDL_GetError(), Logger::Severity::fatal);
+                print_error("Couldn't set SDL metadata: " + std::string(SDL_GetError()));
+                return std::unexpected(ApplicationError::SDLInitializationFailed);
             }
+
+            return {};
         }
 
-        void Application::quit_python() {}
+        void Application::quit_python()
+        {
+            /* -- Cleaning and quitting Python interpreter -- */
+
+            if (interpreter != nullptr)
+            {
+                interpreter.reset();
+            }
+
+            /* -- Python interpreter finished -- */
+        }
 
         void Application::quit_sdl()
         {

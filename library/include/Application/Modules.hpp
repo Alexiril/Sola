@@ -22,7 +22,7 @@ namespace Sola
 
         namespace ModuleFunctions
         {
-            EXPORTED Module from_text(std::string text);
+            EXPORTED Module from_text(const std::string &text);
             EXPORTED std::string to_text(Module module);
             EXPORTED u32 to_sdlcode(Module module);
         } // namespace ModuleFunctions

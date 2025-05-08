@@ -1,14 +1,14 @@
-#include "Python/ModuleHelper.hpp"
-#include "Exception/PythonException.hpp"
+#include "Helpers/PythonModule.hpp"
 #include "Logger/Logger.hpp"
 
 namespace Sola
 {
-    namespace Python
+    namespace Helpers
     {
-        namespace ModuleHelper
+        namespace PythonModule
         {
-            PyObject *create_python_submodule(PyObject *main_module, const std::string &submodule_name)
+            std::expected<PyObject *, PythonModuleError> create_python_submodule(PyObject *main_module,
+                                                                                 const std::string &submodule_name)
             {
                 if (main_module == nullptr)
                 {
@@ -17,8 +17,8 @@ namespace Sola
 
                 if (submodule_name.back() == '.')
                 {
-                    throw Exception::PythonException("Submodule name cannot end with dot: " + submodule_name,
-                                                     Sola::Logger::Severity::error);
+                    print_error(std::format("Submodule name cannot end with dot: {}", submodule_name));
+                    return std::unexpected(PythonModuleError::SubmoduleNameEndsWithDot);
                 }
 
                 const std::string main_module_name = PyModule_GetName(main_module);
@@ -51,9 +51,9 @@ namespace Sola
                         }
                         if (PyDict_SetItemString(main_module_dictionary, current_submodule_name.c_str(), submodule) < 0)
                         {
-                            throw Exception::PythonException("Can't register a submodule '" + current_submodule_name +
-                                                                 "' (full name: '" + full_submodule_name + "')",
-                                                             Sola::Logger::Severity::error);
+                            print_error(std::format("Can't register a submodule '{}' (full name: '{}')",
+                                                    current_submodule_name, full_submodule_name));
+                            return std::unexpected(PythonModuleError::SubmoduleRegistrationFailed);
                         }
                     }
 
@@ -93,6 +93,6 @@ namespace Sola
 
                 return module;
             }
-        } // namespace ModuleHelper
-    } // namespace Python
+        } // namespace PythonModule
+    } // namespace Helpers
 } // namespace Sola

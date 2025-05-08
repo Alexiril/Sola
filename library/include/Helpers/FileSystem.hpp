@@ -9,7 +9,12 @@ namespace Sola
     {
         namespace FileSystem
         {
-            EXPORTED std::filesystem::path get_executable_directory(void);
+            enum class FileSystemError
+            {
+                ExecutableDirectoryUnavailable,
+            };
+
+            EXPORTED std::expected<std::filesystem::path, FileSystemError> get_executable_directory(void);
         } // namespace FileSystem
     } // namespace Helpers
 } // namespace Sola

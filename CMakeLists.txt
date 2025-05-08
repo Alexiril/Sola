@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
@@ -35,6 +35,51 @@ endif()
 
 set(SDL_INSTALL ON)
 set(REBUILD_PYTHON 0)
+
+find_program(CMAKE_CXX_CPPCHECK cppcheck)
+    
+if(CMAKE_CXX_CPPCHECK)
+    set(CPP_CHECK_CMD ${CMAKE_CXX_CPPCHECK} --version)
+    execute_process(COMMAND ${CPP_CHECK_CMD}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    RESULT_VARIABLE CPP_CHECK_RESULT
+    OUTPUT_VARIABLE CPP_CHECK_VERSION
+    ERROR_VARIABLE CPP_CHECK_ERROR)
+    if(CPP_CHECK_RESULT EQUAL 0)
+        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/cppcheck)
+        include(ProcessorCount)
+        ProcessorCount(CPU_CORES)
+        list(
+            APPEND CMAKE_CXX_CPPCHECK
+            "--template=\"${CMAKE_SOURCE_DIR}/{file}({line}): {severity} ({id}): {message}\"" 
+            "--quiet" 
+            "--enable=all"
+            "--std=c++20"
+            "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppressions.txt"
+            "--inline-suppr"
+            "--cppcheck-build-dir=${CMAKE_BINARY_DIR}/cppcheck"
+            "--addon-python=${Python_EXECUTABLE}"
+            "--addon=threadsafety.py"
+            "--checkers-report=${CMAKE_BINARY_DIR}/cppcheck/report.xml"
+            "-j${CPU_CORES}" 
+            "-i./vendor"
+            "-i./test"
+            "-i./scripts"
+            "-i./build"
+            "-i./.vscode"
+            "-I./library/include"
+            "-I./editor/include"
+            "."
+            )
+        add_custom_target(cppcheck
+            COMMAND ${CMAKE_CXX_CPPCHECK}
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            COMMENT "Static code analysis using ${CPP_CHECK_VERSION}"
+        )
+    endif()
+else()
+    message(WARNING "Cppcheck not found. Please install cppcheck for better code quality checks.")
+endif()
 
 # Add vendored
 add_subdirectory(vendor/sdl)

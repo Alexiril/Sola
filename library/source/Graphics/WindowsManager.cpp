@@ -1,6 +1,6 @@
 #include "Graphics/WindowsManager.hpp"
 #include "Application/Application.hpp"
-#include "Exception/SDLException.hpp"
+#include "Exception/GeneralException.hpp"
 
 namespace Sola
 {
@@ -41,7 +41,7 @@ namespace Sola
                     mbdata->colorScheme = nullptr;
                     mbdata->numbuttons = static_cast<i32>(buttons.size());
 
-                    // -- delete[] --
+                    // -- delete[] required --
                     SDL_MessageBoxButtonData *sdlbuttons = new SDL_MessageBoxButtonData[buttons.size()];
                     SDL_MessageBoxButtonData *current_button = sdlbuttons;
                     for (auto &&button_data : buttons)
@@ -63,19 +63,34 @@ namespace Sola
 
                     mbdata->buttons = sdlbuttons;
                 }
+
+                MessageBoxDataWithCallback(const MessageBoxDataWithCallback &other) = delete;
+
+                MessageBoxDataWithCallback(MessageBoxDataWithCallback &&other)
+                    : function(std::move(other.function)), mbdata(std::exchange(other.mbdata, nullptr))
+                {
+                }
+
                 ~MessageBoxDataWithCallback()
                 {
                     delete[] mbdata->buttons;
                     delete mbdata;
                 }
 
+                MessageBoxDataWithCallback &operator=(MessageBoxDataWithCallback &&other)
+                {
+                    function = std::move(other.function);
+                    mbdata = std::exchange(other.mbdata, nullptr);
+                    return *this;
+                }
+
                 SDL_MessageBoxData *mbdata;
-                const std::function<void(int)> &function;
+                std::function<void(int)> function;
             };
 
             void SDLCALL ShowMessageBoxMainThreadCallback(void *userdata)
             {
-                i32 *hit_button = new i32(0);
+                i32 *hit_button = new i32(-1);
                 MessageBoxDataWithCallback *data = static_cast<MessageBoxDataWithCallback *>(userdata);
                 SDL_MessageBoxData *mbdata = data->mbdata;
                 bool show_mb_result = SDL_ShowMessageBox(mbdata, hit_button);
@@ -83,14 +98,14 @@ namespace Sola
                 delete data;
                 if (!show_mb_result)
                 {
-                    throw Exception::SDLException(std::string("SDL couldn't show message box: ") + SDL_GetError(),
-                                                  Logger::Severity::warning);
+                    print_warning("SDL_ShowMessageBox failed: " + std::string(SDL_GetError()));
                 }
                 function(*hit_button);
             }
 
-            void show_message_box(Logger::Severity severity, const std::string &title, const std::string &message,
-                                  const std::vector<ButtonData> &buttons, const std::function<void(i32)> &callback)
+            std::expected<void, WindowsManagerError>
+            show_message_box(Logger::Severity severity, const std::string &title, const std::string &message,
+                             const std::vector<ButtonData> &buttons, const std::function<void(i32)> &callback)
             {
                 // -- delete required --
                 MessageBoxDataWithCallback *data =
@@ -98,11 +113,12 @@ namespace Sola
 
                 if (!SDL_RunOnMainThread(ShowMessageBoxMainThreadCallback, static_cast<void *>(data), false))
                 {
-                    throw Exception::SDLException(std::string("WindowsManager::show_message_box couldn't transfer "
-                                                              "execution to the main thread: ") +
-                                                      SDL_GetError(),
-                                                  Logger::Severity::warning);
+                    print_warning("WindowsManager::show_message_box couldn't transfer execution to the main thread: " +
+                                  std::string(SDL_GetError()));
+                    return std::unexpected(WindowsManagerError::SHOW_MESSAGE_BOX_FAILED);
                 }
+
+                return {};
             }
 
             void show_warning_message_box(const std::string &message)
@@ -119,15 +135,18 @@ namespace Sola
                                  {
                                      if (choice == 1)
                                      {
-                                         exit(-1);
+                                         throw SOLA_GENERAL_EXCEPTION(
+                                             "Error message box was called and Quit button was hit.",
+                                             Logger::Severity::fatal);
                                      }
                                  });
             }
 
             void show_fatal_message_box(const std::string &message)
             {
-                show_message_box(Logger::Severity::fatal, "Sola fatal", message, {ButtonData(0, true, true, "Quit")},
-                                 [](i32) { exit(-1); });
+                show_message_box(
+                    Logger::Severity::fatal, "Sola fatal", message, {ButtonData(0, true, true, "Quit")}, [](i32)
+                    { throw SOLA_GENERAL_EXCEPTION("Fatal message box was called.", Logger::Severity::fatal); });
             }
 
         } // namespace WindowsManager

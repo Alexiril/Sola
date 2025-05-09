@@ -72,7 +72,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 if(MSVC)
     set(MAX_WARNINGS_OPTION /W4)
 else()
-    set(MAX_WARNINGS_OPTION -Wpedantic -Wall -Wextra)
+    set(MAX_WARNINGS_OPTION -Wpedantic -Wall -Wextra -Wconversion -Warith-conversion -Wshadow -Wnull-dereference -Wformat=2 -Wfloat-equal -Wsign-conversion -Wfloat-conversion)
 endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${MAX_WARNINGS_OPTION})
@@ -102,6 +102,23 @@ add_dependencies(${PROJECT_NAME} solalib_python_cache)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
 add_dependencies(${PROJECT_NAME} cppcheck)
+
+if(BUILD_DOCS)
+    set(DOXYGEN_PROJECT_NAME "Sola")
+    set(DOXYGEN_PROJECT_BRIEF "Sola is a software suite designed to help developers easily create multi-platform windowed applications using familiar tools and efficient systems.")
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs)
+    set(DOXYGEN_FILE_PATTERNS "*.hpp" "*.cpp" "*.md")
+    doxygen_add_docs(solalib_docs ${CMAKE_CURRENT_SOURCE_DIR} ALL)
+    add_dependencies(${PROJECT_NAME} solalib_docs)
+
+    set(DOXYGEN_PROJECT_NAME "Sola Python Library")
+    set(DOXYGEN_PROJECT_BRIEF "Sola is a software suite designed to help developers easily create multi-platform windowed applications using familiar tools and efficient systems.")
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs_python)
+    set(DOXYGEN_FILE_PATTERNS "*.py" "*.pyi" "*.md")
+    set(DOXYGEN_OPTIMIZE_OUTPUT_JAVA YES)
+    doxygen_add_docs(sola_pythonlib_docs ${CMAKE_CURRENT_SOURCE_DIR} ALL)
+    add_dependencies(${PROJECT_NAME} sola_pythonlib_docs)
+endif()
 
 # -- Sources / Headers --
 
@@ -133,3 +150,12 @@ install(TARGETS ${PROJECT_NAME}
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
 )
+
+if(BUILD_DOCS)
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs/html/
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}/${PROJECT_NAME}
+    )
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs_python/html/
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}/${PROJECT_NAME}_python
+    )
+endif()

@@ -22,25 +22,53 @@
 #include <unordered_map>
 #include <vector>
 
+/// @brief Sola is the main namespace inside the whole Sola library and most of support tools (like editor). It contains
+/// all other objects and namespaces required for Sola to run properly.
 namespace Sola
 {
+    /// @brief Smaller alias for a signed fixed-width 8-bit (1 byte) integer type.
+    /// @details The range is -128 to 127. On most architectures is the same as signed char.
     using i8 = int8_t;
+    /// @brief Smaller alias for a signed fixed-width 16-bit (2 bytes) integer type.
+    /// @details The range is -32768 to 32767. On most architectures is the same as signed short.
     using i16 = int16_t;
+    /// @brief Smaller alias for a signed fixed-width 32-bit (4 bytes) integer type.
+    /// @details The range is -2147483648 to 2147483647. On most architectures is the same as signed int (or signed long
+    /// on Windows).
     using i32 = int32_t;
+    /// @brief Smaller alias for a signed fixed-width 64-bit (8 bytes) integer type.
+    /// @details The range is -9223372036854775808 to 9223372036854775807. On most architectures is the same as signed
+    /// long long.
     using i64 = int64_t;
 
+    /// @brief Smaller alias for an unsigned fixed-width 8-bit (1 byte) integer type.
+    /// @details The range is 0 to 255. On most architectures is the same as unsigned char.
     using u8 = uint8_t;
+    /// @brief Smaller alias for an unsigned fixed-width 16-bit (2 bytes) integer type.
+    /// @details The range is 0 to 65535. On most architectures is the same as unsigned short.
     using u16 = uint16_t;
+    /// @brief Smaller alias for an unsigned fixed-width 32-bit (4 bytes) integer type.
+    /// @details The range is 0 to 4294967295. On most architectures is the same as unsigned int (or unsigned long on
+    /// Windows).
     using u32 = uint32_t;
+    /// @brief Smaller alias for an unsigned fixed-width 64-bit (8 bytes) integer type.
+    /// @details The range is 0 to 65535. On most architectures is the same as unsigned long long (and sometimes it is
+    /// the same size as size_t, uintptr_t, or void pointer).
     using u64 = uint64_t;
 
-    /// @brief Returns the current engine version in number format. Calculated at
-    /// compile time.
+    /// @brief Smaller alias for a floating point number type.
+    using f32 = float; // No support for std::float32_t (stdfloat) in msvc :(
+    /// @brief Smaller alias for a double precision floating point number type.
+    using f64 = double; // Same with std::float64_t (stdfloat) - no support in msvc :(
+
+    /// @brief Returns the current engine version in number format.
     /// @return unsigned 64-bit wide number with major part as highest two bytes, minor
-    /// as middle two bytes, patch as smallest two bytes (like \x00\x01 \x00\xF0
-    /// \x00\x02 = 4_310_695_938).
+    /// as middle two bytes, patch as smallest two bytes (like \\x00\\x01 \\x00\\xF0
+    /// \\x00\\x02 = 4_310_695_938).
     u64 get_engine_version(void);
 
+    /// @brief Returns the current engine version in human readable format.
+    /// @return string with major, minor and patch version numbers (like "0.1.2").
     const std::string &get_engine_version_readable(void);
 } // namespace Sola
 
@@ -68,6 +96,7 @@ namespace Sola
 #endif
 
 #ifndef EXPORTED
+
 #    define EXPORTED
 #endif
 

@@ -69,11 +69,11 @@ namespace Sola
                 return submodule;
             }
 
-            PyObject *fill_python_module(PyObject *module, const std::vector<NamedPythonObject> &items)
+            void fill_python_module(PyObject *module, const std::vector<NamedPythonObject> &items)
             {
                 if (module == nullptr)
                 {
-                    return nullptr;
+                    return;
                 }
                 PyObject *module_dictionary = PyModule_GetDict(module);
                 for (auto &&item : items)
@@ -87,11 +87,9 @@ namespace Sola
                     {
                         const std::string module_name = PyModule_GetName(module);
                         print_warning(std::format("Key {} cannot be set in the module {}", item.name, module_name));
-                        return module;
+                        return;
                     }
                 }
-
-                return module;
             }
         } // namespace PythonModule
     } // namespace Helpers

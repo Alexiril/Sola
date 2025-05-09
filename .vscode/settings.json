@@ -118,6 +118,7 @@
         "unordered_set": "cpp",
         "variant": "cpp",
         "expected": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "stdfloat": "cpp"
     },
 }

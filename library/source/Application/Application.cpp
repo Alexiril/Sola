@@ -9,7 +9,7 @@ namespace Sola
     {
         Application *Application::instance = nullptr;
 
-        std::expected<Application *, Application::ApplicationError>
+        std::expected<Application *, ApplicationError>
         Application::init_application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
                                       const std::string &app_name, const std::string &app_version,
                                       const std::string &app_identifier, const std::string &app_creator,
@@ -32,7 +32,7 @@ namespace Sola
 
         Application *Application::get() noexcept { return instance; }
 
-        bool Application::is_editor() const { return is_editor_; }
+        bool Application::is_editor() const noexcept { return is_editor_; }
 
         const std::string &Application::get_project_dir() const noexcept { return app_project_dir; }
 
@@ -55,9 +55,9 @@ namespace Sola
 
         void Sola::Application::Application::set_project_configuration(PyObject *configuration)
         {
-            Py_XDECREF(project_configuration);
+            Py_XDECREF(project_configuration); // if it exists already, decrement the reference count
             project_configuration = configuration;
-            Py_XINCREF(project_configuration);
+            Py_XINCREF(project_configuration); // increment the reference count for the new configuration
         }
 
         Application::Application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
@@ -78,7 +78,7 @@ namespace Sola
             quit_sdl();
         }
 
-        std::expected<void, Application::ApplicationError> Application::initialize_python()
+        std::expected<void, ApplicationError> Application::initialize_python()
         {
             /* -- Initializing Python interpreter -- */
 
@@ -120,7 +120,7 @@ namespace Sola
             return {};
         }
 
-        std::expected<void, Application::ApplicationError> Application::initialize_project()
+        std::expected<void, ApplicationError> Application::initialize_project()
         {
             /* -- Initialize project -- */
 
@@ -139,14 +139,14 @@ namespace Sola
             py_project_dir = nullptr;
 
             // TODO#2
-            modules.push_back(Module::VIDEO);
+            modules.push_back(Module::video);
 
             /* -- Project is ready to be started -- */
 
             return {};
         }
 
-        std::expected<void, Application::ApplicationError> Application::initialize_sdl()
+        std::expected<void, ApplicationError> Application::initialize_sdl()
         {
             /* -- Initializing SDL3 -- */
 
@@ -159,11 +159,35 @@ namespace Sola
             set_sdl_metadata(SDL_PROP_APP_METADATA_COPYRIGHT_STRING, app_copyright);
             set_sdl_metadata(SDL_PROP_APP_METADATA_URL_STRING, app_url);
 
-            u32 init_modules_flags = 0;
+            u32 init_modules_flags = SDL_INIT_VIDEO;
 
-            init_modules_flags =
-                std::accumulate(modules.begin(), modules.end(), init_modules_flags,
-                                [](u32 acc, Module module) { return acc | ModuleFunctions::to_sdlcode(module); });
+            // u32 to_sdlcode(Module module)
+            // {
+            //     switch (module)
+            //     {
+            //         case Module::audio:
+            //             return SDL_INIT_AUDIO;
+            //         case Module::video:
+            //             return SDL_INIT_VIDEO;
+            //         case Module::joystick:
+            //             return SDL_INIT_JOYSTICK;
+            //         case Module::haptic:
+            //             return SDL_INIT_HAPTIC;
+            //         case Module::gamepad:
+            //             return SDL_INIT_GAMEPAD;
+            //         case Module::sensor:
+            //             return SDL_INIT_SENSOR;
+            //         case Module::camera:
+            //             return SDL_INIT_CAMERA;
+            //         case Module::unknown:
+            //         default:
+            //             return 0;
+            //     }
+            // }
+
+            // init_modules_flags =
+            //     std::accumulate(modules.begin(), modules.end(), init_modules_flags,
+            //                     [](u32 acc, Module module) { return acc | ModuleFunctions::to_sdlcode(module); });
 
             if (!SDL_InitSubSystem(init_modules_flags))
             {
@@ -176,8 +200,8 @@ namespace Sola
             return {};
         }
 
-        std::expected<void, Application::ApplicationError> Application::set_sdl_metadata(const char *metadata_name,
-                                                                                         const std::string &value)
+        std::expected<void, ApplicationError> Application::set_sdl_metadata(const char *metadata_name,
+                                                                            const std::string &value)
         {
             if (!SDL_SetAppMetadataProperty(metadata_name, value.c_str()))
             {

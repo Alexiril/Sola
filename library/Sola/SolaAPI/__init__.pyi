@@ -1,5 +1,9 @@
+"""@package Sola.SolaAPI
+This module is just a type definition for the Sola Python API.
+"""
+
 def get_engine_version() -> int:
     """Returns current engine version"""
 
 def get_engine_version_readable() -> str:
-    """Retuns current engine version in human readable format (like 1.0.0)"""
+    """Returns current engine version in human readable format (like 1.0.0)"""

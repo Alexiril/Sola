@@ -15,6 +15,9 @@ namespace Sola
             std::lock_guard<std::mutex> lock(output_mutex); // It's released when functions ends
             switch (severity)
             {
+                case Severity::none:
+                    // No logging
+                    break;
                 case Severity::debug:
 #ifdef SOLA_DEBUG_LOG
                     std::cout << "\033[90m" << output.str() << "\033[0m" << std::endl;

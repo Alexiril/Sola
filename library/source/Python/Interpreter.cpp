@@ -4,6 +4,11 @@ namespace Sola
 {
     namespace Python
     {
+        Interpreter::Interpreter(Interpreter &&other)
+            : _initialized(std::exchange(other._initialized, false)), _modules(std::move(other._modules))
+        {
+        }
+
         Interpreter::~Interpreter() noexcept
         {
             if (!_initialized)

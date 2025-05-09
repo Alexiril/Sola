@@ -8,16 +8,27 @@ namespace Sola
     {
         namespace WindowsManager
         {
-            // Is used only inside this file to transfer data from show_message_box to
-            // main thread callback
+            /// @brief Little bit too much complicated class that simply stores the SDL message box data and the
+            /// callback function. It is only used inside this C++ file to transfer the data from the show_message_box
+            /// function to the main thread callback. **It should not** be used for anything else! Likewise, it is
+            /// simply a temporary data holder.
+            /// @attention Does allocate memory via "new" operator. The destructor should be properly called; otherwise
+            /// there might be a chance for a memory leak.
             class MessageBoxDataWithCallback
             {
             public:
+                /// @brief Constructor for the message box data. It initializes all the members of the structure.
+                /// @param severity The severity level of the message box.
+                /// @param title The title of the message box.
+                /// @param message The message to be displayed in the message box.
+                /// @param buttons A vector of button data for the message box.
+                /// @param function A callback function to be called when a button is clicked.
                 MessageBoxDataWithCallback(Logger::Severity severity, const std::string &title,
                                            const std::string &message, const std::vector<ButtonData> &buttons,
                                            const std::function<void(i32)> &function)
                     : function(function)
                 {
+                    // -- delete required --
                     mbdata = new SDL_MessageBoxData();
                     mbdata->flags = SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT;
                     switch (severity)
@@ -32,6 +43,8 @@ namespace Sola
                         case Logger::Severity::fatal:
                             mbdata->flags |= SDL_MESSAGEBOX_ERROR;
                             break;
+                        case Logger::Severity::none:
+                        case Logger::Severity::debug:
                         default:
                             break;
                     }
@@ -64,19 +77,28 @@ namespace Sola
                     mbdata->buttons = sdlbuttons;
                 }
 
-                MessageBoxDataWithCallback(const MessageBoxDataWithCallback &other) = delete;
+                /// @brief Copy constructor for the message box data is prohibited.
+                MessageBoxDataWithCallback(const MessageBoxDataWithCallback &) = delete;
 
+                /// @brief Normal move constructor
+                /// @param other the other instance to move from.
                 MessageBoxDataWithCallback(MessageBoxDataWithCallback &&other)
                     : function(std::move(other.function)), mbdata(std::exchange(other.mbdata, nullptr))
                 {
                 }
 
+                /// @brief Simple destructor. Deletes the heap data allocated in the constructor
+                /// @todo Why don't I use std::unique_ptr again?...
                 ~MessageBoxDataWithCallback()
                 {
                     delete[] mbdata->buttons;
                     delete mbdata;
                 }
 
+                /// @brief Move assignment operator for the MessageBoxDataWithCallback class.
+                /// @param other the MessageBoxDataWithCallback object to move from.
+                /// @return MessageBoxDataWithCallback& A reference to the current object
+                /// after the assignment.
                 MessageBoxDataWithCallback &operator=(MessageBoxDataWithCallback &&other)
                 {
                     function = std::move(other.function);
@@ -84,10 +106,15 @@ namespace Sola
                     return *this;
                 }
 
+                /// @brief The data directly used in SDL_ShowMessageBox
                 SDL_MessageBoxData *mbdata;
+                /// @brief The callback function
                 std::function<void(int)> function;
             };
 
+            /// @brief This function is called in the main thread by SDL to actually show the message box.
+            /// @param userdata the pointer to the MessageBoxDataWithCallback object that contains all the data needed to show the
+            /// message box.
             void SDLCALL ShowMessageBoxMainThreadCallback(void *userdata)
             {
                 i32 *hit_button = new i32(-1);
@@ -95,10 +122,12 @@ namespace Sola
                 SDL_MessageBoxData *mbdata = data->mbdata;
                 bool show_mb_result = SDL_ShowMessageBox(mbdata, hit_button);
                 const std::function<void(i32)> &function = data->function;
-                delete data;
+                delete data; // calling the MessageBoxDataWithCallback destructor and cleaning this manual memory
+                             // control mess
                 if (!show_mb_result)
                 {
                     print_warning("SDL_ShowMessageBox failed: " + std::string(SDL_GetError()));
+                    *hit_button = -2;
                 }
                 function(*hit_button);
             }

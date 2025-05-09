@@ -11,6 +11,13 @@ namespace Sola
             namespace Logger
             {
                 static const char *const kwlist[] = {"what", nullptr};
+
+                /// @brief Prints the log information.
+                /// @param args The arguments passed to the function.
+                /// @param kwds The keyword arguments passed to the function.
+                /// @param function_name The name of the function being called.
+                /// @param severity The severity level of the log.
+                /// @return A pointer to the Python None object.
                 PyObject *py_print_log(PyObject *args, PyObject *kwds, const std::string &function_name,
                                        Sola::Logger::Severity severity)
                 {

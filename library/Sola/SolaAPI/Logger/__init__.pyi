@@ -1,3 +1,7 @@
+"""@package Sola.SolaAPI.Logger
+This module is just a type definition for the Sola Python API Logger.
+"""
+
 def print_debug(what: str) -> None:
     """Prints the debug log information."""
 

@@ -8,91 +8,59 @@ namespace Sola
         {
             Module from_text(const std::string &text)
             {
-                if (text == "AUDIO")
+                if (text == "audio")
                 {
-                    return Module::AUDIO;
+                    return Module::audio;
                 }
-                else if (text == "VIDEO")
+                else if (text == "video")
                 {
-                    return Module::VIDEO;
+                    return Module::video;
                 }
-                else if (text == "JOYSTICK")
+                else if (text == "joystick")
                 {
-                    return Module::JOYSTICK;
+                    return Module::joystick;
                 }
-                else if (text == "HAPTIC")
+                else if (text == "haptic")
                 {
-                    return Module::HAPTIC;
+                    return Module::haptic;
                 }
-                else if (text == "GAMEPAD")
+                else if (text == "gamepad")
                 {
-                    return Module::GAMEPAD;
+                    return Module::gamepad;
                 }
-                else if (text == "EVENTS")
+                else if (text == "sensor")
                 {
-                    return Module::EVENTS;
+                    return Module::sensor;
                 }
-                else if (text == "SENSOR")
+                else if (text == "camera")
                 {
-                    return Module::SENSOR;
-                }
-                else if (text == "CAMERA")
-                {
-                    return Module::CAMERA;
+                    return Module::camera;
                 }
 
-                return Module::UNKNOWN;
+                return Module::unknown;
             }
 
             std::string to_text(Module module)
             {
                 switch (module)
                 {
-                    case Module::AUDIO:
-                        return std::string("AUDIO");
-                    case Module::VIDEO:
-                        return std::string("VIDEO");
-                    case Module::JOYSTICK:
-                        return std::string("JOYSTICK");
-                    case Module::HAPTIC:
-                        return std::string("HAPTIC");
-                    case Module::GAMEPAD:
-                        return std::string("GAMEPAD");
-                    case Module::EVENTS:
-                        return std::string("EVENTS");
-                    case Module::SENSOR:
-                        return std::string("SENSOR");
-                    case Module::CAMERA:
-                        return std::string("CAMERA");
-                    case Module::UNKNOWN:
+                    case Module::audio:
+                        return std::string("audio");
+                    case Module::video:
+                        return std::string("video");
+                    case Module::joystick:
+                        return std::string("joystick");
+                    case Module::haptic:
+                        return std::string("haptic");
+                    case Module::gamepad:
+                        return std::string("gamepad");
+                    case Module::sensor:
+                        return std::string("sensor");
+                    case Module::camera:
+                        return std::string("camera");
+                    case Module::unknown:
                     default:
-                        return "UNKNOWN";
-                }
-            }
-
-            u32 to_sdlcode(Module module)
-            {
-                switch (module)
-                {
-                    case Module::AUDIO:
-                        return SDL_INIT_AUDIO;
-                    case Module::VIDEO:
-                        return SDL_INIT_VIDEO;
-                    case Module::JOYSTICK:
-                        return SDL_INIT_JOYSTICK;
-                    case Module::HAPTIC:
-                        return SDL_INIT_HAPTIC;
-                    case Module::GAMEPAD:
-                        return SDL_INIT_GAMEPAD;
-                    case Module::EVENTS:
-                        return SDL_INIT_EVENTS;
-                    case Module::SENSOR:
-                        return SDL_INIT_SENSOR;
-                    case Module::CAMERA:
-                        return SDL_INIT_CAMERA;
-                    case Module::UNKNOWN:
-                    default:
-                        return 0;
+                        return "unknown";
                 }
             }
         } // namespace ModuleFunctions

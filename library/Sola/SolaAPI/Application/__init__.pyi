@@ -1,3 +1,7 @@
+"""@package Sola.SolaAPI.Application
+This module is just a type definition for the Sola Python API Application.
+"""
+
 from typing import Any
 
 def is_app_editor() -> bool:

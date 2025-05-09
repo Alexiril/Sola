@@ -8,7 +8,11 @@ namespace Sola
         {
             Severity from_text(const std::string &text)
             {
-                if (text == "debug" || text == "none")
+                if (text == "none")
+                {
+                    return Severity::none;
+                }
+                if (text == "debug")
                 {
                     return Severity::debug;
                 }
@@ -28,13 +32,15 @@ namespace Sola
                 {
                     return Severity::fatal;
                 }
-                return Severity::info;
+                return Severity::none;
             }
 
             std::string to_text(Severity severity)
             {
                 switch (severity)
                 {
+                    case Severity::none:
+                        return std::string("none");
                     case Severity::debug:
                         return std::string("debug");
                     case Severity::info:

@@ -13,6 +13,11 @@ namespace Sola
             {
                 static const char *const kwlist[] = {"what", nullptr};
 
+                /// @brief This function is used to parse the arguments for the functions in this module.
+                /// @param function_name The name of the function being called.
+                /// @param args The arguments passed to the function.
+                /// @param kwds The keyword arguments passed to the function.
+                /// @return An optional string containing the parsed argument.
                 std::optional<std::string> parse_args(const std::string &function_name, PyObject *args, PyObject *kwds)
                 {
                     const char *what = nullptr;

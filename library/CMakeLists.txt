@@ -2,6 +2,12 @@
 
 message("Working on Sola C++ / Python Library")
 
+# Don't mention this, please. This is just to feed my ego.
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/lines_counter.py ${CMAKE_CURRENT_SOURCE_DIR} ".py" ".pyi" ".hpp" ".cpp"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    ERROR_QUIET
+)
+
 # -- Independent definitions --
 
 set(SOLA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)

@@ -47,6 +47,8 @@ Current version is 0.1.0
 
 - [Zstandard](http://www.zstd.net/) ([github](https://github.com/facebook/zstd), [license](https://github.com/facebook/zstd/blob/dev/LICENSE)) - a fast lossless compression algorithm, targeting real-time compression scenarios at zlib-level and better compression ratios.
 
+- [Doxygen Awesome](https://jothepro.github.io/doxygen-awesome-css/index.html) ([github](https://github.com/jothepro/doxygen-awesome-css.git), [license](https://github.com/jothepro/doxygen-awesome-css/blob/main/LICENSE)) - a custom CSS theme for Doxygen HTML documentation with lots of customization parameters.
+
 #### Source Code Analysis tools / SAST tools
 
 - [Cppcheck](https://cppcheck.sourceforge.io) ([github](https://github.com/danmar/cppcheck)) - A tool for static C/C++ code analysis.

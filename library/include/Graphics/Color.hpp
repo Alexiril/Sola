@@ -7,2351 +7,1933 @@ namespace Sola
 {
     namespace Graphics
     {
+        /// @brief This namespace contains most of named color variables and some other color related stuff.
+        ///
+        /// Color list written in this namespace was copied from the list of colors in
+        /// [XKCD color name survey](https://xkcd.com/color/rgb/). Real big thanks to them for making and
+        /// publishing this list.
+        namespace Color
+        {
+            /// @brief White rgb(255, 255, 255)
+            inline constexpr u32 White = 0xffffff;
+            /// @brief Pale Grey rgb(253, 253, 254)
+            inline constexpr u32 Pale_Grey = 0xfdfdfe;
+            /// @brief Very Light Pink rgb(255, 244, 242)
+            inline constexpr u32 Very_Light_Pink = 0xfff4f2;
+            /// @brief Off White rgb(255, 255, 228)
+            inline constexpr u32 Off_White = 0xffffe4;
+            /// @brief Ice Blue rgb(215, 255, 254)
+            inline constexpr u32 Ice_Blue = 0xd7fffe;
+            /// @brief Ice rgb(214, 255, 250)
+            inline constexpr u32 Ice = 0xd6fffa;
+            /// @brief Very Pale Blue rgb(214, 255, 254)
+            inline constexpr u32 Very_Pale_Blue = 0xd6fffe;
+            /// @brief Very Light Blue rgb(213, 255, 255)
+            inline constexpr u32 Very_Light_Blue = 0xd5ffff;
+            /// @brief Eggshell rgb(255, 255, 212)
+            inline constexpr u32 Eggshell = 0xffffd4;
+            /// @brief Really Light Blue rgb(212, 255, 255)
+            inline constexpr u32 Really_Light_Blue = 0xd4ffff;
+            /// @brief Pale rgb(255, 249, 208)
+            inline constexpr u32 Pale = 0xfff9d0;
+            /// @brief Light Pink rgb(255, 209, 223)
+            inline constexpr u32 Light_Pink = 0xffd1df;
+            /// @brief Pale Pink rgb(255, 207, 220)
+            inline constexpr u32 Pale_Pink = 0xffcfdc;
+            /// @brief Pale Blue rgb(208, 254, 254)
+            inline constexpr u32 Pale_Blue = 0xd0fefe;
+            /// @brief Pale Lavender rgb(238, 207, 254)
+            inline constexpr u32 Pale_Lavender = 0xeecffe;
+            /// @brief Pale Mauve rgb(254, 208, 252)
+            inline constexpr u32 Pale_Mauve = 0xfed0fc;
+            /// @brief Very Light Purple rgb(246, 206, 252)
+            inline constexpr u32 Very_Light_Purple = 0xf6cefc;
+            /// @brief Ivory rgb(255, 255, 203)
+            inline constexpr u32 Ivory = 0xffffcb;
+            /// @brief Ecru rgb(254, 255, 202)
+            inline constexpr u32 Ecru = 0xfeffca;
+            /// @brief Light Light Blue rgb(202, 255, 251)
+            inline constexpr u32 Light_Light_Blue = 0xcafffb;
+            /// @brief Pale Lilac rgb(228, 203, 255)
+            inline constexpr u32 Pale_Lilac = 0xe4cbff;
+            /// @brief Light Lilac rgb(237, 200, 255)
+            inline constexpr u32 Light_Lilac = 0xedc8ff;
+            /// @brief Light Sky Blue rgb(198, 252, 255)
+            inline constexpr u32 Light_Sky_Blue = 0xc6fcff;
+            /// @brief Egg Shell rgb(255, 252, 196)
+            inline constexpr u32 Egg_Shell = 0xfffcc4;
+            /// @brief Eggshell Blue rgb(196, 255, 247)
+            inline constexpr u32 Eggshell_Blue = 0xc4fff7;
+            /// @brief Light Rose rgb(255, 197, 203)
+            inline constexpr u32 Light_Rose = 0xffc5cb;
+            /// @brief Light Lavender rgb(223, 197, 254)
+            inline constexpr u32 Light_Lavender = 0xdfc5fe;
+            /// @brief Cream rgb(255, 255, 194)
+            inline constexpr u32 Cream = 0xffffc2;
+            /// @brief Very Light Green rgb(209, 255, 189)
+            inline constexpr u32 Very_Light_Green = 0xd1ffbd;
+            /// @brief Light Lavendar rgb(239, 192, 254)
+            inline constexpr u32 Light_Lavendar = 0xefc0fe;
+            /// @brief Pale Rose rgb(253, 193, 197)
+            inline constexpr u32 Pale_Rose = 0xfdc1c5;
+            /// @brief Light Periwinkle rgb(193, 198, 252)
+            inline constexpr u32 Light_Periwinkle = 0xc1c6fc;
+            /// @brief Duck Egg Blue rgb(195, 251, 244)
+            inline constexpr u32 Duck_Egg_Blue = 0xc3fbf4;
+            /// @brief Pale Sky Blue rgb(189, 246, 254)
+            inline constexpr u32 Pale_Sky_Blue = 0xbdf6fe;
+            /// @brief Pastel Pink rgb(255, 186, 205)
+            inline constexpr u32 Pastel_Pink = 0xffbacd;
+            /// @brief Very Pale Green rgb(207, 253, 188)
+            inline constexpr u32 Very_Pale_Green = 0xcffdbc;
+            /// @brief Pale Aqua rgb(184, 255, 235)
+            inline constexpr u32 Pale_Aqua = 0xb8ffeb;
+            /// @brief Pale Cyan rgb(183, 255, 250)
+            inline constexpr u32 Pale_Cyan = 0xb7fffa;
+            /// @brief Baby Pink rgb(255, 183, 206)
+            inline constexpr u32 Baby_Pink = 0xffb7ce;
+            /// @brief Light Beige rgb(255, 254, 182)
+            inline constexpr u32 Light_Beige = 0xfffeb6;
+            /// @brief Creme rgb(255, 255, 182)
+            inline constexpr u32 Creme = 0xffffb6;
+            /// @brief Light Mint rgb(182, 255, 187)
+            inline constexpr u32 Light_Mint = 0xb6ffbb;
+            /// @brief Celadon rgb(190, 253, 183)
+            inline constexpr u32 Celadon = 0xbefdb7;
+            /// @brief Pale Green rgb(199, 253, 181)
+            inline constexpr u32 Pale_Green = 0xc7fdb5;
+            /// @brief Light Grey rgb(216, 220, 214)
+            inline constexpr u32 Light_Grey = 0xd8dcd6;
+            /// @brief Powder Pink rgb(255, 178, 208)
+            inline constexpr u32 Powder_Pink = 0xffb2d0;
+            /// @brief Light Violet rgb(214, 180, 252)
+            inline constexpr u32 Light_Violet = 0xd6b4fc;
+            /// @brief Light Peach rgb(255, 216, 177)
+            inline constexpr u32 Light_Peach = 0xffd8b1;
+            /// @brief Light Light Green rgb(200, 255, 176)
+            inline constexpr u32 Light_Light_Green = 0xc8ffb0;
+            /// @brief Pale Peach rgb(255, 229, 173)
+            inline constexpr u32 Pale_Peach = 0xffe5ad;
+            /// @brief Parchment rgb(254, 252, 175)
+            inline constexpr u32 Parchment = 0xfefcaf;
+            /// @brief Soft Pink rgb(253, 176, 192)
+            inline constexpr u32 Soft_Pink = 0xfdb0c0;
+            /// @brief Powder Blue rgb(177, 209, 252)
+            inline constexpr u32 Powder_Blue = 0xb1d1fc;
+            /// @brief Light Cyan rgb(172, 255, 252)
+            inline constexpr u32 Light_Cyan = 0xacfffc;
+            /// @brief Light Tan rgb(251, 238, 172)
+            inline constexpr u32 Light_Tan = 0xfbeeac;
+            /// @brief Pale Violet rgb(206, 174, 250)
+            inline constexpr u32 Pale_Violet = 0xceaefa;
+            /// @brief Light Seafoam Green rgb(167, 255, 181)
+            inline constexpr u32 Light_Seafoam_Green = 0xa7ffb5;
+            /// @brief Light Mint Green rgb(166, 251, 178)
+            inline constexpr u32 Light_Mint_Green = 0xa6fbb2;
+            /// @brief Pastel Purple rgb(202, 160, 255)
+            inline constexpr u32 Pastel_Purple = 0xcaa0ff;
+            /// @brief Baby Blue rgb(162, 207, 254)
+            inline constexpr u32 Baby_Blue = 0xa2cffe;
+            /// @brief Pastel Blue rgb(162, 191, 254)
+            inline constexpr u32 Pastel_Blue = 0xa2bffe;
+            /// @brief Lilac rgb(206, 162, 253)
+            inline constexpr u32 Lilac = 0xcea2fd;
+            /// @brief Light Pastel Green rgb(178, 251, 165)
+            inline constexpr u32 Light_Pastel_Green = 0xb2fba5;
+            /// @brief Pale Turquoise rgb(165, 251, 213)
+            inline constexpr u32 Pale_Turquoise = 0xa5fbd5;
+            /// @brief Pastel Green rgb(176, 255, 157)
+            inline constexpr u32 Pastel_Green = 0xb0ff9d;
+            /// @brief Buff rgb(254, 246, 158)
+            inline constexpr u32 Buff = 0xfef69e;
+            /// @brief Mint rgb(159, 254, 176)
+            inline constexpr u32 Mint = 0x9ffeb0;
+            /// @brief Light Seafoam rgb(160, 254, 191)
+            inline constexpr u32 Light_Seafoam = 0xa0febf;
+            /// @brief Tea Green rgb(189, 248, 163)
+            inline constexpr u32 Tea_Green = 0xbdf8a3;
+            /// @brief Washed Out Green rgb(188, 245, 166)
+            inline constexpr u32 Washed_Out_Green = 0xbcf5a6;
+            /// @brief Pale Salmon rgb(255, 177, 154)
+            inline constexpr u32 Pale_Salmon = 0xffb19a;
+            /// @brief Dark Cream rgb(255, 243, 154)
+            inline constexpr u32 Dark_Cream = 0xfff39a;
+            /// @brief Light Sage rgb(188, 236, 172)
+            inline constexpr u32 Light_Sage = 0xbcecac;
+            /// @brief Light Blue Grey rgb(183, 201, 226)
+            inline constexpr u32 Light_Blue_Grey = 0xb7c9e2;
+            /// @brief Pale Light Green rgb(177, 252, 153)
+            inline constexpr u32 Pale_Light_Green = 0xb1fc99;
+            /// @brief Celery rgb(193, 253, 149)
+            inline constexpr u32 Celery = 0xc1fd95;
+            /// @brief Light Khaki rgb(230, 242, 162)
+            inline constexpr u32 Light_Khaki = 0xe6f2a2;
+            /// @brief Light Salmon rgb(254, 169, 147)
+            inline constexpr u32 Light_Salmon = 0xfea993;
+            /// @brief Light Blue rgb(149, 208, 252)
+            inline constexpr u32 Light_Blue = 0x95d0fc;
+            /// @brief Robins Egg Blue rgb(152, 239, 249)
+            inline constexpr u32 Robins_Egg_Blue = 0x98eff9;
+            /// @brief Baby Purple rgb(202, 155, 247)
+            inline constexpr u32 Baby_Purple = 0xca9bf7;
+            /// @brief Mint Green rgb(143, 255, 159)
+            inline constexpr u32 Mint_Green = 0x8fff9f;
+            /// @brief Foam Green rgb(144, 253, 169)
+            inline constexpr u32 Foam_Green = 0x90fda9;
+            /// @brief Light Sea Green rgb(152, 246, 176)
+            inline constexpr u32 Light_Sea_Green = 0x98f6b0;
+            /// @brief Lavender rgb(199, 159, 239)
+            inline constexpr u32 Lavender = 0xc79fef;
+            /// @brief Beige rgb(230, 218, 166)
+            inline constexpr u32 Beige = 0xe6daa6;
+            /// @brief Silver rgb(197, 201, 199)
+            inline constexpr u32 Silver = 0xc5c9c7;
+            /// @brief Baby Green rgb(140, 255, 158)
+            inline constexpr u32 Baby_Green = 0x8cff9e;
+            /// @brief Light Aqua rgb(140, 255, 219)
+            inline constexpr u32 Light_Aqua = 0x8cffdb;
+            /// @brief Liliac rgb(196, 142, 253)
+            inline constexpr u32 Liliac = 0xc48efd;
+            /// @brief Peachy Pink rgb(255, 154, 138)
+            inline constexpr u32 Peachy_Pink = 0xff9a8a;
+            /// @brief Periwinkle Blue rgb(143, 153, 251)
+            inline constexpr u32 Periwinkle_Blue = 0x8f99fb;
+            /// @brief Light Yellowish Green rgb(194, 255, 137)
+            inline constexpr u32 Light_Yellowish_Green = 0xc2ff89;
+            /// @brief Robin Egg Blue rgb(138, 241, 254)
+            inline constexpr u32 Robin_Egg_Blue = 0x8af1fe;
+            /// @brief Carolina Blue rgb(138, 184, 254)
+            inline constexpr u32 Carolina_Blue = 0x8ab8fe;
+            /// @brief Manilla rgb(255, 250, 134)
+            inline constexpr u32 Manilla = 0xfffa86;
+            /// @brief Pistachio rgb(192, 250, 139)
+            inline constexpr u32 Pistachio = 0xc0fa8b;
+            /// @brief Cloudy Blue rgb(172, 194, 217)
+            inline constexpr u32 Cloudy_Blue = 0xacc2d9;
+            /// @brief Pale Yellow rgb(255, 255, 132)
+            inline constexpr u32 Pale_Yellow = 0xffff84;
+            /// @brief Rosa rgb(254, 134, 164)
+            inline constexpr u32 Rosa = 0xfe86a4;
+            /// @brief Bubblegum Pink rgb(254, 131, 204)
+            inline constexpr u32 Bubblegum_Pink = 0xfe83cc;
+            /// @brief Pinky rgb(252, 134, 170)
+            inline constexpr u32 Pinky = 0xfc86aa;
+            /// @brief Light Grey Green rgb(183, 225, 161)
+            inline constexpr u32 Light_Grey_Green = 0xb7e1a1;
+            /// @brief Butter rgb(255, 255, 129)
+            inline constexpr u32 Butter = 0xffff81;
+            /// @brief Pink rgb(255, 129, 192)
+            inline constexpr u32 Pink = 0xff81c0;
+            /// @brief Light Pea Green rgb(196, 254, 130)
+            inline constexpr u32 Light_Pea_Green = 0xc4fe82;
+            /// @brief Periwinkle rgb(142, 130, 254)
+            inline constexpr u32 Periwinkle = 0x8e82fe;
+            /// @brief Blush Pink rgb(254, 130, 140)
+            inline constexpr u32 Blush_Pink = 0xfe828c;
+            /// @brief Lavender Blue rgb(139, 136, 248)
+            inline constexpr u32 Lavender_Blue = 0x8b88f8;
+            /// @brief Blush rgb(242, 158, 142)
+            inline constexpr u32 Blush = 0xf29e8e;
+            /// @brief Hospital Green rgb(155, 229, 170)
+            inline constexpr u32 Hospital_Green = 0x9be5aa;
+            /// @brief Faded Yellow rgb(254, 255, 127)
+            inline constexpr u32 Faded_Yellow = 0xfeff7f;
+            /// @brief Banana rgb(255, 255, 126)
+            inline constexpr u32 Banana = 0xffff7e;
+            /// @brief Carnation Pink rgb(255, 127, 167)
+            inline constexpr u32 Carnation_Pink = 0xff7fa7;
+            /// @brief Yellowish Tan rgb(252, 252, 129)
+            inline constexpr u32 Yellowish_Tan = 0xfcfc81;
+            /// @brief Sky rgb(130, 202, 252)
+            inline constexpr u32 Sky = 0x82cafc;
+            /// @brief Rose Pink rgb(247, 135, 154)
+            inline constexpr u32 Rose_Pink = 0xf7879a;
+            /// @brief Peach rgb(255, 176, 124)
+            inline constexpr u32 Peach = 0xffb07c;
+            /// @brief Light Yellow Green rgb(204, 253, 127)
+            inline constexpr u32 Light_Yellow_Green = 0xccfd7f;
+            /// @brief Easter Green rgb(140, 253, 126)
+            inline constexpr u32 Easter_Green = 0x8cfd7e;
+            /// @brief Faded Pink rgb(222, 157, 172)
+            inline constexpr u32 Faded_Pink = 0xde9dac;
+            /// @brief Light Yellow rgb(255, 254, 122)
+            inline constexpr u32 Light_Yellow = 0xfffe7a;
+            /// @brief Salmon Pink rgb(254, 123, 124)
+            inline constexpr u32 Salmon_Pink = 0xfe7b7c;
+            /// @brief Light Aquamarine rgb(123, 253, 199)
+            inline constexpr u32 Light_Aquamarine = 0x7bfdc7;
+            /// @brief Wheat rgb(251, 221, 126)
+            inline constexpr u32 Wheat = 0xfbdd7e;
+            /// @brief Light Blue Green rgb(126, 251, 179)
+            inline constexpr u32 Light_Blue_Green = 0x7efbb3;
+            /// @brief Seafoam rgb(128, 249, 173)
+            inline constexpr u32 Seafoam = 0x80f9ad;
+            /// @brief Custard rgb(255, 253, 120)
+            inline constexpr u32 Custard = 0xfffd78;
+            /// @brief Carnation rgb(253, 121, 143)
+            inline constexpr u32 Carnation = 0xfd798f;
+            /// @brief Lightgreen rgb(118, 255, 123)
+            inline constexpr u32 Lightgreen = 0x76ff7b;
+            /// @brief Straw rgb(252, 246, 121)
+            inline constexpr u32 Straw = 0xfcf679;
+            /// @brief Pig Pink rgb(231, 142, 165)
+            inline constexpr u32 Pig_Pink = 0xe78ea5;
+            /// @brief Light Teal rgb(144, 228, 193)
+            inline constexpr u32 Light_Teal = 0x90e4c1;
+            /// @brief Butter Yellow rgb(255, 253, 116)
+            inline constexpr u32 Butter_Yellow = 0xfffd74;
+            /// @brief Light Bluish Green rgb(118, 253, 168)
+            inline constexpr u32 Light_Bluish_Green = 0x76fda8;
+            /// @brief Light Green rgb(150, 249, 123)
+            inline constexpr u32 Light_Green = 0x96f97b;
+            /// @brief Seafoam Green rgb(122, 249, 171)
+            inline constexpr u32 Seafoam_Green = 0x7af9ab;
+            /// @brief Light Turquoise rgb(126, 244, 204)
+            inline constexpr u32 Light_Turquoise = 0x7ef4cc;
+            /// @brief Perrywinkle rgb(143, 140, 231)
+            inline constexpr u32 Perrywinkle = 0x8f8ce7;
+            /// @brief Sky Blue rgb(117, 187, 253)
+            inline constexpr u32 Sky_Blue = 0x75bbfd;
+            /// @brief Lightblue rgb(123, 200, 246)
+            inline constexpr u32 Lightblue = 0x7bc8f6;
+            /// @brief Light Grey Blue rgb(157, 188, 212)
+            inline constexpr u32 Light_Grey_Blue = 0x9dbcd4;
+            /// @brief Pinkish Grey rgb(200, 172, 169)
+            inline constexpr u32 Pinkish_Grey = 0xc8aca9;
+            /// @brief Pastel Yellow rgb(255, 254, 113)
+            inline constexpr u32 Pastel_Yellow = 0xfffe71;
+            /// @brief Easter Purple rgb(192, 113, 254)
+            inline constexpr u32 Easter_Purple = 0xc071fe;
+            /// @brief Sandy Yellow rgb(253, 238, 115)
+            inline constexpr u32 Sandy_Yellow = 0xfdee73;
+            /// @brief Pale Lime rgb(190, 253, 115)
+            inline constexpr u32 Pale_Lime = 0xbefd73;
+            /// @brief Yellow Tan rgb(255, 227, 110)
+            inline constexpr u32 Yellow_Tan = 0xffe36e;
+            /// @brief Key Lime rgb(174, 255, 110)
+            inline constexpr u32 Key_Lime = 0xaeff6e;
+            /// @brief Light Purple rgb(191, 119, 246)
+            inline constexpr u32 Light_Purple = 0xbf77f6;
+            /// @brief Tiffany Blue rgb(123, 242, 218)
+            inline constexpr u32 Tiffany_Blue = 0x7bf2da;
+            /// @brief Salmon rgb(255, 121, 108)
+            inline constexpr u32 Salmon = 0xff796c;
+            /// @brief Apricot rgb(255, 177, 109)
+            inline constexpr u32 Apricot = 0xffb16d;
+            /// @brief Bubblegum rgb(255, 108, 181)
+            inline constexpr u32 Bubblegum = 0xff6cb5;
+            /// @brief Robins Egg rgb(109, 237, 253)
+            inline constexpr u32 Robins_Egg = 0x6dedfd;
+            /// @brief Sandy rgb(241, 218, 122)
+            inline constexpr u32 Sandy = 0xf1da7a;
+            /// @brief Pale Gold rgb(253, 222, 108)
+            inline constexpr u32 Pale_Gold = 0xfdde6c;
+            /// @brief Light Lime rgb(174, 253, 108)
+            inline constexpr u32 Light_Lime = 0xaefd6c;
+            /// @brief Spring Green rgb(169, 249, 113)
+            inline constexpr u32 Spring_Green = 0xa9f971;
+            /// @brief Bubble Gum Pink rgb(255, 105, 175)
+            inline constexpr u32 Bubble_Gum_Pink = 0xff69af;
+            /// @brief Light Lime Green rgb(185, 255, 102)
+            inline constexpr u32 Light_Lime_Green = 0xb9ff66;
+            /// @brief Light Urple rgb(179, 111, 246)
+            inline constexpr u32 Light_Urple = 0xb36ff6;
+            /// @brief Purply Pink rgb(240, 117, 230)
+            inline constexpr u32 Purply_Pink = 0xf075e6;
+            /// @brief Pale Lime Green rgb(177, 255, 101)
+            inline constexpr u32 Pale_Lime_Green = 0xb1ff65;
+            /// @brief Pale Purple rgb(183, 144, 212)
+            inline constexpr u32 Pale_Purple = 0xb790d4;
+            /// @brief Canary rgb(253, 255, 99)
+            inline constexpr u32 Canary = 0xfdff63;
+            /// @brief Candy Pink rgb(255, 99, 233)
+            inline constexpr u32 Candy_Pink = 0xff63e9;
+            /// @brief Sand Yellow rgb(252, 225, 102)
+            inline constexpr u32 Sand_Yellow = 0xfce166;
+            /// @brief Cornflower rgb(106, 121, 247)
+            inline constexpr u32 Cornflower = 0x6a79f7;
+            /// @brief Lavender Pink rgb(221, 133, 215)
+            inline constexpr u32 Lavender_Pink = 0xdd85d7;
+            /// @brief Bright Lavender rgb(199, 96, 255)
+            inline constexpr u32 Bright_Lavender = 0xc760ff;
+            /// @brief Coral Pink rgb(255, 97, 99)
+            inline constexpr u32 Coral_Pink = 0xff6163;
+            /// @brief Lighter Green rgb(117, 253, 99)
+            inline constexpr u32 Lighter_Green = 0x75fd63;
+            /// @brief Yellowish rgb(250, 238, 102)
+            inline constexpr u32 Yellowish = 0xfaee66;
+            /// @brief Dusty Pink rgb(213, 138, 148)
+            inline constexpr u32 Dusty_Pink = 0xd58a94;
+            /// @brief Rosy Pink rgb(246, 104, 142)
+            inline constexpr u32 Rosy_Pink = 0xf6688e;
+            /// @brief Violet Pink rgb(251, 95, 252)
+            inline constexpr u32 Violet_Pink = 0xfb5ffc;
+            /// @brief Light Greenish Blue rgb(99, 247, 180)
+            inline constexpr u32 Light_Greenish_Blue = 0x63f7b4;
+            /// @brief Light Grass Green rgb(154, 247, 100)
+            inline constexpr u32 Light_Grass_Green = 0x9af764;
+            /// @brief Pinkish Tan rgb(217, 155, 130)
+            inline constexpr u32 Pinkish_Tan = 0xd99b82;
+            /// @brief Dull Pink rgb(213, 134, 157)
+            inline constexpr u32 Dull_Pink = 0xd5869d;
+            /// @brief Light Gold rgb(253, 220, 92)
+            inline constexpr u32 Light_Gold = 0xfddc5c;
+            /// @brief Bright Lilac rgb(201, 94, 251)
+            inline constexpr u32 Bright_Lilac = 0xc95efb;
+            /// @brief Light Magenta rgb(250, 95, 247)
+            inline constexpr u32 Light_Magenta = 0xfa5ff7;
+            /// @brief Sand rgb(226, 202, 118)
+            inline constexpr u32 Sand = 0xe2ca76;
+            /// @brief Pear rgb(203, 248, 95)
+            inline constexpr u32 Pear = 0xcbf85f;
+            /// @brief Light Mustard rgb(247, 213, 96)
+            inline constexpr u32 Light_Mustard = 0xf7d560;
+            /// @brief Pale Orange rgb(255, 167, 86)
+            inline constexpr u32 Pale_Orange = 0xffa756;
+            /// @brief Very Light Brown rgb(211, 182, 131)
+            inline constexpr u32 Very_Light_Brown = 0xd3b683;
+            /// @brief Greyish Pink rgb(200, 141, 148)
+            inline constexpr u32 Greyish_Pink = 0xc88d94;
+            /// @brief Melon rgb(255, 120, 85)
+            inline constexpr u32 Melon = 0xff7855;
+            /// @brief Grapefruit rgb(253, 89, 86)
+            inline constexpr u32 Grapefruit = 0xfd5956;
+            /// @brief Light Green Blue rgb(86, 252, 162)
+            inline constexpr u32 Light_Green_Blue = 0x56fca2;
+            /// @brief Medium Pink rgb(243, 97, 150)
+            inline constexpr u32 Medium_Pink = 0xf36196;
+            /// @brief Grey Pink rgb(195, 144, 155)
+            inline constexpr u32 Grey_Pink = 0xc3909b;
+            /// @brief Light Mauve rgb(194, 146, 161)
+            inline constexpr u32 Light_Mauve = 0xc292a1;
+            /// @brief Orange Pink rgb(255, 111, 82)
+            inline constexpr u32 Orange_Pink = 0xff6f52;
+            /// @brief Lemon rgb(253, 255, 82)
+            inline constexpr u32 Lemon = 0xfdff52;
+            /// @brief Light Bright Green rgb(83, 254, 92)
+            inline constexpr u32 Light_Bright_Green = 0x53fe5c;
+            /// @brief Sea Green rgb(83, 252, 161)
+            inline constexpr u32 Sea_Green = 0x53fca1;
+            /// @brief Warm Pink rgb(251, 85, 129)
+            inline constexpr u32 Warm_Pink = 0xfb5581;
+            /// @brief Pastel Orange rgb(255, 150, 79)
+            inline constexpr u32 Pastel_Orange = 0xff964f;
+            /// @brief Lighter Purple rgb(165, 90, 244)
+            inline constexpr u32 Lighter_Purple = 0xa55af4;
+            /// @brief Soft Blue rgb(100, 136, 234)
+            inline constexpr u32 Soft_Blue = 0x6488ea;
+            /// @brief Pale Olive Green rgb(177, 210, 123)
+            inline constexpr u32 Pale_Olive_Green = 0xb1d27b;
+            /// @brief Pale Olive rgb(185, 204, 129)
+            inline constexpr u32 Pale_Olive = 0xb9cc81;
+            /// @brief Pale Teal rgb(130, 203, 178)
+            inline constexpr u32 Pale_Teal = 0x82cbb2;
+            /// @brief Pinkish Orange rgb(255, 114, 76)
+            inline constexpr u32 Pinkish_Orange = 0xff724c;
+            /// @brief Light Neon Green rgb(78, 253, 84)
+            inline constexpr u32 Light_Neon_Green = 0x4efd54;
+            /// @brief Coral rgb(252, 90, 80)
+            inline constexpr u32 Coral = 0xfc5a50;
+            /// @brief Fawn rgb(207, 175, 123)
+            inline constexpr u32 Fawn = 0xcfaf7b;
+            /// @brief Banana Yellow rgb(250, 254, 75)
+            inline constexpr u32 Banana_Yellow = 0xfafe4b;
+            /// @brief Maize rgb(244, 208, 84)
+            inline constexpr u32 Maize = 0xf4d054;
+            /// @brief Dull Yellow rgb(238, 220, 91)
+            inline constexpr u32 Dull_Yellow = 0xeedc5b;
+            /// @brief Seafoam Blue rgb(120, 209, 182)
+            inline constexpr u32 Seafoam_Blue = 0x78d1b6;
+            /// @brief Greenish Beige rgb(201, 209, 121)
+            inline constexpr u32 Greenish_Beige = 0xc9d179;
+            /// @brief Orangish rgb(252, 130, 74)
+            inline constexpr u32 Orangish = 0xfc824a;
+            /// @brief Muted Pink rgb(209, 118, 143)
+            inline constexpr u32 Muted_Pink = 0xd1768f;
+            /// @brief Dusky Pink rgb(204, 122, 139)
+            inline constexpr u32 Dusky_Pink = 0xcc7a8b;
+            /// @brief Old Rose rgb(200, 127, 137)
+            inline constexpr u32 Old_Rose = 0xc87f89;
+            /// @brief Putty rgb(190, 174, 138)
+            inline constexpr u32 Putty = 0xbeae8a;
+            /// @brief Light Red rgb(255, 71, 76)
+            inline constexpr u32 Light_Red = 0xff474c;
+            /// @brief Orangeish rgb(253, 141, 73)
+            inline constexpr u32 Orangeish = 0xfd8d49;
+            /// @brief Light Orange rgb(253, 170, 72)
+            inline constexpr u32 Light_Orange = 0xfdaa48;
+            /// @brief Greenish Tan rgb(188, 203, 122)
+            inline constexpr u32 Greenish_Tan = 0xbccb7a;
+            /// @brief Dirty Pink rgb(202, 123, 128)
+            inline constexpr u32 Dirty_Pink = 0xca7b80;
+            /// @brief Barbie Pink rgb(254, 70, 165)
+            inline constexpr u32 Barbie_Pink = 0xfe46a5;
+            /// @brief Butterscotch rgb(253, 177, 71)
+            inline constexpr u32 Butterscotch = 0xfdb147;
+            /// @brief Watermelon rgb(253, 70, 89)
+            inline constexpr u32 Watermelon = 0xfd4659;
+            /// @brief Heliotrope rgb(217, 79, 245)
+            inline constexpr u32 Heliotrope = 0xd94ff5;
+            /// @brief Toupe rgb(199, 172, 125)
+            inline constexpr u32 Toupe = 0xc7ac7d;
+            /// @brief Lightish Green rgb(97, 225, 96)
+            inline constexpr u32 Lightish_Green = 0x61e160;
+            /// @brief Ugly Pink rgb(205, 117, 132)
+            inline constexpr u32 Ugly_Pink = 0xcd7584;
+            /// @brief Mushroom rgb(186, 158, 136)
+            inline constexpr u32 Mushroom = 0xba9e88;
+            /// @brief Canary Yellow rgb(255, 254, 64)
+            inline constexpr u32 Canary_Yellow = 0xfffe40;
+            /// @brief Bright Cyan rgb(65, 253, 254)
+            inline constexpr u32 Bright_Cyan = 0x41fdfe;
+            /// @brief Tan rgb(209, 178, 111)
+            inline constexpr u32 Tan = 0xd1b26f;
+            /// @brief Old Pink rgb(199, 121, 134)
+            inline constexpr u32 Old_Pink = 0xc77986;
+            /// @brief Wisteria rgb(168, 125, 194)
+            inline constexpr u32 Wisteria = 0xa87dc2;
+            /// @brief Faded Orange rgb(240, 148, 77)
+            inline constexpr u32 Faded_Orange = 0xf0944d;
+            /// @brief Pale Magenta rgb(215, 103, 173)
+            inline constexpr u32 Pale_Magenta = 0xd767ad;
+            /// @brief Pinkish rgb(212, 106, 126)
+            inline constexpr u32 Pinkish = 0xd46a7e;
+            /// @brief Sandstone rgb(201, 174, 116)
+            inline constexpr u32 Sandstone = 0xc9ae74;
+            /// @brief Light Moss Green rgb(166, 200, 117)
+            inline constexpr u32 Light_Moss_Green = 0xa6c875;
+            /// @brief Orchid rgb(200, 117, 196)
+            inline constexpr u32 Orchid = 0xc875c4;
+            /// @brief Greyish rgb(168, 164, 149)
+            inline constexpr u32 Greyish = 0xa8a495;
+            /// @brief Yellow Green rgb(200, 253, 61)
+            inline constexpr u32 Yellow_Green = 0xc8fd3d;
+            /// @brief Lightish Blue rgb(61, 122, 253)
+            inline constexpr u32 Lightish_Blue = 0x3d7afd;
+            /// @brief Dodger Blue rgb(62, 130, 252)
+            inline constexpr u32 Dodger_Blue = 0x3e82fc;
+            /// @brief Purpley rgb(135, 86, 228)
+            inline constexpr u32 Purpley = 0x8756e4;
+            /// @brief Dark Peach rgb(222, 126, 93)
+            inline constexpr u32 Dark_Peach = 0xde7e5d;
+            /// @brief Brownish Pink rgb(194, 126, 121)
+            inline constexpr u32 Brownish_Pink = 0xc27e79;
+            /// @brief Taupe rgb(185, 162, 129)
+            inline constexpr u32 Taupe = 0xb9a281;
+            /// @brief Bland rgb(175, 168, 139)
+            inline constexpr u32 Bland = 0xafa88b;
+            /// @brief Greenish Grey rgb(150, 174, 141)
+            inline constexpr u32 Greenish_Grey = 0x96ae8d;
+            /// @brief Cool Grey rgb(149, 163, 166)
+            inline constexpr u32 Cool_Grey = 0x95a3a6;
+            /// @brief Lightish Purple rgb(165, 82, 230)
+            inline constexpr u32 Lightish_Purple = 0xa552e6;
+            /// @brief Bluey Grey rgb(137, 160, 176)
+            inline constexpr u32 Bluey_Grey = 0x89a0b0;
+            /// @brief Sunshine Yellow rgb(255, 253, 55)
+            inline constexpr u32 Sunshine_Yellow = 0xfffd37;
+            /// @brief Lemon Yellow rgb(253, 255, 56)
+            inline constexpr u32 Lemon_Yellow = 0xfdff38;
+            /// @brief Bluegrey rgb(133, 163, 178)
+            inline constexpr u32 Bluegrey = 0x85a3b2;
+            /// @brief Cement rgb(165, 163, 145)
+            inline constexpr u32 Cement = 0xa5a391;
+            /// @brief Stone rgb(173, 165, 135)
+            inline constexpr u32 Stone = 0xada587;
+            /// @brief Dusty Rose rgb(192, 115, 122)
+            inline constexpr u32 Dusty_Rose = 0xc0737a;
+            /// @brief Dusty Lavender rgb(172, 134, 168)
+            inline constexpr u32 Dusty_Lavender = 0xac86a8;
+            /// @brief Lime rgb(170, 255, 50)
+            inline constexpr u32 Lime = 0xaaff32;
+            /// @brief Off Yellow rgb(241, 243, 63)
+            inline constexpr u32 Off_Yellow = 0xf1f33f;
+            /// @brief Kiwi rgb(156, 239, 67)
+            inline constexpr u32 Kiwi = 0x9cef43;
+            /// @brief Pastel Red rgb(219, 88, 86)
+            inline constexpr u32 Pastel_Red = 0xdb5856;
+            /// @brief Rose rgb(207, 98, 117)
+            inline constexpr u32 Rose = 0xcf6275;
+            /// @brief Soft Green rgb(111, 194, 118)
+            inline constexpr u32 Soft_Green = 0x6fc276;
+            /// @brief Lichen rgb(143, 182, 123)
+            inline constexpr u32 Lichen = 0x8fb67b;
+            /// @brief Heather rgb(164, 132, 172)
+            inline constexpr u32 Heather = 0xa484ac;
+            /// @brief Purpleish Blue rgb(97, 64, 239)
+            inline constexpr u32 Purpleish_Blue = 0x6140ef;
+            /// @brief Dark Periwinkle rgb(102, 95, 209)
+            inline constexpr u32 Dark_Periwinkle = 0x665fd1;
+            /// @brief Lightish Red rgb(254, 47, 74)
+            inline constexpr u32 Lightish_Red = 0xfe2f4a;
+            /// @brief Purpleish Pink rgb(223, 78, 200)
+            inline constexpr u32 Purpleish_Pink = 0xdf4ec8;
+            /// @brief Tan Green rgb(169, 190, 112)
+            inline constexpr u32 Tan_Green = 0xa9be70;
+            /// @brief Mango rgb(255, 166, 43)
+            inline constexpr u32 Mango = 0xffa62b;
+            /// @brief Bright Light Green rgb(45, 254, 84)
+            inline constexpr u32 Bright_Light_Green = 0x2dfe54;
+            /// @brief Light Royal Blue rgb(58, 46, 254)
+            inline constexpr u32 Light_Royal_Blue = 0x3a2efe;
+            /// @brief Reddish Pink rgb(254, 44, 84)
+            inline constexpr u32 Reddish_Pink = 0xfe2c54;
+            /// @brief Dusty Orange rgb(240, 131, 58)
+            inline constexpr u32 Dusty_Orange = 0xf0833a;
+            /// @brief Purplish Pink rgb(206, 93, 174)
+            inline constexpr u32 Purplish_Pink = 0xce5dae;
+            /// @brief Desert rgb(204, 173, 96)
+            inline constexpr u32 Desert = 0xccad60;
+            /// @brief Sand Brown rgb(203, 165, 96)
+            inline constexpr u32 Sand_Brown = 0xcba560;
+            /// @brief Deep Lilac rgb(150, 110, 189)
+            inline constexpr u32 Deep_Lilac = 0x966ebd;
+            /// @brief Greyblue rgb(119, 161, 181)
+            inline constexpr u32 Greyblue = 0x77a1b5;
+            /// @brief Sage Green rgb(136, 179, 120)
+            inline constexpr u32 Sage_Green = 0x88b378;
+            /// @brief Greenish Cyan rgb(42, 254, 183)
+            inline constexpr u32 Greenish_Cyan = 0x2afeb7;
+            /// @brief Dark Sky Blue rgb(68, 142, 228)
+            inline constexpr u32 Dark_Sky_Blue = 0x448ee4;
+            /// @brief Light Indigo rgb(109, 90, 207)
+            inline constexpr u32 Light_Indigo = 0x6d5acf;
+            /// @brief Yellow Green Darker rgb(192, 251, 45)
+            inline constexpr u32 Yellow_Green_Darker = 0xc0fb2d;
+            /// @brief Fresh Green rgb(105, 216, 79)
+            inline constexpr u32 Fresh_Green = 0x69d84f;
+            /// @brief Cornflower Blue rgb(81, 112, 215)
+            inline constexpr u32 Cornflower_Blue = 0x5170d7;
+            /// @brief Light Olive rgb(172, 191, 105)
+            inline constexpr u32 Light_Olive = 0xacbf69;
+            /// @brief Green Yellow rgb(201, 255, 39)
+            inline constexpr u32 Green_Yellow = 0xc9ff27;
+            /// @brief Lemon Lime rgb(191, 254, 40)
+            inline constexpr u32 Lemon_Lime = 0xbffe28;
+            /// @brief Warm Blue rgb(75, 87, 219)
+            inline constexpr u32 Warm_Blue = 0x4b57db;
+            /// @brief Pink Purple rgb(219, 75, 218)
+            inline constexpr u32 Pink_Purple = 0xdb4bda;
+            /// @brief Pale Red rgb(217, 84, 77)
+            inline constexpr u32 Pale_Red = 0xd9544d;
+            /// @brief Sandy Brown rgb(196, 166, 97)
+            inline constexpr u32 Sandy_Brown = 0xc4a661;
+            /// @brief Faded Green rgb(123, 178, 116)
+            inline constexpr u32 Faded_Green = 0x7bb274;
+            /// @brief Grey rgb(146, 149, 145)
+            inline constexpr u32 Grey = 0x929591;
+            /// @brief Hot Green rgb(37, 255, 41)
+            inline constexpr u32 Hot_Green = 0x25ff29;
+            /// @brief Bright Light Blue rgb(38, 247, 253)
+            inline constexpr u32 Bright_Light_Blue = 0x26f7fd;
+            /// @brief Strawberry rgb(251, 41, 67)
+            inline constexpr u32 Strawberry = 0xfb2943;
+            /// @brief Red Pink rgb(250, 42, 85)
+            inline constexpr u32 Red_Pink = 0xfa2a55;
+            /// @brief Macaroni And Cheese rgb(239, 180, 53)
+            inline constexpr u32 Macaroni_And_Cheese = 0xefb435;
+            /// @brief Kiwi Green rgb(142, 229, 63)
+            inline constexpr u32 Kiwi_Green = 0x8ee53f;
+            /// @brief Soft Purple rgb(166, 111, 181)
+            inline constexpr u32 Soft_Purple = 0xa66fb5;
+            /// @brief Greyish Green rgb(130, 166, 125)
+            inline constexpr u32 Greyish_Green = 0x82a67d;
+            /// @brief Sun Yellow rgb(255, 223, 34)
+            inline constexpr u32 Sun_Yellow = 0xffdf22;
+            /// @brief Electric Purple rgb(170, 35, 255)
+            inline constexpr u32 Electric_Purple = 0xaa23ff;
+            /// @brief Clear Blue rgb(36, 122, 253)
+            inline constexpr u32 Clear_Blue = 0x247afd;
+            /// @brief Pinky Red rgb(252, 38, 71)
+            inline constexpr u32 Pinky_Red = 0xfc2647;
+            /// @brief Bluish Purple rgb(112, 59, 231)
+            inline constexpr u32 Bluish_Purple = 0x703be7;
+            /// @brief Dusky Rose rgb(186, 104, 115)
+            inline constexpr u32 Dusky_Rose = 0xba6873;
+            /// @brief Sage rgb(135, 174, 115)
+            inline constexpr u32 Sage = 0x87ae73;
+            /// @brief Weird Green rgb(58, 229, 127)
+            inline constexpr u32 Weird_Green = 0x3ae57f;
+            /// @brief Purple Pink rgb(224, 63, 216)
+            inline constexpr u32 Purple_Pink = 0xe03fd8;
+            /// @brief Darkish Pink rgb(218, 70, 125)
+            inline constexpr u32 Darkish_Pink = 0xda467d;
+            /// @brief Pinkish Purple rgb(214, 72, 215)
+            inline constexpr u32 Pinkish_Purple = 0xd648d7;
+            /// @brief Camel rgb(198, 159, 89)
+            inline constexpr u32 Camel = 0xc69f59;
+            /// @brief Amethyst rgb(155, 95, 192)
+            inline constexpr u32 Amethyst = 0x9b5fc0;
+            /// @brief Faded Blue rgb(101, 140, 187)
+            inline constexpr u32 Faded_Blue = 0x658cbb;
+            /// @brief Dust rgb(178, 153, 110)
+            inline constexpr u32 Dust = 0xb2996e;
+            /// @brief Pale Brown rgb(177, 145, 110)
+            inline constexpr u32 Pale_Brown = 0xb1916e;
+            /// @brief Mauve rgb(174, 113, 129)
+            inline constexpr u32 Mauve = 0xae7181;
+            /// @brief Orangey Red rgb(250, 66, 36)
+            inline constexpr u32 Orangey_Red = 0xfa4224;
+            /// @brief Dark Coral rgb(207, 82, 78)
+            inline constexpr u32 Dark_Coral = 0xcf524e;
+            /// @brief Grey Green rgb(134, 161, 125)
+            inline constexpr u32 Grey_Green = 0x86a17d;
+            /// @brief Lime Yellow rgb(208, 254, 29)
+            inline constexpr u32 Lime_Yellow = 0xd0fe1d;
+            /// @brief Orange Red rgb(253, 65, 30)
+            inline constexpr u32 Orange_Red = 0xfd411e;
+            /// @brief Purpley Blue rgb(95, 52, 231)
+            inline constexpr u32 Purpley_Blue = 0x5f34e7;
+            /// @brief Faded Red rgb(211, 73, 78)
+            inline constexpr u32 Faded_Red = 0xd3494e;
+            /// @brief Dark Salmon rgb(200, 90, 83)
+            inline constexpr u32 Dark_Salmon = 0xc85a53;
+            /// @brief Iris rgb(98, 88, 196)
+            inline constexpr u32 Iris = 0x6258c4;
+            /// @brief Light Olive Green rgb(164, 190, 92)
+            inline constexpr u32 Light_Olive_Green = 0xa4be5c;
+            /// @brief Dusty Green rgb(118, 169, 115)
+            inline constexpr u32 Dusty_Green = 0x76a973;
+            /// @brief Greeny Grey rgb(126, 160, 122)
+            inline constexpr u32 Greeny_Grey = 0x7ea07a;
+            /// @brief Warm Grey rgb(151, 138, 132)
+            inline constexpr u32 Warm_Grey = 0x978a84;
+            /// @brief Radioactive Green rgb(44, 250, 31)
+            inline constexpr u32 Radioactive_Green = 0x2cfa1f;
+            /// @brief Wintergreen rgb(32, 249, 134)
+            inline constexpr u32 Wintergreen = 0x20f986;
+            /// @brief Yellowy Green rgb(191, 241, 40)
+            inline constexpr u32 Yellowy_Green = 0xbff128;
+            /// @brief Purplish Blue rgb(96, 30, 249)
+            inline constexpr u32 Purplish_Blue = 0x601ef9;
+            /// @brief Blue Grey rgb(117, 141, 163)
+            inline constexpr u32 Blue_Grey = 0x758da3;
+            /// @brief Sunny Yellow rgb(255, 249, 23)
+            inline constexpr u32 Sunny_Yellow = 0xfff917;
+            /// @brief Spearmint rgb(30, 248, 118)
+            inline constexpr u32 Spearmint = 0x1ef876;
+            /// @brief Tomato rgb(239, 64, 38)
+            inline constexpr u32 Tomato = 0xef4026;
+            /// @brief Purple Blue rgb(99, 45, 233)
+            inline constexpr u32 Purple_Blue = 0x632de9;
+            /// @brief Aqua Marine rgb(46, 232, 187)
+            inline constexpr u32 Aqua_Marine = 0x2ee8bb;
+            /// @brief Burple rgb(104, 50, 227)
+            inline constexpr u32 Burple = 0x6832e3;
+            /// @brief Pinky Purple rgb(201, 76, 190)
+            inline constexpr u32 Pinky_Purple = 0xc94cbe;
+            /// @brief Deep Lavender rgb(141, 94, 183)
+            inline constexpr u32 Deep_Lavender = 0x8d5eb7;
+            /// @brief Boring Green rgb(99, 179, 101)
+            inline constexpr u32 Boring_Green = 0x63b365;
+            /// @brief Yellow rgb(255, 255, 20)
+            inline constexpr u32 Yellow = 0xffff14;
+            /// @brief Vivid Blue rgb(21, 46, 255)
+            inline constexpr u32 Vivid_Blue = 0x152eff;
+            /// @brief Golden Yellow rgb(254, 198, 21)
+            inline constexpr u32 Golden_Yellow = 0xfec615;
+            /// @brief Reddish Orange rgb(248, 72, 28)
+            inline constexpr u32 Reddish_Orange = 0xf8481c;
+            /// @brief Dull Orange rgb(216, 134, 59)
+            inline constexpr u32 Dull_Orange = 0xd8863b;
+            /// @brief Purpley Grey rgb(148, 126, 148)
+            inline constexpr u32 Purpley_Grey = 0x947e94;
+            /// @brief Sunflower rgb(255, 197, 18)
+            inline constexpr u32 Sunflower = 0xffc512;
+            /// @brief Neon Purple rgb(188, 19, 254)
+            inline constexpr u32 Neon_Purple = 0xbc13fe;
+            /// @brief Orangey Yellow rgb(253, 185, 21)
+            inline constexpr u32 Orangey_Yellow = 0xfdb915;
+            /// @brief Poison Green rgb(64, 253, 20)
+            inline constexpr u32 Poison_Green = 0x40fd14;
+            /// @brief Pinkish Brown rgb(177, 114, 97)
+            inline constexpr u32 Pinkish_Brown = 0xb17261;
+            /// @brief Dark Lilac rgb(156, 109, 165)
+            inline constexpr u32 Dark_Lilac = 0x9c6da5;
+            /// @brief Tea rgb(101, 171, 124)
+            inline constexpr u32 Tea = 0x65ab7c;
+            /// @brief Grey Blue rgb(107, 139, 164)
+            inline constexpr u32 Grey_Blue = 0x6b8ba4;
+            /// @brief Greyish Teal rgb(113, 159, 145)
+            inline constexpr u32 Greyish_Teal = 0x719f91;
+            /// @brief Yellowish Orange rgb(255, 171, 15)
+            inline constexpr u32 Yellowish_Orange = 0xffab0f;
+            /// @brief Orangered rgb(254, 66, 15)
+            inline constexpr u32 Orangered = 0xfe420f;
+            /// @brief Bright Turquoise rgb(15, 254, 249)
+            inline constexpr u32 Bright_Turquoise = 0x0ffef9;
+            /// @brief Sickly Yellow rgb(208, 228, 41)
+            inline constexpr u32 Sickly_Yellow = 0xd0e429;
+            /// @brief Terracota rgb(203, 104, 67)
+            inline constexpr u32 Terracota = 0xcb6843;
+            /// @brief Deep Rose rgb(199, 71, 103)
+            inline constexpr u32 Deep_Rose = 0xc74767;
+            /// @brief Dark Beige rgb(172, 147, 98)
+            inline constexpr u32 Dark_Beige = 0xac9362;
+            /// @brief Grey Green Darker rgb(120, 155, 115)
+            inline constexpr u32 Grey_Green_Darker = 0x789b73;
+            /// @brief Neon Green rgb(12, 255, 12)
+            inline constexpr u32 Neon_Green = 0x0cff0c;
+            /// @brief Pink Purple Darker rgb(239, 29, 231)
+            inline constexpr u32 Pink_Purple_Darker = 0xef1de7;
+            /// @brief Dark Pink rgb(203, 65, 107)
+            inline constexpr u32 Dark_Pink = 0xcb416b;
+            /// @brief Terracotta rgb(202, 102, 65)
+            inline constexpr u32 Terracotta = 0xca6641;
+            /// @brief Khaki rgb(170, 166, 98)
+            inline constexpr u32 Khaki = 0xaaa662;
+            /// @brief Bluish Grey rgb(116, 139, 151)
+            inline constexpr u32 Bluish_Grey = 0x748b97;
+            /// @brief Electric Green rgb(33, 252, 13)
+            inline constexpr u32 Electric_Green = 0x21fc0d;
+            /// @brief Purply Blue rgb(102, 26, 238)
+            inline constexpr u32 Purply_Blue = 0x661aee;
+            /// @brief Azul rgb(29, 93, 236)
+            inline constexpr u32 Azul = 0x1d5dec;
+            /// @brief Toxic Green rgb(97, 222, 42)
+            inline constexpr u32 Toxic_Green = 0x61de2a;
+            /// @brief Dull Green rgb(116, 166, 98)
+            inline constexpr u32 Dull_Green = 0x74a662;
+            /// @brief Reddish Grey rgb(153, 117, 112)
+            inline constexpr u32 Reddish_Grey = 0x997570;
+            /// @brief Steel rgb(115, 133, 149)
+            inline constexpr u32 Steel = 0x738595;
+            /// @brief Tangerine rgb(255, 148, 8)
+            inline constexpr u32 Tangerine = 0xff9408;
+            /// @brief Fluorescent Green rgb(8, 255, 8)
+            inline constexpr u32 Fluorescent_Green = 0x08ff08;
+            /// @brief Bright Magenta rgb(255, 8, 232)
+            inline constexpr u32 Bright_Magenta = 0xff08e8;
+            /// @brief Saffron rgb(254, 178, 9)
+            inline constexpr u32 Saffron = 0xfeb209;
+            /// @brief Acid Green rgb(143, 254, 9)
+            inline constexpr u32 Acid_Green = 0x8ffe09;
+            /// @brief Bright Violet rgb(173, 10, 253)
+            inline constexpr u32 Bright_Violet = 0xad0afd;
+            /// @brief Yellowgreen rgb(187, 249, 15)
+            inline constexpr u32 Yellowgreen = 0xbbf90f;
+            /// @brief Squash rgb(242, 171, 21)
+            inline constexpr u32 Squash = 0xf2ab15;
+            /// @brief Apple rgb(110, 203, 60)
+            inline constexpr u32 Apple = 0x6ecb3c;
+            /// @brief Bluey Purple rgb(98, 65, 199)
+            inline constexpr u32 Bluey_Purple = 0x6241c7;
+            /// @brief Dark Mint rgb(72, 192, 114)
+            inline constexpr u32 Dark_Mint = 0x48c072;
+            /// @brief Turtle Green rgb(117, 184, 79)
+            inline constexpr u32 Turtle_Green = 0x75b84f;
+            /// @brief Dusty Blue rgb(90, 134, 173)
+            inline constexpr u32 Dusty_Blue = 0x5a86ad;
+            /// @brief Faded Purple rgb(145, 110, 153)
+            inline constexpr u32 Faded_Purple = 0x916e99;
+            /// @brief Electric Blue rgb(6, 82, 255)
+            inline constexpr u32 Electric_Blue = 0x0652ff;
+            /// @brief Strong Pink rgb(255, 7, 137)
+            inline constexpr u32 Strong_Pink = 0xff0789;
+            /// @brief Neon Red rgb(255, 7, 58)
+            inline constexpr u32 Neon_Red = 0xff073a;
+            /// @brief Amber rgb(254, 179, 8)
+            inline constexpr u32 Amber = 0xfeb308;
+            /// @brief Dandelion rgb(254, 223, 8)
+            inline constexpr u32 Dandelion = 0xfedf08;
+            /// @brief Bright Lime Green rgb(101, 254, 8)
+            inline constexpr u32 Bright_Lime_Green = 0x65fe08;
+            /// @brief Deep Sky Blue rgb(13, 117, 248)
+            inline constexpr u32 Deep_Sky_Blue = 0x0d75f8;
+            /// @brief Blurple rgb(85, 57, 204)
+            inline constexpr u32 Blurple = 0x5539cc;
+            /// @brief Adobe rgb(189, 108, 72)
+            inline constexpr u32 Adobe = 0xbd6c48;
+            /// @brief Clay rgb(182, 106, 80)
+            inline constexpr u32 Clay = 0xb66a50;
+            /// @brief Neon Yellow rgb(207, 255, 4)
+            inline constexpr u32 Neon_Yellow = 0xcfff04;
+            /// @brief Electric Lime rgb(168, 255, 4)
+            inline constexpr u32 Electric_Lime = 0xa8ff04;
+            /// @brief Bright Sea Green rgb(5, 255, 166)
+            inline constexpr u32 Bright_Sea_Green = 0x05ffa6;
+            /// @brief Neon Blue rgb(4, 217, 255)
+            inline constexpr u32 Neon_Blue = 0x04d9ff;
+            /// @brief Electric Pink rgb(255, 4, 144)
+            inline constexpr u32 Electric_Pink = 0xff0490;
+            /// @brief Lime Green rgb(137, 254, 5)
+            inline constexpr u32 Lime_Green = 0x89fe05;
+            /// @brief Red Orange rgb(253, 60, 6)
+            inline constexpr u32 Red_Orange = 0xfd3c06;
+            /// @brief Bright Aqua rgb(11, 249, 234)
+            inline constexpr u32 Bright_Aqua = 0x0bf9ea;
+            /// @brief Purple Pink Darker rgb(215, 37, 222)
+            inline constexpr u32 Purple_Pink_Darker = 0xd725de;
+            /// @brief Terra Cotta rgb(201, 100, 59)
+            inline constexpr u32 Terra_Cotta = 0xc9643b;
+            /// @brief Purpley Pink rgb(200, 60, 185)
+            inline constexpr u32 Purpley_Pink = 0xc83cb9;
+            /// @brief Reddish rgb(196, 66, 64)
+            inline constexpr u32 Reddish = 0xc44240;
+            /// @brief Dark Pastel Green rgb(86, 174, 87)
+            inline constexpr u32 Dark_Pastel_Green = 0x56ae57;
+            /// @brief Off Blue rgb(86, 132, 174)
+            inline constexpr u32 Off_Blue = 0x5684ae;
+            /// @brief Sunflower Yellow rgb(255, 218, 3)
+            inline constexpr u32 Sunflower_Yellow = 0xffda03;
+            /// @brief Fluro Green rgb(10, 255, 2)
+            inline constexpr u32 Fluro_Green = 0x0aff02;
+            /// @brief Hot Pink rgb(255, 2, 141)
+            inline constexpr u32 Hot_Pink = 0xff028d;
+            /// @brief Blood Orange rgb(254, 75, 3)
+            inline constexpr u32 Blood_Orange = 0xfe4b03;
+            /// @brief Bright Lime rgb(135, 253, 5)
+            inline constexpr u32 Bright_Lime = 0x87fd05;
+            /// @brief Marigold rgb(252, 192, 6)
+            inline constexpr u32 Marigold = 0xfcc006;
+            /// @brief Highlighter Green rgb(27, 252, 6)
+            inline constexpr u32 Highlighter_Green = 0x1bfc06;
+            /// @brief Pumpkin Orange rgb(251, 125, 7)
+            inline constexpr u32 Pumpkin_Orange = 0xfb7d07;
+            /// @brief Golden Rod rgb(249, 188, 8)
+            inline constexpr u32 Golden_Rod = 0xf9bc08;
+            /// @brief Chartreuse rgb(193, 248, 10)
+            inline constexpr u32 Chartreuse = 0xc1f80a;
+            /// @brief Minty Green rgb(11, 247, 125)
+            inline constexpr u32 Minty_Green = 0x0bf77d;
+            /// @brief Blue With A Hint Of Purple rgb(83, 60, 198)
+            inline constexpr u32 Blue_With_A_Hint_Of_Purple = 0x533cc6;
+            /// @brief Dusty Red rgb(185, 72, 78)
+            inline constexpr u32 Dusty_Red = 0xb9484e;
+            /// @brief Cool Blue rgb(73, 132, 184)
+            inline constexpr u32 Cool_Blue = 0x4984b8;
+            /// @brief Asparagus rgb(119, 171, 86)
+            inline constexpr u32 Asparagus = 0x77ab56;
+            /// @brief Dark Sand rgb(168, 143, 89)
+            inline constexpr u32 Dark_Sand = 0xa88f59;
+            /// @brief Green Grey rgb(119, 146, 111)
+            inline constexpr u32 Green_Grey = 0x77926f;
+            /// @brief Greyish Purple rgb(136, 113, 145)
+            inline constexpr u32 Greyish_Purple = 0x887191;
+            /// @brief Bright Orange rgb(255, 91, 0)
+            inline constexpr u32 Bright_Orange = 0xff5b00;
+            /// @brief Orange Yellow rgb(255, 173, 1)
+            inline constexpr u32 Orange_Yellow = 0xffad01;
+            /// @brief Bright Yellow rgb(255, 253, 1)
+            inline constexpr u32 Bright_Yellow = 0xfffd01;
+            /// @brief Bright Yellow Green rgb(157, 255, 0)
+            inline constexpr u32 Bright_Yellow_Green = 0x9dff00;
+            /// @brief Bright Green rgb(1, 255, 7)
+            inline constexpr u32 Bright_Green = 0x01ff07;
+            /// @brief Cyan rgb(0, 255, 255)
+            inline constexpr u32 Cyan = 0x00ffff;
+            /// @brief Bright Red rgb(255, 0, 13)
+            inline constexpr u32 Bright_Red = 0xff000d;
+            /// @brief Bright Pink rgb(254, 1, 177)
+            inline constexpr u32 Bright_Pink = 0xfe01b1;
+            /// @brief Neon Pink rgb(254, 1, 154)
+            inline constexpr u32 Neon_Pink = 0xfe019a;
+            /// @brief Bright Sky Blue rgb(2, 204, 254)
+            inline constexpr u32 Bright_Sky_Blue = 0x02ccfe;
+            /// @brief Shocking Pink rgb(254, 2, 162)
+            inline constexpr u32 Shocking_Pink = 0xfe02a2;
+            /// @brief Greenish Yellow rgb(205, 253, 2)
+            inline constexpr u32 Greenish_Yellow = 0xcdfd02;
+            /// @brief Bright Purple rgb(190, 3, 253)
+            inline constexpr u32 Bright_Purple = 0xbe03fd;
+            /// @brief Goldenrod rgb(250, 194, 5)
+            inline constexpr u32 Goldenrod = 0xfac205;
+            /// @brief Orange rgb(249, 115, 6)
+            inline constexpr u32 Orange = 0xf97306;
+            /// @brief Greeny Yellow rgb(198, 248, 8)
+            inline constexpr u32 Greeny_Yellow = 0xc6f808;
+            /// @brief Vermillion rgb(244, 50, 12)
+            inline constexpr u32 Vermillion = 0xf4320c;
+            /// @brief Vivid Green rgb(47, 239, 16)
+            inline constexpr u32 Vivid_Green = 0x2fef10;
+            /// @brief Algae rgb(84, 172, 104)
+            inline constexpr u32 Algae = 0x54ac68;
+            /// @brief Dark Lavender rgb(133, 103, 152)
+            inline constexpr u32 Dark_Lavender = 0x856798;
+            /// @brief Fire Engine Red rgb(254, 0, 2)
+            inline constexpr u32 Fire_Engine_Red = 0xfe0002;
+            /// @brief Yellow Orange rgb(252, 176, 1)
+            inline constexpr u32 Yellow_Orange = 0xfcb001;
+            /// @brief Bright Blue rgb(1, 101, 252)
+            inline constexpr u32 Bright_Blue = 0x0165fc;
+            /// @brief Primary Blue rgb(8, 4, 249)
+            inline constexpr u32 Primary_Blue = 0x0804f9;
+            /// @brief Strong Blue rgb(12, 6, 247)
+            inline constexpr u32 Strong_Blue = 0x0c06f7;
+            /// @brief Pinkish Red rgb(241, 12, 69)
+            inline constexpr u32 Pinkish_Red = 0xf10c45;
+            /// @brief Aqua rgb(19, 234, 201)
+            inline constexpr u32 Aqua = 0x13eac9;
+            /// @brief Dark Rose rgb(181, 72, 93)
+            inline constexpr u32 Dark_Rose = 0xb5485d;
+            /// @brief Light Brown rgb(173, 129, 80)
+            inline constexpr u32 Light_Brown = 0xad8150;
+            /// @brief Dull Teal rgb(95, 158, 143)
+            inline constexpr u32 Dull_Teal = 0x5f9e8f;
+            /// @brief Greenish Turquoise rgb(0, 251, 176)
+            inline constexpr u32 Greenish_Turquoise = 0x00fbb0;
+            /// @brief Rich Blue rgb(2, 27, 249)
+            inline constexpr u32 Rich_Blue = 0x021bf9;
+            /// @brief Vibrant Blue rgb(3, 57, 248)
+            inline constexpr u32 Vibrant_Blue = 0x0339f8;
+            /// @brief Green Apple rgb(94, 220, 31)
+            inline constexpr u32 Green_Apple = 0x5edc1f;
+            /// @brief Greyish Blue rgb(94, 129, 157)
+            inline constexpr u32 Greyish_Blue = 0x5e819d;
+            /// @brief Medium Grey rgb(125, 127, 124)
+            inline constexpr u32 Medium_Grey = 0x7d7f7c;
+            /// @brief Vivid Purple rgb(153, 0, 250)
+            inline constexpr u32 Vivid_Purple = 0x9900fa;
+            /// @brief Bright Teal rgb(1, 249, 198)
+            inline constexpr u32 Bright_Teal = 0x01f9c6;
+            /// @brief Lemon Green rgb(173, 248, 2)
+            inline constexpr u32 Lemon_Green = 0xadf802;
+            /// @brief Cherry Red rgb(247, 2, 42)
+            inline constexpr u32 Cherry_Red = 0xf7022a;
+            /// @brief Hot Magenta rgb(245, 4, 201)
+            inline constexpr u32 Hot_Magenta = 0xf504c9;
+            /// @brief Orangish Red rgb(244, 54, 5)
+            inline constexpr u32 Orangish_Red = 0xf43605;
+            /// @brief Pink Red rgb(245, 5, 79)
+            inline constexpr u32 Pink_Red = 0xf5054f;
+            /// @brief Azure rgb(6, 154, 243)
+            inline constexpr u32 Azure = 0x069af3;
+            /// @brief Fuchsia rgb(237, 13, 217)
+            inline constexpr u32 Fuchsia = 0xed0dd9;
+            /// @brief Dull Red rgb(187, 63, 63)
+            inline constexpr u32 Dull_Red = 0xbb3f3f;
+            /// @brief Dark Tan rgb(175, 136, 74)
+            inline constexpr u32 Dark_Tan = 0xaf884a;
+            /// @brief Fern rgb(99, 169, 80)
+            inline constexpr u32 Fern = 0x63a950;
+            /// @brief Grey Teal rgb(94, 155, 138)
+            inline constexpr u32 Grey_Teal = 0x5e9b8a;
+            /// @brief Grey Purple rgb(130, 109, 140)
+            inline constexpr u32 Grey_Purple = 0x826d8c;
+            /// @brief Steel Grey rgb(111, 130, 138)
+            inline constexpr u32 Steel_Grey = 0x6f828a;
+            /// @brief Golden rgb(245, 191, 3)
+            inline constexpr u32 Golden = 0xf5bf03;
+            /// @brief Turquoise Green rgb(4, 244, 137)
+            inline constexpr u32 Turquoise_Green = 0x04f489;
+            /// @brief Violet rgb(154, 14, 234)
+            inline constexpr u32 Violet = 0x9a0eea;
+            /// @brief Blue Purple rgb(87, 41, 206)
+            inline constexpr u32 Blue_Purple = 0x5729ce;
+            /// @brief Windows Blue rgb(55, 120, 191)
+            inline constexpr u32 Windows_Blue = 0x3778bf;
+            /// @brief Tan Brown rgb(171, 126, 76)
+            inline constexpr u32 Tan_Brown = 0xab7e4c;
+            /// @brief Puce rgb(165, 126, 82)
+            inline constexpr u32 Puce = 0xa57e52;
+            /// @brief Hot Purple rgb(203, 0, 245)
+            inline constexpr u32 Hot_Purple = 0xcb00f5;
+            /// @brief Blue Purple Darker rgb(90, 6, 239)
+            inline constexpr u32 Blue_Purple_Darker = 0x5a06ef;
+            /// @brief Piss Yellow rgb(221, 214, 24)
+            inline constexpr u32 Piss_Yellow = 0xddd618;
+            /// @brief Greeny Blue rgb(66, 179, 149)
+            inline constexpr u32 Greeny_Blue = 0x42b395;
+            /// @brief Off Green rgb(107, 163, 83)
+            inline constexpr u32 Off_Green = 0x6ba353;
+            /// @brief Light Plum rgb(157, 87, 131)
+            inline constexpr u32 Light_Plum = 0x9d5783;
+            /// @brief Brown Grey rgb(141, 132, 104)
+            inline constexpr u32 Brown_Grey = 0x8d8468;
+            /// @brief Purple Grey rgb(134, 111, 133)
+            inline constexpr u32 Purple_Grey = 0x866f85;
+            /// @brief Cerulean Blue rgb(5, 110, 238)
+            inline constexpr u32 Cerulean_Blue = 0x056eee;
+            /// @brief Aqua Green rgb(18, 225, 147)
+            inline constexpr u32 Aqua_Green = 0x12e193;
+            /// @brief Yellowish Green rgb(176, 221, 22)
+            inline constexpr u32 Yellowish_Green = 0xb0dd16;
+            /// @brief Apple Green rgb(118, 205, 38)
+            inline constexpr u32 Apple_Green = 0x76cd26;
+            /// @brief Brownish rgb(156, 109, 87)
+            inline constexpr u32 Brownish = 0x9c6d57;
+            /// @brief Steel Blue rgb(90, 125, 154)
+            inline constexpr u32 Steel_Blue = 0x5a7d9a;
+            /// @brief Slate Blue rgb(91, 124, 153)
+            inline constexpr u32 Slate_Blue = 0x5b7c99;
+            /// @brief Purple Blue Darker rgb(93, 33, 208)
+            inline constexpr u32 Purple_Blue_Darker = 0x5d21d0;
+            /// @brief Greenish Teal rgb(50, 191, 132)
+            inline constexpr u32 Greenish_Teal = 0x32bf84;
+            /// @brief Leafy Green rgb(81, 183, 59)
+            inline constexpr u32 Leafy_Green = 0x51b73b;
+            /// @brief Booger rgb(155, 181, 60)
+            inline constexpr u32 Booger = 0x9bb53c;
+            /// @brief Nasty Green rgb(112, 178, 63)
+            inline constexpr u32 Nasty_Green = 0x70b23f;
+            /// @brief Purply rgb(152, 63, 178)
+            inline constexpr u32 Purply = 0x983fb2;
+            /// @brief Coffee rgb(166, 129, 76)
+            inline constexpr u32 Coffee = 0xa6814c;
+            /// @brief Muted Green rgb(95, 160, 82)
+            inline constexpr u32 Muted_Green = 0x5fa052;
+            /// @brief Moss rgb(118, 153, 88)
+            inline constexpr u32 Moss = 0x769958;
+            /// @brief Grey Blue Darker rgb(100, 125, 142)
+            inline constexpr u32 Grey_Blue_Darker = 0x647d8e;
+            /// @brief Slate Green rgb(101, 141, 109)
+            inline constexpr u32 Slate_Green = 0x658d6d;
+            /// @brief Blue Violet rgb(93, 6, 233)
+            inline constexpr u32 Blue_Violet = 0x5d06e9;
+            /// @brief Clay Brown rgb(178, 113, 61)
+            inline constexpr u32 Clay_Brown = 0xb2713d;
+            /// @brief French Blue rgb(67, 107, 173)
+            inline constexpr u32 French_Blue = 0x436bad;
+            /// @brief Dark Khaki rgb(155, 143, 85)
+            inline constexpr u32 Dark_Khaki = 0x9b8f55;
+            /// @brief Battleship Grey rgb(107, 124, 133)
+            inline constexpr u32 Battleship_Grey = 0x6b7c85;
+            /// @brief Tomato Red rgb(236, 45, 1)
+            inline constexpr u32 Tomato_Red = 0xec2d01;
+            /// @brief Brownish Orange rgb(203, 119, 35)
+            inline constexpr u32 Brownish_Orange = 0xcb7723;
+            /// @brief Dark Seafoam Green rgb(62, 175, 118)
+            inline constexpr u32 Dark_Seafoam_Green = 0x3eaf76;
+            /// @brief Mid Green rgb(80, 167, 71)
+            inline constexpr u32 Mid_Green = 0x50a747;
+            /// @brief Mocha rgb(157, 118, 81)
+            inline constexpr u32 Mocha = 0x9d7651;
+            /// @brief Purpleish rgb(152, 86, 141)
+            inline constexpr u32 Purpleish = 0x98568d;
+            /// @brief Blue Grey Darker rgb(96, 124, 142)
+            inline constexpr u32 Blue_Grey_Darker = 0x607c8e;
+            /// @brief Aqua Blue rgb(2, 216, 233)
+            inline constexpr u32 Aqua_Blue = 0x02d8e9;
+            /// @brief Lipstick rgb(213, 23, 78)
+            inline constexpr u32 Lipstick = 0xd5174e;
+            /// @brief Cool Green rgb(51, 184, 100)
+            inline constexpr u32 Cool_Green = 0x33b864;
+            /// @brief Stormy Blue rgb(80, 123, 156)
+            inline constexpr u32 Stormy_Blue = 0x507b9c;
+            /// @brief Cerise rgb(222, 12, 98)
+            inline constexpr u32 Cerise = 0xde0c62;
+            /// @brief Seaweed rgb(24, 209, 123)
+            inline constexpr u32 Seaweed = 0x18d17b;
+            /// @brief Blue Blue rgb(34, 66, 199)
+            inline constexpr u32 Blue_Blue = 0x2242c7;
+            /// @brief Light Burgundy rgb(168, 65, 91)
+            inline constexpr u32 Light_Burgundy = 0xa8415b;
+            /// @brief Light Maroon rgb(162, 72, 87)
+            inline constexpr u32 Light_Maroon = 0xa24857;
+            /// @brief Flat Green rgb(105, 157, 76)
+            inline constexpr u32 Flat_Green = 0x699d4c;
+            /// @brief Purplish rgb(148, 86, 140)
+            inline constexpr u32 Purplish = 0x94568c;
+            /// @brief Gold rgb(219, 180, 12)
+            inline constexpr u32 Gold = 0xdbb40c;
+            /// @brief Tealish Green rgb(12, 220, 115)
+            inline constexpr u32 Tealish_Green = 0x0cdc73;
+            /// @brief Greenblue rgb(35, 196, 139)
+            inline constexpr u32 Greenblue = 0x23c48b;
+            /// @brief Medium Blue rgb(44, 111, 187)
+            inline constexpr u32 Medium_Blue = 0x2c6fbb;
+            /// @brief Ugly Purple rgb(164, 66, 160)
+            inline constexpr u32 Ugly_Purple = 0xa442a0;
+            /// @brief Purplish Grey rgb(122, 104, 127)
+            inline constexpr u32 Purplish_Grey = 0x7a687f;
+            /// @brief Red rgb(229, 0, 0)
+            inline constexpr u32 Red = 0xe50000;
+            /// @brief Vibrant Green rgb(10, 221, 8)
+            inline constexpr u32 Vibrant_Green = 0x0add08;
+            /// @brief Sick Green rgb(157, 185, 44)
+            inline constexpr u32 Sick_Green = 0x9db92c;
+            /// @brief Avocado rgb(144, 177, 52)
+            inline constexpr u32 Avocado = 0x90b134;
+            /// @brief Medium Green rgb(57, 173, 72)
+            inline constexpr u32 Medium_Green = 0x39ad48;
+            /// @brief Medium Purple rgb(158, 67, 162)
+            inline constexpr u32 Medium_Purple = 0x9e43a2;
+            /// @brief Dull Blue rgb(73, 117, 156)
+            inline constexpr u32 Dull_Blue = 0x49759c;
+            /// @brief Drab Green rgb(116, 149, 81)
+            inline constexpr u32 Drab_Green = 0x749551;
+            /// @brief Dusty Purple rgb(130, 95, 135)
+            inline constexpr u32 Dusty_Purple = 0x825f87;
+            /// @brief Brownish Grey rgb(134, 119, 95)
+            inline constexpr u32 Brownish_Grey = 0x86775f;
+            /// @brief Pure Blue rgb(2, 3, 226)
+            inline constexpr u32 Pure_Blue = 0x0203e2;
+            /// @brief Algae Green rgb(33, 195, 111)
+            inline constexpr u32 Algae_Green = 0x21c36f;
+            /// @brief Bluish rgb(41, 118, 187)
+            inline constexpr u32 Bluish = 0x2976bb;
+            /// @brief Flat Blue rgb(60, 115, 168)
+            inline constexpr u32 Flat_Blue = 0x3c73a8;
+            /// @brief Greenish rgb(64, 163, 104)
+            inline constexpr u32 Greenish = 0x40a368;
+            /// @brief Cadet Blue rgb(78, 116, 150)
+            inline constexpr u32 Cadet_Blue = 0x4e7496;
+            /// @brief Dusky Purple rgb(137, 91, 123)
+            inline constexpr u32 Dusky_Purple = 0x895b7b;
+            /// @brief Pumpkin rgb(225, 119, 1)
+            inline constexpr u32 Pumpkin = 0xe17701;
+            /// @brief Blue rgb(3, 67, 223)
+            inline constexpr u32 Blue = 0x0343df;
+            /// @brief Vibrant Purple rgb(173, 3, 222)
+            inline constexpr u32 Vibrant_Purple = 0xad03de;
+            /// @brief Seaweed Green rgb(53, 173, 107)
+            inline constexpr u32 Seaweed_Green = 0x35ad6b;
+            /// @brief Muted Purple rgb(128, 91, 135)
+            inline constexpr u32 Muted_Purple = 0x805b87;
+            /// @brief Ultramarine Blue rgb(24, 5, 219)
+            inline constexpr u32 Ultramarine_Blue = 0x1805db;
+            /// @brief Dark Yellow rgb(213, 182, 10)
+            inline constexpr u32 Dark_Yellow = 0xd5b60a;
+            /// @brief Dark Mint Green rgb(32, 192, 115)
+            inline constexpr u32 Dark_Mint_Green = 0x20c073;
+            /// @brief Pea rgb(164, 191, 32)
+            inline constexpr u32 Pea = 0xa4bf20;
+            /// @brief Tealish rgb(36, 188, 168)
+            inline constexpr u32 Tealish = 0x24bca8;
+            /// @brief Leather rgb(172, 116, 52)
+            inline constexpr u32 Leather = 0xac7434;
+            /// @brief Earth rgb(162, 101, 62)
+            inline constexpr u32 Earth = 0xa2653e;
+            /// @brief Light Forest Green rgb(79, 145, 83)
+            inline constexpr u32 Light_Forest_Green = 0x4f9153;
+            /// @brief Deep Orange rgb(220, 77, 1)
+            inline constexpr u32 Deep_Orange = 0xdc4d01;
+            /// @brief Burnt Yellow rgb(213, 171, 9)
+            inline constexpr u32 Burnt_Yellow = 0xd5ab09;
+            /// @brief Leaf rgb(113, 170, 52)
+            inline constexpr u32 Leaf = 0x71aa34;
+            /// @brief Camo rgb(127, 143, 78)
+            inline constexpr u32 Camo = 0x7f8f4e;
+            /// @brief Metallic Blue rgb(79, 115, 142)
+            inline constexpr u32 Metallic_Blue = 0x4f738e;
+            /// @brief Dull Purple rgb(132, 89, 126)
+            inline constexpr u32 Dull_Purple = 0x84597e;
+            /// @brief Aquamarine rgb(4, 216, 178)
+            inline constexpr u32 Aquamarine = 0x04d8b2;
+            /// @brief Mustard Yellow rgb(210, 189, 10)
+            inline constexpr u32 Mustard_Yellow = 0xd2bd0a;
+            /// @brief Copper rgb(182, 99, 37)
+            inline constexpr u32 Copper = 0xb66325;
+            /// @brief Bluey Green rgb(43, 177, 121)
+            inline constexpr u32 Bluey_Green = 0x2bb179;
+            /// @brief Dirty Blue rgb(63, 130, 157)
+            inline constexpr u32 Dirty_Blue = 0x3f829d;
+            /// @brief Dusky Blue rgb(71, 95, 148)
+            inline constexpr u32 Dusky_Blue = 0x475f94;
+            /// @brief Dusty Teal rgb(76, 144, 133)
+            inline constexpr u32 Dusty_Teal = 0x4c9085;
+            /// @brief Dark Sage rgb(89, 133, 86)
+            inline constexpr u32 Dark_Sage = 0x598556;
+            /// @brief Dark Hot Pink rgb(217, 1, 102)
+            inline constexpr u32 Dark_Hot_Pink = 0xd90166;
+            /// @brief Water Blue rgb(14, 135, 204)
+            inline constexpr u32 Water_Blue = 0x0e87cc;
+            /// @brief Mid Blue rgb(39, 106, 179)
+            inline constexpr u32 Mid_Blue = 0x276ab3;
+            /// @brief Jade Green rgb(43, 175, 106)
+            inline constexpr u32 Jade_Green = 0x2baf6a;
+            /// @brief Grass rgb(92, 172, 45)
+            inline constexpr u32 Grass = 0x5cac2d;
+            /// @brief Muted Blue rgb(59, 113, 159)
+            inline constexpr u32 Muted_Blue = 0x3b719f;
+            /// @brief Twilight rgb(78, 81, 139)
+            inline constexpr u32 Twilight = 0x4e518b;
+            /// @brief Green Yellow Darker rgb(181, 206, 8)
+            inline constexpr u32 Green_Yellow_Darker = 0xb5ce08;
+            /// @brief Rusty Orange rgb(205, 89, 9)
+            inline constexpr u32 Rusty_Orange = 0xcd5909;
+            /// @brief Dirty Yellow rgb(205, 197, 10)
+            inline constexpr u32 Dirty_Yellow = 0xcdc50a;
+            /// @brief Ocean Green rgb(61, 153, 115)
+            inline constexpr u32 Ocean_Green = 0x3d9973;
+            /// @brief Blueberry rgb(70, 65, 150)
+            inline constexpr u32 Blueberry = 0x464196;
+            /// @brief Cerulean rgb(4, 133, 209)
+            inline constexpr u32 Cerulean = 0x0485d1;
+            /// @brief Gross Green rgb(160, 191, 22)
+            inline constexpr u32 Gross_Green = 0xa0bf16;
+            /// @brief Barney rgb(172, 29, 184)
+            inline constexpr u32 Barney = 0xac1db8;
+            /// @brief Dark Seafoam rgb(31, 181, 122)
+            inline constexpr u32 Dark_Seafoam = 0x1fb57a;
+            /// @brief Sea rgb(60, 153, 146)
+            inline constexpr u32 Sea = 0x3c9992;
+            /// @brief Violet Blue rgb(81, 10, 201)
+            inline constexpr u32 Violet_Blue = 0x510ac9;
+            /// @brief Vomit Yellow rgb(199, 193, 12)
+            inline constexpr u32 Vomit_Yellow = 0xc7c10c;
+            /// @brief Dark Mauve rgb(135, 76, 98)
+            inline constexpr u32 Dark_Mauve = 0x874c62;
+            /// @brief Ugly Yellow rgb(208, 193, 1)
+            inline constexpr u32 Ugly_Yellow = 0xd0c101;
+            /// @brief Cherry rgb(207, 2, 52)
+            inline constexpr u32 Cherry = 0xcf0234;
+            /// @brief Yellow Ochre rgb(203, 157, 6)
+            inline constexpr u32 Yellow_Ochre = 0xcb9d06;
+            /// @brief Fern Green rgb(84, 141, 68)
+            inline constexpr u32 Fern_Green = 0x548d44;
+            /// @brief Dull Brown rgb(135, 110, 75)
+            inline constexpr u32 Dull_Brown = 0x876e4b;
+            /// @brief Grey Brown rgb(127, 112, 83)
+            inline constexpr u32 Grey_Brown = 0x7f7053;
+            /// @brief Mustard rgb(206, 179, 1)
+            inline constexpr u32 Mustard = 0xceb301;
+            /// @brief Slime Green rgb(153, 204, 4)
+            inline constexpr u32 Slime_Green = 0x99cc04;
+            /// @brief Puke Yellow rgb(194, 190, 14)
+            inline constexpr u32 Puke_Yellow = 0xc2be0e;
+            /// @brief Icky Green rgb(143, 174, 34)
+            inline constexpr u32 Icky_Green = 0x8fae22;
+            /// @brief Dirt rgb(138, 110, 69)
+            inline constexpr u32 Dirt = 0x8a6e45;
+            /// @brief Dusk rgb(78, 84, 129)
+            inline constexpr u32 Dusk = 0x4e5481;
+            /// @brief True Blue rgb(1, 15, 204)
+            inline constexpr u32 True_Blue = 0x010fcc;
+            /// @brief Dirty Orange rgb(200, 118, 6)
+            inline constexpr u32 Dirty_Orange = 0xc87606;
+            /// @brief Topaz rgb(19, 187, 175)
+            inline constexpr u32 Topaz = 0x13bbaf;
+            /// @brief Sickly Green rgb(148, 178, 28)
+            inline constexpr u32 Sickly_Green = 0x94b21c;
+            /// @brief Denim Blue rgb(59, 91, 146)
+            inline constexpr u32 Denim_Blue = 0x3b5b92;
+            /// @brief Light Eggplant rgb(137, 69, 133)
+            inline constexpr u32 Light_Eggplant = 0x894585;
+            /// @brief Dark Taupe rgb(127, 104, 78)
+            inline constexpr u32 Dark_Taupe = 0x7f684e;
+            /// @brief Deep Pink rgb(203, 1, 98)
+            inline constexpr u32 Deep_Pink = 0xcb0162;
+            /// @brief Ruby rgb(202, 1, 71)
+            inline constexpr u32 Ruby = 0xca0147;
+            /// @brief Browny Orange rgb(202, 107, 2)
+            inline constexpr u32 Browny_Orange = 0xca6b02;
+            /// @brief Brownish Yellow rgb(201, 176, 3)
+            inline constexpr u32 Brownish_Yellow = 0xc9b003;
+            /// @brief Rust Orange rgb(196, 85, 8)
+            inline constexpr u32 Rust_Orange = 0xc45508;
+            /// @brief Olive Yellow rgb(194, 183, 9)
+            inline constexpr u32 Olive_Yellow = 0xc2b709;
+            /// @brief Ocher rgb(191, 155, 12)
+            inline constexpr u32 Ocher = 0xbf9b0c;
+            /// @brief Sapphire rgb(33, 56, 171)
+            inline constexpr u32 Sapphire = 0x2138ab;
+            /// @brief Avocado Green rgb(135, 169, 34)
+            inline constexpr u32 Avocado_Green = 0x87a922;
+            /// @brief Ocre rgb(198, 156, 4)
+            inline constexpr u32 Ocre = 0xc69c04;
+            /// @brief Baby Puke Green rgb(182, 196, 6)
+            inline constexpr u32 Baby_Puke_Green = 0xb6c406;
+            /// @brief Bile rgb(181, 195, 6)
+            inline constexpr u32 Bile = 0xb5c306;
+            /// @brief Turquoise Blue rgb(6, 177, 196)
+            inline constexpr u32 Turquoise_Blue = 0x06b1c4;
+            /// @brief Brick Orange rgb(193, 74, 9)
+            inline constexpr u32 Brick_Orange = 0xc14a09;
+            /// @brief Indigo Blue rgb(58, 24, 177)
+            inline constexpr u32 Indigo_Blue = 0x3a18b1;
+            /// @brief Cocoa rgb(135, 95, 66)
+            inline constexpr u32 Cocoa = 0x875f42;
+            /// @brief Greyish Brown rgb(122, 106, 79)
+            inline constexpr u32 Greyish_Brown = 0x7a6a4f;
+            /// @brief Dark Orange rgb(198, 81, 2)
+            inline constexpr u32 Dark_Orange = 0xc65102;
+            /// @brief Turquoise rgb(6, 194, 172)
+            inline constexpr u32 Turquoise = 0x06c2ac;
+            /// @brief Snot rgb(172, 187, 13)
+            inline constexpr u32 Snot = 0xacbb0d;
+            /// @brief Sienna rgb(169, 86, 30)
+            inline constexpr u32 Sienna = 0xa9561e;
+            /// @brief Teal Green rgb(37, 163, 111)
+            inline constexpr u32 Teal_Green = 0x25a36f;
+            /// @brief Denim rgb(59, 99, 140)
+            inline constexpr u32 Denim = 0x3b638c;
+            /// @brief Drab rgb(130, 131, 68)
+            inline constexpr u32 Drab = 0x828344;
+            /// @brief Dark Gold rgb(181, 148, 16)
+            inline constexpr u32 Dark_Gold = 0xb59410;
+            /// @brief Green rgb(21, 176, 26)
+            inline constexpr u32 Green = 0x15b01a;
+            /// @brief Jade rgb(31, 167, 116)
+            inline constexpr u32 Jade = 0x1fa774;
+            /// @brief Slate Grey rgb(89, 101, 109)
+            inline constexpr u32 Slate_Grey = 0x59656d;
+            /// @brief Shamrock Green rgb(2, 193, 77)
+            inline constexpr u32 Shamrock_Green = 0x02c14d;
+            /// @brief Ochre rgb(191, 144, 5)
+            inline constexpr u32 Ochre = 0xbf9005;
+            /// @brief Muddy Yellow rgb(191, 172, 5)
+            inline constexpr u32 Muddy_Yellow = 0xbfac05;
+            /// @brief Frog Green rgb(88, 188, 8)
+            inline constexpr u32 Frog_Green = 0x58bc08;
+            /// @brief Brick rgb(160, 54, 35)
+            inline constexpr u32 Brick = 0xa03623;
+            /// @brief Sepia rgb(152, 94, 43)
+            inline constexpr u32 Sepia = 0x985e2b;
+            /// @brief Warm Purple rgb(149, 46, 143)
+            inline constexpr u32 Warm_Purple = 0x952e8f;
+            /// @brief Moss Green rgb(101, 139, 56)
+            inline constexpr u32 Moss_Green = 0x658b38;
+            /// @brief Slate rgb(81, 101, 114)
+            inline constexpr u32 Slate = 0x516572;
+            /// @brief Snot Green rgb(157, 193, 0)
+            inline constexpr u32 Snot_Green = 0x9dc100;
+            /// @brief Magenta rgb(194, 0, 120)
+            inline constexpr u32 Magenta = 0xc20078;
+            /// @brief Burnt Orange rgb(192, 78, 1)
+            inline constexpr u32 Burnt_Orange = 0xc04e01;
+            /// @brief Green Blue rgb(1, 192, 141)
+            inline constexpr u32 Green_Blue = 0x01c08d;
+            /// @brief Lipstick Red rgb(192, 2, 47)
+            inline constexpr u32 Lipstick_Red = 0xc0022f;
+            /// @brief Green Teal rgb(12, 181, 119)
+            inline constexpr u32 Green_Teal = 0x0cb577;
+            /// @brief Brownish Red rgb(158, 54, 35)
+            inline constexpr u32 Brownish_Red = 0x9e3623;
+            /// @brief Rose Red rgb(190, 1, 60)
+            inline constexpr u32 Rose_Red = 0xbe013c;
+            /// @brief Scarlet rgb(190, 1, 25)
+            inline constexpr u32 Scarlet = 0xbe0119;
+            /// @brief Bright Olive rgb(156, 187, 4)
+            inline constexpr u32 Bright_Olive = 0x9cbb04;
+            /// @brief Burnt Sienna rgb(176, 78, 15)
+            inline constexpr u32 Burnt_Sienna = 0xb04e0f;
+            /// @brief Nice Blue rgb(16, 122, 176)
+            inline constexpr u32 Nice_Blue = 0x107ab0;
+            /// @brief Khaki Green rgb(114, 134, 57)
+            inline constexpr u32 Khaki_Green = 0x728639;
+            /// @brief Orange Brown rgb(190, 100, 0)
+            inline constexpr u32 Orange_Brown = 0xbe6400;
+            /// @brief Dark Lime Green rgb(126, 189, 1)
+            inline constexpr u32 Dark_Lime_Green = 0x7ebd01;
+            /// @brief Pea Green rgb(142, 171, 18)
+            inline constexpr u32 Pea_Green = 0x8eab12;
+            /// @brief Rouge rgb(171, 18, 57)
+            inline constexpr u32 Rouge = 0xab1239;
+            /// @brief Pea Soup Green rgb(148, 166, 23)
+            inline constexpr u32 Pea_Soup_Green = 0x94a617;
+            /// @brief Bruise rgb(126, 64, 113)
+            inline constexpr u32 Bruise = 0x7e4071;
+            /// @brief Dirty Purple rgb(115, 74, 101)
+            inline constexpr u32 Dirty_Purple = 0x734a65;
+            /// @brief Brown Orange rgb(185, 105, 2)
+            inline constexpr u32 Brown_Orange = 0xb96902;
+            /// @brief Rusty Red rgb(175, 47, 13)
+            inline constexpr u32 Rusty_Red = 0xaf2f0d;
+            /// @brief Ugly Blue rgb(49, 102, 138)
+            inline constexpr u32 Ugly_Blue = 0x31668a;
+            /// @brief Dirt Brown rgb(131, 101, 57)
+            inline constexpr u32 Dirt_Brown = 0x836539;
+            /// @brief Swamp rgb(105, 131, 57)
+            inline constexpr u32 Swamp = 0x698339;
+            /// @brief Burnt Siena rgb(183, 82, 3)
+            inline constexpr u32 Burnt_Siena = 0xb75203;
+            /// @brief Mustard Green rgb(168, 181, 4)
+            inline constexpr u32 Mustard_Green = 0xa8b504;
+            /// @brief Green Blue Darker rgb(6, 180, 139)
+            inline constexpr u32 Green_Blue_Darker = 0x06b48b;
+            /// @brief Yellowy Brown rgb(174, 139, 12)
+            inline constexpr u32 Yellowy_Brown = 0xae8b0c;
+            /// @brief Baby Shit Brown rgb(173, 144, 13)
+            inline constexpr u32 Baby_Shit_Brown = 0xad900d;
+            /// @brief Vomit rgb(162, 164, 21)
+            inline constexpr u32 Vomit = 0xa2a415;
+            /// @brief Purple rgb(126, 30, 156)
+            inline constexpr u32 Purple = 0x7e1e9c;
+            /// @brief Military Green rgb(102, 124, 62)
+            inline constexpr u32 Military_Green = 0x667c3e;
+            /// @brief Gunmetal rgb(83, 98, 103)
+            inline constexpr u32 Gunmetal = 0x536267;
+            /// @brief Yellow Brown rgb(183, 148, 0)
+            inline constexpr u32 Yellow_Brown = 0xb79400;
+            /// @brief Dark Lime rgb(132, 183, 1)
+            inline constexpr u32 Dark_Lime = 0x84b701;
+            /// @brief Booger Green rgb(150, 180, 3)
+            inline constexpr u32 Booger_Green = 0x96b403;
+            /// @brief Brown Yellow rgb(178, 151, 5)
+            inline constexpr u32 Brown_Yellow = 0xb29705;
+            /// @brief Caramel rgb(175, 111, 9)
+            inline constexpr u32 Caramel = 0xaf6f09;
+            /// @brief Bluish Green rgb(16, 166, 116)
+            inline constexpr u32 Bluish_Green = 0x10a674;
+            /// @brief Light Navy Blue rgb(46, 90, 136)
+            inline constexpr u32 Light_Navy_Blue = 0x2e5a88;
+            /// @brief Brownish Purple rgb(118, 66, 78)
+            inline constexpr u32 Brownish_Purple = 0x76424e;
+            /// @brief Shamrock rgb(1, 180, 76)
+            inline constexpr u32 Shamrock = 0x01b44c;
+            /// @brief Orangish Brown rgb(178, 95, 3)
+            inline constexpr u32 Orangish_Brown = 0xb25f03;
+            /// @brief Purplish Red rgb(176, 5, 75)
+            inline constexpr u32 Purplish_Red = 0xb0054b;
+            /// @brief Puke Green rgb(154, 174, 7)
+            inline constexpr u32 Puke_Green = 0x9aae07;
+            /// @brief Golden Brown rgb(178, 122, 1)
+            inline constexpr u32 Golden_Brown = 0xb27a01;
+            /// @brief Orangey Brown rgb(177, 96, 2)
+            inline constexpr u32 Orangey_Brown = 0xb16002;
+            /// @brief Cinnamon rgb(172, 79, 6)
+            inline constexpr u32 Cinnamon = 0xac4f06;
+            /// @brief Dusk Blue rgb(38, 83, 141)
+            inline constexpr u32 Dusk_Blue = 0x26538d;
+            /// @brief Umber rgb(178, 100, 0)
+            inline constexpr u32 Umber = 0xb26400;
+            /// @brief Kermit Green rgb(92, 178, 0)
+            inline constexpr u32 Kermit_Green = 0x5cb200;
+            /// @brief Ultramarine rgb(32, 0, 177)
+            inline constexpr u32 Ultramarine = 0x2000b1;
+            /// @brief Raspberry rgb(176, 1, 73)
+            inline constexpr u32 Raspberry = 0xb00149;
+            /// @brief Rust rgb(168, 60, 9)
+            inline constexpr u32 Rust = 0xa83c09;
+            /// @brief Mossy Green rgb(99, 139, 39)
+            inline constexpr u32 Mossy_Green = 0x638b27;
+            /// @brief Mustard Brown rgb(172, 126, 4)
+            inline constexpr u32 Mustard_Brown = 0xac7e04;
+            /// @brief Baby Poo rgb(171, 144, 4)
+            inline constexpr u32 Baby_Poo = 0xab9004;
+            /// @brief Raw Umber rgb(167, 94, 9)
+            inline constexpr u32 Raw_Umber = 0xa75e09;
+            /// @brief Viridian rgb(30, 145, 103)
+            inline constexpr u32 Viridian = 0x1e9167;
+            /// @brief Barf Green rgb(148, 172, 2)
+            inline constexpr u32 Barf_Green = 0x94ac02;
+            /// @brief Kelly Green rgb(2, 171, 46)
+            inline constexpr u32 Kelly_Green = 0x02ab2e;
+            /// @brief Rust Red rgb(170, 39, 4)
+            inline constexpr u32 Rust_Red = 0xaa2704;
+            /// @brief Leaf Green rgb(92, 169, 4)
+            inline constexpr u32 Leaf_Green = 0x5ca904;
+            /// @brief Royal Blue rgb(5, 4, 170)
+            inline constexpr u32 Royal_Blue = 0x0504aa;
+            /// @brief Dark Mustard rgb(168, 137, 5)
+            inline constexpr u32 Dark_Mustard = 0xa88905;
+            /// @brief Lawn Green rgb(77, 164, 9)
+            inline constexpr u32 Lawn_Green = 0x4da409;
+            /// @brief Burnt Umber rgb(160, 69, 14)
+            inline constexpr u32 Burnt_Umber = 0xa0450e;
+            /// @brief Baby Shit Green rgb(136, 151, 23)
+            inline constexpr u32 Baby_Shit_Green = 0x889717;
+            /// @brief Cobalt rgb(30, 72, 143)
+            inline constexpr u32 Cobalt = 0x1e488f;
+            /// @brief Purplish Brown rgb(107, 66, 71)
+            inline constexpr u32 Purplish_Brown = 0x6b4247;
+            /// @brief Darkish Red rgb(169, 3, 8)
+            inline constexpr u32 Darkish_Red = 0xa90308;
+            /// @brief Cobalt Blue rgb(3, 10, 167)
+            inline constexpr u32 Cobalt_Blue = 0x030aa7;
+            /// @brief Blue Green rgb(15, 155, 142)
+            inline constexpr u32 Blue_Green = 0x0f9b8e;
+            /// @brief Dirty Green rgb(102, 126, 44)
+            inline constexpr u32 Dirty_Green = 0x667e2c;
+            /// @brief Bronze rgb(168, 121, 0)
+            inline constexpr u32 Bronze = 0xa87900;
+            /// @brief Puke rgb(165, 165, 2)
+            inline constexpr u32 Puke = 0xa5a502;
+            /// @brief Berry rgb(153, 15, 75)
+            inline constexpr u32 Berry = 0x990f4b;
+            /// @brief Olive Drab rgb(111, 118, 50)
+            inline constexpr u32 Olive_Drab = 0x6f7632;
+            /// @brief Violet Red rgb(165, 0, 85)
+            inline constexpr u32 Violet_Red = 0xa50055;
+            /// @brief Vomit Green rgb(137, 162, 3)
+            inline constexpr u32 Vomit_Green = 0x89a203;
+            /// @brief Russet rgb(161, 57, 5)
+            inline constexpr u32 Russet = 0xa13905;
+            /// @brief Grass Green rgb(63, 155, 11)
+            inline constexpr u32 Grass_Green = 0x3f9b0b;
+            /// @brief Hazel rgb(142, 118, 24)
+            inline constexpr u32 Hazel = 0x8e7618;
+            /// @brief Muddy Green rgb(101, 116, 50)
+            inline constexpr u32 Muddy_Green = 0x657432;
+            /// @brief Barney Purple rgb(160, 4, 152)
+            inline constexpr u32 Barney_Purple = 0xa00498;
+            /// @brief Burnt Red rgb(159, 35, 5)
+            inline constexpr u32 Burnt_Red = 0x9f2305;
+            /// @brief Dark Fuchsia rgb(157, 7, 89)
+            inline constexpr u32 Dark_Fuchsia = 0x9d0759;
+            /// @brief Darkish Green rgb(40, 124, 55)
+            inline constexpr u32 Darkish_Green = 0x287c37;
+            /// @brief Emerald rgb(1, 160, 73)
+            inline constexpr u32 Emerald = 0x01a049;
+            /// @brief Deep Magenta rgb(160, 2, 92)
+            inline constexpr u32 Deep_Magenta = 0xa0025c;
+            /// @brief Diarrhea rgb(159, 131, 3)
+            inline constexpr u32 Diarrhea = 0x9f8303;
+            /// @brief Red Brown rgb(139, 46, 22)
+            inline constexpr u32 Red_Brown = 0x8b2e16;
+            /// @brief Purple Brown rgb(103, 58, 63)
+            inline constexpr u32 Purple_Brown = 0x673a3f;
+            /// @brief Teal Blue rgb(1, 136, 159)
+            inline constexpr u32 Teal_Blue = 0x01889f;
+            /// @brief Red Violet rgb(158, 1, 104)
+            inline constexpr u32 Red_Violet = 0x9e0168;
+            /// @brief Carmine rgb(157, 2, 22)
+            inline constexpr u32 Carmine = 0x9d0216;
+            /// @brief Grassy Green rgb(65, 156, 3)
+            inline constexpr u32 Grassy_Green = 0x419c03;
+            /// @brief Ocean Blue rgb(3, 113, 156)
+            inline constexpr u32 Ocean_Blue = 0x03719c;
+            /// @brief Royal rgb(12, 23, 147)
+            inline constexpr u32 Royal = 0x0c1793;
+            /// @brief Sap Green rgb(92, 139, 21)
+            inline constexpr u32 Sap_Green = 0x5c8b15;
+            /// @brief Grape rgb(108, 52, 97)
+            inline constexpr u32 Grape = 0x6c3461;
+            /// @brief Cranberry rgb(158, 0, 58)
+            inline constexpr u32 Cranberry = 0x9e003a;
+            /// @brief Baby Poop Green rgb(143, 152, 5)
+            inline constexpr u32 Baby_Poop_Green = 0x8f9805;
+            /// @brief Milk Chocolate rgb(127, 78, 30)
+            inline constexpr u32 Milk_Chocolate = 0x7f4e1e;
+            /// @brief Auburn rgb(154, 48, 1)
+            inline constexpr u32 Auburn = 0x9a3001;
+            /// @brief Yellowish Brown rgb(155, 122, 1)
+            inline constexpr u32 Yellowish_Brown = 0x9b7a01;
+            /// @brief Mulberry rgb(146, 10, 78)
+            inline constexpr u32 Mulberry = 0x920a4e;
+            /// @brief Deep Red rgb(154, 2, 0)
+            inline constexpr u32 Deep_Red = 0x9a0200;
+            /// @brief Raw Sienna rgb(154, 98, 0)
+            inline constexpr u32 Raw_Sienna = 0x9a6200;
+            /// @brief Pea Soup rgb(146, 153, 1)
+            inline constexpr u32 Pea_Soup = 0x929901;
+            /// @brief Purple Red rgb(153, 1, 71)
+            inline constexpr u32 Purple_Red = 0x990147;
+            /// @brief Ugly Green rgb(122, 151, 3)
+            inline constexpr u32 Ugly_Green = 0x7a9703;
+            /// @brief Sea Blue rgb(4, 116, 149)
+            inline constexpr u32 Sea_Blue = 0x047495;
+            /// @brief Puke Brown rgb(148, 119, 6)
+            inline constexpr u32 Puke_Brown = 0x947706;
+            /// @brief Reddish Purple rgb(145, 9, 81)
+            inline constexpr u32 Reddish_Purple = 0x910951;
+            /// @brief Light Navy rgb(21, 80, 132)
+            inline constexpr u32 Light_Navy = 0x155084;
+            /// @brief Dark Magenta rgb(150, 0, 86)
+            inline constexpr u32 Dark_Magenta = 0x960056;
+            /// @brief Blood Red rgb(152, 0, 2)
+            inline constexpr u32 Blood_Red = 0x980002;
+            /// @brief Irish Green rgb(1, 149, 41)
+            inline constexpr u32 Irish_Green = 0x019529;
+            /// @brief Peacock Blue rgb(1, 103, 149)
+            inline constexpr u32 Peacock_Blue = 0x016795;
+            /// @brief Warm Brown rgb(150, 78, 2)
+            inline constexpr u32 Warm_Brown = 0x964e02;
+            /// @brief True Green rgb(8, 148, 4)
+            inline constexpr u32 True_Green = 0x089404;
+            /// @brief Brown Red rgb(146, 43, 5)
+            inline constexpr u32 Brown_Red = 0x922b05;
+            /// @brief Dark Sea Green rgb(17, 135, 93)
+            inline constexpr u32 Dark_Sea_Green = 0x11875d;
+            /// @brief Tree Green rgb(42, 126, 25)
+            inline constexpr u32 Tree_Green = 0x2a7e19;
+            /// @brief Teal rgb(2, 147, 134)
+            inline constexpr u32 Teal = 0x029386;
+            /// @brief Greenish Blue rgb(11, 139, 135)
+            inline constexpr u32 Greenish_Blue = 0x0b8b87;
+            /// @brief Baby Poop rgb(147, 124, 0)
+            inline constexpr u32 Baby_Poop = 0x937c00;
+            /// @brief Kelley Green rgb(0, 147, 55)
+            inline constexpr u32 Kelley_Green = 0x009337;
+            /// @brief Ocean rgb(1, 123, 146)
+            inline constexpr u32 Ocean = 0x017b92;
+            /// @brief Dark Cyan rgb(10, 136, 138)
+            inline constexpr u32 Dark_Cyan = 0x0a888a;
+            /// @brief Brick Red rgb(143, 20, 2)
+            inline constexpr u32 Brick_Red = 0x8f1402;
+            /// @brief Dark Yellow Green rgb(114, 143, 2)
+            inline constexpr u32 Dark_Yellow_Green = 0x728f02;
+            /// @brief Emerald Green rgb(2, 143, 30)
+            inline constexpr u32 Emerald_Green = 0x028f1e;
+            /// @brief Poo rgb(143, 115, 3)
+            inline constexpr u32 Poo = 0x8f7303;
+            /// @brief Medium Brown rgb(127, 81, 18)
+            inline constexpr u32 Medium_Brown = 0x7f5112;
+            /// @brief Blue Green Darker rgb(19, 126, 109)
+            inline constexpr u32 Blue_Green_Darker = 0x137e6d;
+            /// @brief Rust Brown rgb(139, 49, 3)
+            inline constexpr u32 Rust_Brown = 0x8b3103;
+            /// @brief Muddy Brown rgb(136, 104, 6)
+            inline constexpr u32 Muddy_Brown = 0x886806;
+            /// @brief Darkish Purple rgb(117, 25, 115)
+            inline constexpr u32 Darkish_Purple = 0x751973;
+            /// @brief Red Wine rgb(140, 0, 52)
+            inline constexpr u32 Red_Wine = 0x8c0034;
+            /// @brief Crimson rgb(140, 0, 15)
+            inline constexpr u32 Crimson = 0x8c000f;
+            /// @brief Poo Brown rgb(136, 95, 1)
+            inline constexpr u32 Poo_Brown = 0x885f01;
+            /// @brief Indian Red rgb(133, 14, 4)
+            inline constexpr u32 Indian_Red = 0x850e04;
+            /// @brief Red Purple rgb(130, 7, 71)
+            inline constexpr u32 Red_Purple = 0x820747;
+            /// @brief Reddish Brown rgb(127, 43, 10)
+            inline constexpr u32 Reddish_Brown = 0x7f2b0a;
+            /// @brief Camo Green rgb(82, 101, 37)
+            inline constexpr u32 Camo_Green = 0x526525;
+            /// @brief Deep Aqua rgb(8, 120, 127)
+            inline constexpr u32 Deep_Aqua = 0x08787f;
+            /// @brief Murky Green rgb(108, 122, 14)
+            inline constexpr u32 Murky_Green = 0x6c7a0e;
+            /// @brief Pine rgb(43, 93, 52)
+            inline constexpr u32 Pine = 0x2b5d34;
+            /// @brief Swamp Green rgb(116, 133, 0)
+            inline constexpr u32 Swamp_Green = 0x748500;
+            /// @brief Jungle Green rgb(4, 130, 67)
+            inline constexpr u32 Jungle_Green = 0x048243;
+            /// @brief Mud rgb(115, 92, 18)
+            inline constexpr u32 Mud = 0x735c12;
+            /// @brief Dark Red rgb(132, 0, 0)
+            inline constexpr u32 Dark_Red = 0x840000;
+            /// @brief Deep Sea Blue rgb(1, 84, 130)
+            inline constexpr u32 Deep_Sea_Blue = 0x015482;
+            /// @brief Darkish Blue rgb(1, 65, 130)
+            inline constexpr u32 Darkish_Blue = 0x014182;
+            /// @brief Indigo rgb(56, 2, 130)
+            inline constexpr u32 Indigo = 0x380282;
+            /// @brief Dark Grass Green rgb(56, 128, 4)
+            inline constexpr u32 Dark_Grass_Green = 0x388004;
+            /// @brief Twilight Blue rgb(10, 67, 122)
+            inline constexpr u32 Twilight_Blue = 0x0a437a;
+            /// @brief Olive rgb(110, 117, 14)
+            inline constexpr u32 Olive = 0x6e750e;
+            /// @brief Dark Grey Blue rgb(41, 70, 91)
+            inline constexpr u32 Dark_Grey_Blue = 0x29465b;
+            /// @brief Wine rgb(128, 1, 63)
+            inline constexpr u32 Wine = 0x80013f;
+            /// @brief Brown Green rgb(112, 108, 17)
+            inline constexpr u32 Brown_Green = 0x706c11;
+            /// @brief Dark Green Blue rgb(31, 99, 87)
+            inline constexpr u32 Dark_Green_Blue = 0x1f6357;
+            /// @brief Dark Slate Blue rgb(33, 71, 97)
+            inline constexpr u32 Dark_Slate_Blue = 0x214761;
+            /// @brief Shit rgb(127, 95, 0)
+            inline constexpr u32 Shit = 0x7f5f00;
+            /// @brief Poop rgb(127, 94, 0)
+            inline constexpr u32 Poop = 0x7f5e00;
+            /// @brief Shit Green rgb(117, 128, 0)
+            inline constexpr u32 Shit_Green = 0x758000;
+            /// @brief Ugly Brown rgb(125, 113, 3)
+            inline constexpr u32 Ugly_Brown = 0x7d7103;
+            /// @brief Shit Brown rgb(123, 88, 4)
+            inline constexpr u32 Shit_Brown = 0x7b5804;
+            /// @brief Wine Red rgb(123, 3, 35)
+            inline constexpr u32 Wine_Red = 0x7b0323;
+            /// @brief Olive Green rgb(103, 122, 4)
+            inline constexpr u32 Olive_Green = 0x677a04;
+            /// @brief Velvet rgb(117, 8, 81)
+            inline constexpr u32 Velvet = 0x750851;
+            /// @brief Charcoal Grey rgb(60, 65, 66)
+            inline constexpr u32 Charcoal_Grey = 0x3c4142;
+            /// @brief Poop Green rgb(111, 124, 0)
+            inline constexpr u32 Poop_Green = 0x6f7c00;
+            /// @brief Bordeaux rgb(123, 0, 44)
+            inline constexpr u32 Bordeaux = 0x7b002c;
+            /// @brief Poop Brown rgb(122, 89, 1)
+            inline constexpr u32 Poop_Brown = 0x7a5901;
+            /// @brief Bluegreen rgb(1, 122, 121)
+            inline constexpr u32 Bluegreen = 0x017a79;
+            /// @brief Greenish Brown rgb(105, 97, 18)
+            inline constexpr u32 Greenish_Brown = 0x696112;
+            /// @brief Browny Green rgb(111, 108, 10)
+            inline constexpr u32 Browny_Green = 0x6f6c0a;
+            /// @brief Prussian Blue rgb(0, 69, 119)
+            inline constexpr u32 Prussian_Blue = 0x004577;
+            /// @brief Blood rgb(119, 0, 1)
+            inline constexpr u32 Blood = 0x770001;
+            /// @brief Chestnut rgb(116, 40, 2)
+            inline constexpr u32 Chestnut = 0x742802;
+            /// @brief Brownish Green rgb(106, 110, 9)
+            inline constexpr u32 Brownish_Green = 0x6a6e09;
+            /// @brief Deep Turquoise rgb(1, 115, 116)
+            inline constexpr u32 Deep_Turquoise = 0x017374;
+            /// @brief Deep Blue rgb(4, 2, 115)
+            inline constexpr u32 Deep_Blue = 0x040273;
+            /// @brief Merlot rgb(115, 0, 57)
+            inline constexpr u32 Merlot = 0x730039;
+            /// @brief Dark Aquamarine rgb(1, 115, 113)
+            inline constexpr u32 Dark_Aquamarine = 0x017371;
+            /// @brief Reddy Brown rgb(110, 16, 5)
+            inline constexpr u32 Reddy_Brown = 0x6e1005;
+            /// @brief Camouflage Green rgb(75, 97, 19)
+            inline constexpr u32 Camouflage_Green = 0x4b6113;
+            /// @brief Army Green rgb(75, 93, 22)
+            inline constexpr u32 Army_Green = 0x4b5d16;
+            /// @brief Rich Purple rgb(114, 0, 88)
+            inline constexpr u32 Rich_Purple = 0x720058;
+            /// @brief Dark Royal Blue rgb(2, 6, 111)
+            inline constexpr u32 Dark_Royal_Blue = 0x02066f;
+            /// @brief Grape Purple rgb(93, 20, 81)
+            inline constexpr u32 Grape_Purple = 0x5d1451;
+            /// @brief Dark Aqua rgb(5, 105, 107)
+            inline constexpr u32 Dark_Aqua = 0x05696b;
+            /// @brief Greeny Brown rgb(105, 96, 6)
+            inline constexpr u32 Greeny_Brown = 0x696006;
+            /// @brief Mud Brown rgb(96, 70, 15)
+            inline constexpr u32 Mud_Brown = 0x60460f;
+            /// @brief Royal Purple rgb(75, 0, 110)
+            inline constexpr u32 Royal_Purple = 0x4b006e;
+            /// @brief Dark Grey rgb(54, 55, 55)
+            inline constexpr u32 Dark_Grey = 0x363737;
+            /// @brief Marine Blue rgb(1, 56, 106)
+            inline constexpr u32 Marine_Blue = 0x01386a;
+            /// @brief Dark Blue Grey rgb(31, 59, 77)
+            inline constexpr u32 Dark_Blue_Grey = 0x1f3b4d;
+            /// @brief Charcoal rgb(52, 56, 55)
+            inline constexpr u32 Charcoal = 0x343837;
+            /// @brief Petrol rgb(0, 95, 106)
+            inline constexpr u32 Petrol = 0x005f6a;
+            /// @brief Spruce rgb(10, 95, 56)
+            inline constexpr u32 Spruce = 0x0a5f38;
+            /// @brief Claret rgb(104, 0, 24)
+            inline constexpr u32 Claret = 0x680018;
+            /// @brief Mud Green rgb(96, 102, 2)
+            inline constexpr u32 Mud_Green = 0x606602;
+            /// @brief Olive Brown rgb(100, 84, 3)
+            inline constexpr u32 Olive_Brown = 0x645403;
+            /// @brief Darkblue rgb(3, 7, 100)
+            inline constexpr u32 Darkblue = 0x030764;
+            /// @brief Plum rgb(88, 15, 65)
+            inline constexpr u32 Plum = 0x580f41;
+            /// @brief Brown rgb(101, 55, 0)
+            inline constexpr u32 Brown = 0x653700;
+            /// @brief Maroon rgb(101, 0, 33)
+            inline constexpr u32 Maroon = 0x650021;
+            /// @brief Marine rgb(4, 46, 96)
+            inline constexpr u32 Marine = 0x042e60;
+            /// @brief Burgundy rgb(97, 0, 35)
+            inline constexpr u32 Burgundy = 0x610023;
+            /// @brief Dark Turquoise rgb(4, 92, 90)
+            inline constexpr u32 Dark_Turquoise = 0x045c5a;
+            /// @brief Forest rgb(11, 85, 9)
+            inline constexpr u32 Forest = 0x0b5509;
+            /// @brief Dark Indigo rgb(31, 9, 84)
+            inline constexpr u32 Dark_Indigo = 0x1f0954;
+            /// @brief Navy Green rgb(53, 83, 10)
+            inline constexpr u32 Navy_Green = 0x35530a;
+            /// @brief Dark Blue rgb(0, 3, 91)
+            inline constexpr u32 Dark_Blue = 0x00035b;
+            /// @brief Deep Green rgb(2, 89, 15)
+            inline constexpr u32 Deep_Green = 0x02590f;
+            /// @brief Deep Teal rgb(0, 85, 90)
+            inline constexpr u32 Deep_Teal = 0x00555a;
+            /// @brief Green Brown rgb(84, 78, 3)
+            inline constexpr u32 Green_Brown = 0x544e03;
+            /// @brief Plum Purple rgb(78, 5, 80)
+            inline constexpr u32 Plum_Purple = 0x4e0550;
+            /// @brief Dark Blue Green rgb(0, 82, 73)
+            inline constexpr u32 Dark_Blue_Green = 0x005249;
+            /// @brief Pine Green rgb(10, 72, 30)
+            inline constexpr u32 Pine_Green = 0x0a481e;
+            /// @brief Dark Teal rgb(1, 77, 78)
+            inline constexpr u32 Dark_Teal = 0x014d4e;
+            /// @brief Dark Olive Green rgb(60, 77, 3)
+            inline constexpr u32 Dark_Olive_Green = 0x3c4d03;
+            /// @brief Deep Violet rgb(73, 6, 72)
+            inline constexpr u32 Deep_Violet = 0x490648;
+            /// @brief Bottle Green rgb(4, 74, 5)
+            inline constexpr u32 Bottle_Green = 0x044a05;
+            /// @brief Darkgreen rgb(5, 73, 7)
+            inline constexpr u32 Darkgreen = 0x054907;
+            /// @brief British Racing Green rgb(5, 72, 13)
+            inline constexpr u32 British_Racing_Green = 0x05480d;
+            /// @brief Forest Green rgb(6, 71, 12)
+            inline constexpr u32 Forest_Green = 0x06470c;
+            /// @brief Dried Blood rgb(75, 1, 1)
+            inline constexpr u32 Dried_Blood = 0x4b0101;
+            /// @brief Night Blue rgb(4, 3, 72)
+            inline constexpr u32 Night_Blue = 0x040348;
+            /// @brief Evergreen rgb(5, 71, 42)
+            inline constexpr u32 Evergreen = 0x05472a;
+            /// @brief Dark rgb(27, 36, 49)
+            inline constexpr u32 Dark = 0x1b2431;
+            /// @brief Mahogany rgb(74, 1, 0)
+            inline constexpr u32 Mahogany = 0x4a0100;
+            /// @brief Forrest Green rgb(21, 68, 6)
+            inline constexpr u32 Forrest_Green = 0x154406;
+            /// @brief Eggplant Purple rgb(67, 5, 65)
+            inline constexpr u32 Eggplant_Purple = 0x430541;
+            /// @brief Hunter Green rgb(11, 64, 8)
+            inline constexpr u32 Hunter_Green = 0x0b4008;
+            /// @brief Racing Green rgb(1, 70, 0)
+            inline constexpr u32 Racing_Green = 0x014600;
+            /// @brief Navy Blue rgb(0, 17, 70)
+            inline constexpr u32 Navy_Blue = 0x001146;
+            /// @brief Dark Purple rgb(53, 6, 62)
+            inline constexpr u32 Dark_Purple = 0x35063e;
+            /// @brief Aubergine rgb(61, 7, 52)
+            inline constexpr u32 Aubergine = 0x3d0734;
+            /// @brief Deep Brown rgb(65, 2, 0)
+            inline constexpr u32 Deep_Brown = 0x410200;
+            /// @brief Chocolate Brown rgb(65, 25, 0)
+            inline constexpr u32 Chocolate_Brown = 0x411900;
+            /// @brief Dark Violet rgb(52, 1, 63)
+            inline constexpr u32 Dark_Violet = 0x34013f;
+            /// @brief Deep Purple rgb(54, 1, 63)
+            inline constexpr u32 Deep_Purple = 0x36013f;
+            /// @brief Dark Plum rgb(63, 1, 44)
+            inline constexpr u32 Dark_Plum = 0x3f012c;
+            /// @brief Navy rgb(1, 21, 62)
+            inline constexpr u32 Navy = 0x01153e;
+            /// @brief Dark Olive rgb(55, 62, 2)
+            inline constexpr u32 Dark_Olive = 0x373e02;
+            /// @brief Chocolate rgb(61, 28, 2)
+            inline constexpr u32 Chocolate = 0x3d1c02;
+            /// @brief Eggplant rgb(56, 8, 53)
+            inline constexpr u32 Eggplant = 0x380835;
+            /// @brief Dark Maroon rgb(60, 0, 8)
+            inline constexpr u32 Dark_Maroon = 0x3c0008;
+            /// @brief Midnight Purple rgb(40, 1, 55)
+            inline constexpr u32 Midnight_Purple = 0x280137;
+            /// @brief Dark Green rgb(3, 53, 0)
+            inline constexpr u32 Dark_Green = 0x033500;
+            /// @brief Dark Navy rgb(0, 4, 53)
+            inline constexpr u32 Dark_Navy = 0x000435;
+            /// @brief Midnight Blue rgb(2, 0, 53)
+            inline constexpr u32 Midnight_Blue = 0x020035;
+            /// @brief Very Dark Purple rgb(42, 1, 52)
+            inline constexpr u32 Very_Dark_Purple = 0x2a0134;
+            /// @brief Dark Brown rgb(52, 28, 2)
+            inline constexpr u32 Dark_Brown = 0x341c02;
+            /// @brief Very Dark Blue rgb(0, 1, 51)
+            inline constexpr u32 Very_Dark_Blue = 0x000133;
+            /// @brief Very Dark Green rgb(6, 46, 3)
+            inline constexpr u32 Very_Dark_Green = 0x062e03;
+            /// @brief Dark Forest Green rgb(0, 45, 4)
+            inline constexpr u32 Dark_Forest_Green = 0x002d04;
+            /// @brief Dark Navy Blue rgb(0, 2, 46)
+            inline constexpr u32 Dark_Navy_Blue = 0x00022e;
+            /// @brief Midnight rgb(3, 1, 45)
+            inline constexpr u32 Midnight = 0x03012d;
+            /// @brief Very Dark Brown rgb(29, 2, 0)
+            inline constexpr u32 Very_Dark_Brown = 0x1d0200;
+            /// @brief Almost Black rgb(7, 13, 13)
+            inline constexpr u32 Almost_Black = 0x070d0d;
+            /// @brief Black rgb(0, 0, 0)
+            inline constexpr u32 Black = 0x000000;
+        } // namespace Color
+
         /// @brief This namespace contains colors used for debugging or profiling purposes.
         namespace DebugColor
         {
             /// @brief Used for generic purposes, shows the most important stuff
             inline constexpr u32 MainDebugColor = Color::Amber;
             /// @brief Used for generic purposes, shows important stuff
-            inline constexpr u32 SecondaryDebugColor = Color::Purple_HTML;
+            inline constexpr u32 SecondaryDebugColor = Color::Purple;
             /// @brief Used for generic purposes, shows other stuff
             inline constexpr u32 TernaryDebugColor = Color::Teal;
 
             /// @brief This color should be used only if there is an important issue found
-            inline constexpr u32 DangerousDebugColor = Color::Red_Crayola;
-        } // namespace DebugColor
+            inline constexpr u32 DangerousDebugColor = Color::Coral_Pink;
 
-        /// @brief This namespace contains most of named color variables and some other color related stuff.
-        ///
-        /// Color list written in this namespace was copied from the list of colors in
-        /// [Wikipedia](https://en.wikipedia.org/wiki/List_of_colors_(alphabetical)). There is no automatic
-        /// synchronization with the Wikipedia list, so it should be synchronized manually (or via script) if needed.
-        /// All complaints about color names should be directed to Wikipedia, yes, Purple_HTML instead of just Purple.
-        ///
-        /// @todo Maybe fix this naming mess and rename the colors to be consistent?..
-        namespace Color
-        {
-            /// @brief White rgb(255, 255, 255)
-            inline constexpr u32 White = 0xffffff;
-            /// @brief Tooth rgb(255, 250, 250)
-            inline constexpr u32 Tooth = 0xfffafa;
-            /// @brief Lotion rgb(254, 253, 250)
-            inline constexpr u32 Lotion = 0xfefdfa;
-            /// @brief Baby powder rgb(254, 254, 250)
-            inline constexpr u32 Baby_powder = 0xfefefa;
-            /// @brief Ghost white rgb(248, 248, 255)
-            inline constexpr u32 Ghost_white = 0xf8f8ff;
-            /// @brief Milk rgb(253, 255, 245)
-            inline constexpr u32 Milk = 0xfdfff5;
-            /// @brief Mint cream rgb(245, 255, 250)
-            inline constexpr u32 Mint_cream = 0xf5fffa;
-            /// @brief Floral white rgb(255, 250, 240)
-            inline constexpr u32 Floral_white = 0xfffaf0;
-            /// @brief Ivory rgb(255, 255, 240)
-            inline constexpr u32 Ivory = 0xfffff0;
-            /// @brief Honeydew rgb(240, 255, 240)
-            inline constexpr u32 Honeydew = 0xf0fff0;
-            /// @brief Azure (X11/web color) rgb(240, 255, 255)
-            inline constexpr u32 Azure_X11_web_color = 0xf0ffff;
-            /// @brief Alice blue rgb(240, 248, 255)
-            inline constexpr u32 Alice_blue = 0xf0f8ff;
-            /// @brief Seashell rgb(255, 245, 238)
-            inline constexpr u32 Seashell = 0xfff5ee;
-            /// @brief Cultured rgb(245, 245, 245)
-            inline constexpr u32 Cultured = 0xf5f5f5;
-            /// @brief White smoke rgb(245, 245, 245)
-            inline constexpr u32 White_smoke = 0xf5f5f5;
-            /// @brief Zebra White rgb(245, 245, 245)
-            inline constexpr u32 Zebra_White = 0xf5f5f5;
-            /// @brief Cosmic latte rgb(255, 248, 231)
-            inline constexpr u32 Cosmic_latte = 0xfff8e7;
-            /// @brief Old lace rgb(253, 245, 230)
-            inline constexpr u32 Old_lace = 0xfdf5e6;
-            /// @brief Misty rose rgb(255, 228, 225)
-            inline constexpr u32 Misty_rose = 0xffe4e1;
-            /// @brief Light cyan rgb(224, 255, 255)
-            inline constexpr u32 Light_cyan = 0xe0ffff;
-            /// @brief Linen rgb(250, 240, 230)
-            inline constexpr u32 Linen = 0xfaf0e6;
-            /// @brief Lavender (web) rgb(230, 230, 250)
-            inline constexpr u32 Lavender_web = 0xe6e6fa;
-            /// @brief Lavender mist rgb(230, 230, 250)
-            inline constexpr u32 Lavender_mist = 0xe6e6fa;
-            /// @brief Isabelline rgb(244, 240, 236)
-            inline constexpr u32 Isabelline = 0xf4f0ec;
-            /// @brief Pink lace rgb(255, 221, 244)
-            inline constexpr u32 Pink_lace = 0xffddf4;
-            /// @brief Cornsilk rgb(255, 248, 220)
-            inline constexpr u32 Cornsilk = 0xfff8dc;
-            /// @brief Nyanza rgb(233, 255, 219)
-            inline constexpr u32 Nyanza = 0xe9ffdb;
-            /// @brief Piggy pink rgb(253, 221, 230)
-            inline constexpr u32 Piggy_pink = 0xfddde6;
-            /// @brief Mimi pink rgb(255, 218, 233)
-            inline constexpr u32 Mimi_pink = 0xffdae9;
-            /// @brief Alabaster rgb(242, 240, 230)
-            inline constexpr u32 Alabaster = 0xf2f0e6;
-            /// @brief Petal rgb(245, 226, 226)
-            inline constexpr u32 Petal = 0xf5e2e2;
-            /// @brief Papaya whip rgb(255, 239, 213)
-            inline constexpr u32 Papaya_whip = 0xffefd5;
-            /// @brief Pale pink rgb(250, 218, 221)
-            inline constexpr u32 Pale_pink = 0xfadadd;
-            /// @brief Antique white rgb(250, 235, 215)
-            inline constexpr u32 Antique_white = 0xfaebd7;
-            /// @brief Moccasin rgb(250, 235, 215)
-            inline constexpr u32 Moccasin = 0xfaebd7;
-            /// @brief Beige rgb(245, 245, 220)
-            inline constexpr u32 Beige = 0xf5f5dc;
-            /// @brief Cream rgb(255, 253, 208)
-            inline constexpr u32 Cream = 0xfffdd0;
-            /// @brief Pale lavender rgb(220, 208, 255)
-            inline constexpr u32 Pale_lavender = 0xdcd0ff;
-            /// @brief Lumber rgb(255, 228, 205)
-            inline constexpr u32 Lumber = 0xffe4cd;
-            /// @brief Blanched almond rgb(255, 235, 205)
-            inline constexpr u32 Blanched_almond = 0xffebcd;
-            /// @brief Lemon chiffon rgb(255, 250, 205)
-            inline constexpr u32 Lemon_chiffon = 0xfffacd;
-            /// @brief Shampoo rgb(255, 207, 241)
-            inline constexpr u32 Shampoo = 0xffcff1;
-            /// @brief Water rgb(212, 241, 249)
-            inline constexpr u32 Water = 0xd4f1f9;
-            /// @brief Pink Diamond (Ace Hardware Color) rgb(246, 214, 222)
-            inline constexpr u32 Pink_Diamond_Ace_Hardware_Color = 0xf6d6de;
-            /// @brief Lavender blue rgb(204, 204, 255)
-            inline constexpr u32 Lavender_blue = 0xccccff;
-            /// @brief Periwinkle rgb(204, 204, 255)
-            inline constexpr u32 Periwinkle = 0xccccff;
-            /// @brief Light red rgb(255, 204, 203)
-            inline constexpr u32 Light_red = 0xffcccb;
-            /// @brief Unbleached silk rgb(255, 221, 202)
-            inline constexpr u32 Unbleached_silk = 0xffddca;
-            /// @brief Platinum rgb(229, 228, 226)
-            inline constexpr u32 Platinum = 0xe5e4e2;
-            /// @brief Champagne rgb(247, 231, 206)
-            inline constexpr u32 Champagne = 0xf7e7ce;
-            /// @brief Eggshell rgb(240, 234, 214)
-            inline constexpr u32 Eggshell = 0xf0ead6;
-            /// @brief Bisque rgb(255, 228, 196)
-            inline constexpr u32 Bisque = 0xffe4c4;
-            /// @brief Parchment rgb(241, 233, 210)
-            inline constexpr u32 Parchment = 0xf1e9d2;
-            /// @brief Pink Diamond (Independent Retailers Colors) rgb(240, 211, 220)
-            inline constexpr u32 Pink_Diamond_Independent_Retailers_Colors = 0xf0d3dc;
-            /// @brief White chocolate rgb(237, 230, 214)
-            inline constexpr u32 White_chocolate = 0xede6d6;
-            /// @brief Pink rgb(255, 192, 203)
-            inline constexpr u32 Pink = 0xffc0cb;
-            /// @brief Champagne pink rgb(241, 221, 207)
-            inline constexpr u32 Champagne_pink = 0xf1ddcf;
-            /// @brief Very pale orange rgb(255, 223, 191)
-            inline constexpr u32 Very_pale_orange = 0xffdfbf;
-            /// @brief Very pale yellow rgb(255, 255, 191)
-            inline constexpr u32 Very_pale_yellow = 0xffffbf;
-            /// @brief Almond rgb(239, 222, 205)
-            inline constexpr u32 Almond = 0xefdecd;
-            /// @brief Cotton candy rgb(255, 188, 217)
-            inline constexpr u32 Cotton_candy = 0xffbcd9;
-            /// @brief Lotion pink rgb(236, 207, 207)
-            inline constexpr u32 Lotion_pink = 0xeccfcf;
-            /// @brief White coffee rgb(230, 224, 212)
-            inline constexpr u32 White_coffee = 0xe6e0d4;
-            /// @brief Peach puff rgb(255, 218, 185)
-            inline constexpr u32 Peach_puff = 0xffdab9;
-            /// @brief Gainsboro rgb(220, 220, 220)
-            inline constexpr u32 Gainsboro = 0xdcdcdc;
-            /// @brief Cherry blossom pink rgb(255, 183, 197)
-            inline constexpr u32 Cherry_blossom_pink = 0xffb7c5;
-            /// @brief Baby pink rgb(244, 194, 194)
-            inline constexpr u32 Baby_pink = 0xf4c2c2;
-            /// @brief Tea rose rgb(244, 194, 194)
-            inline constexpr u32 Tea_rose = 0xf4c2c2;
-            /// @brief Soap rgb(206, 200, 239)
-            inline constexpr u32 Soap = 0xcec8ef;
-            /// @brief Spanish pink rgb(247, 191, 190)
-            inline constexpr u32 Spanish_pink = 0xf7bfbe;
-            /// @brief Lemon meringue rgb(246, 234, 190)
-            inline constexpr u32 Lemon_meringue = 0xf6eabe;
-            /// @brief Queen pink rgb(232, 204, 215)
-            inline constexpr u32 Queen_pink = 0xe8ccd7;
-            /// @brief Peach rgb(255, 229, 180)
-            inline constexpr u32 Peach = 0xffe5b4;
-            /// @brief Celeste rgb(178, 255, 255)
-            inline constexpr u32 Celeste = 0xb2ffff;
-            /// @brief Italian sky blue rgb(178, 255, 255)
-            inline constexpr u32 Italian_sky_blue = 0xb2ffff;
-            /// @brief Melon rgb(253, 188, 180)
-            inline constexpr u32 Melon = 0xfdbcb4;
-            /// @brief Little girl pink rgb(248, 185, 212)
-            inline constexpr u32 Little_girl_pink = 0xf8b9d4;
-            /// @brief Pearl rgb(234, 224, 200)
-            inline constexpr u32 Pearl = 0xeae0c8;
-            /// @brief Mauve rgb(224, 176, 255)
-            inline constexpr u32 Mauve = 0xe0b0ff;
-            /// @brief Banana Mania rgb(250, 231, 181)
-            inline constexpr u32 Banana_Mania = 0xfae7b5;
-            /// @brief Orchid pink rgb(242, 189, 205)
-            inline constexpr u32 Orchid_pink = 0xf2bdcd;
-            /// @brief Tea green rgb(208, 240, 192)
-            inline constexpr u32 Tea_green = 0xd0f0c0;
-            /// @brief Light silver rgb(216, 216, 216)
-            inline constexpr u32 Light_silver = 0xd8d8d8;
-            /// @brief Navajo white rgb(255, 222, 173)
-            inline constexpr u32 Navajo_white = 0xffdead;
-            /// @brief Timberwolf rgb(219, 215, 210)
-            inline constexpr u32 Timberwolf = 0xdbd7d2;
-            /// @brief Melon (Crayola) rgb(254, 186, 173)
-            inline constexpr u32 Melon_Crayola = 0xfebaad;
-            /// @brief Apricot rgb(251, 206, 177)
-            inline constexpr u32 Apricot = 0xfbceb1;
-            /// @brief Bone rgb(227, 218, 201)
-            inline constexpr u32 Bone = 0xe3dac9;
-            /// @brief Dutch white rgb(239, 223, 187)
-            inline constexpr u32 Dutch_white = 0xefdfbb;
-            /// @brief Cameo pink rgb(239, 187, 204)
-            inline constexpr u32 Cameo_pink = 0xefbbcc;
-            /// @brief Pale spring bud rgb(236, 235, 189)
-            inline constexpr u32 Pale_spring_bud = 0xecebbd;
-            /// @brief Spring green (Crayola) rgb(236, 235, 189)
-            inline constexpr u32 Spring_green_Crayola = 0xecebbd;
-            /// @brief Periwinkle (Crayola) rgb(195, 205, 230)
-            inline constexpr u32 Periwinkle_Crayola = 0xc3cde6;
-            /// @brief Wheat rgb(245, 222, 179)
-            inline constexpr u32 Wheat = 0xf5deb3;
-            /// @brief Languid lavender rgb(214, 202, 221)
-            inline constexpr u32 Languid_lavender = 0xd6cadd;
-            /// @brief Carnation pink rgb(255, 166, 201)
-            inline constexpr u32 Carnation_pink = 0xffa6c9;
-            /// @brief Rich brilliant lavender rgb(241, 167, 254)
-            inline constexpr u32 Rich_brilliant_lavender = 0xf1a7fe;
-            /// @brief Columbia Blue rgb(196, 216, 226)
-            inline constexpr u32 Columbia_Blue = 0xc4d8e2;
-            /// @brief Light periwinkle rgb(197, 203, 225)
-            inline constexpr u32 Light_periwinkle = 0xc5cbe1;
-            /// @brief Peach (Crayola) rgb(255, 203, 164)
-            inline constexpr u32 Peach_Crayola = 0xffcba4;
-            /// @brief Nadeshiko pink rgb(246, 173, 198)
-            inline constexpr u32 Nadeshiko_pink = 0xf6adc6;
-            /// @brief Beau blue rgb(188, 212, 230)
-            inline constexpr u32 Beau_blue = 0xbcd4e6;
-            /// @brief Pale aqua rgb(188, 212, 230)
-            inline constexpr u32 Pale_aqua = 0xbcd4e6;
-            /// @brief Deep champagne rgb(250, 214, 165)
-            inline constexpr u32 Deep_champagne = 0xfad6a5;
-            /// @brief Sunset rgb(250, 214, 165)
-            inline constexpr u32 Sunset = 0xfad6a5;
-            /// @brief Lemon yellow (Crayola) rgb(255, 255, 159)
-            inline constexpr u32 Lemon_yellow_Crayola = 0xffff9f;
-            /// @brief Waterspout rgb(164, 244, 249)
-            inline constexpr u32 Waterspout = 0xa4f4f9;
-            /// @brief Medium champagne rgb(243, 229, 171)
-            inline constexpr u32 Medium_champagne = 0xf3e5ab;
-            /// @brief Vanilla rgb(243, 229, 171)
-            inline constexpr u32 Vanilla = 0xf3e5ab;
-            /// @brief Pale blue rgb(175, 238, 238)
-            inline constexpr u32 Pale_blue = 0xafeeee;
-            /// @brief Pale turquoise rgb(175, 238, 238)
-            inline constexpr u32 Pale_turquoise = 0xafeeee;
-            /// @brief Desert sand rgb(237, 201, 175)
-            inline constexpr u32 Desert_sand = 0xedc9af;
-            /// @brief Lavender rose rgb(251, 160, 227)
-            inline constexpr u32 Lavender_rose = 0xfba0e3;
-            /// @brief Menthol rgb(193, 249, 162)
-            inline constexpr u32 Menthol = 0xc1f9a2;
-            /// @brief Maximum pink rgb(246, 165, 242)
-            inline constexpr u32 Maximum_pink = 0xf6a5f2;
-            /// @brief Magic Mint rgb(170, 240, 209)
-            inline constexpr u32 Magic_Mint = 0xaaf0d1;
-            /// @brief Neon Carrot rgb(170, 240, 209)
-            inline constexpr u32 Neon_Carrot = 0xaaf0d1;
-            /// @brief Pale cornflower blue rgb(171, 205, 239)
-            inline constexpr u32 Pale_cornflower_blue = 0xabcdef;
-            /// @brief Thistle (Crayola) rgb(235, 176, 215)
-            inline constexpr u32 Thistle_Crayola = 0xebb0d7;
-            /// @brief Light salmon pink rgb(255, 153, 153)
-            inline constexpr u32 Light_salmon_pink = 0xff9999;
-            /// @brief Canary rgb(255, 255, 153)
-            inline constexpr u32 Canary = 0xffff99;
-            /// @brief Pale violet rgb(204, 153, 255)
-            inline constexpr u32 Pale_violet = 0xcc99ff;
-            /// @brief Pale goldenrod rgb(238, 232, 170)
-            inline constexpr u32 Pale_goldenrod = 0xeee8aa;
-            /// @brief Neon silver rgb(204, 204, 204)
-            inline constexpr u32 Neon_silver = 0xcccccc;
-            /// @brief Mint green rgb(152, 255, 152)
-            inline constexpr u32 Mint_green = 0x98ff98;
-            /// @brief Powder blue rgb(176, 224, 230)
-            inline constexpr u32 Powder_blue = 0xb0e0e6;
-            /// @brief Thistle rgb(216, 191, 216)
-            inline constexpr u32 Thistle = 0xd8bfd8;
-            /// @brief Blue-gray (Crayola) rgb(200, 200, 205)
-            inline constexpr u32 Blue_gray_Crayola = 0xc8c8cd;
-            /// @brief Pastel yellow rgb(253, 253, 150)
-            inline constexpr u32 Pastel_yellow = 0xfdfd96;
-            /// @brief Pale green rgb(152, 251, 152)
-            inline constexpr u32 Pale_green = 0x98fb98;
-            /// @brief Metallic pink rgb(237, 166, 196)
-            inline constexpr u32 Metallic_pink = 0xeda6c4;
-            /// @brief Pink pearl rgb(231, 172, 207)
-            inline constexpr u32 Pink_pearl = 0xe7accf;
-            /// @brief Maximum Blue Purple rgb(172, 172, 230)
-            inline constexpr u32 Maximum_Blue_Purple = 0xacace6;
-            /// @brief Lavender gray rgb(196, 195, 208)
-            inline constexpr u32 Lavender_gray = 0xc4c3d0;
-            /// @brief Pastel gray rgb(207, 207, 196)
-            inline constexpr u32 Pastel_gray = 0xcfcfc4;
-            /// @brief Baby blue eyes rgb(161, 202, 241)
-            inline constexpr u32 Baby_blue_eyes = 0xa1caf1;
-            /// @brief Non-photo blue rgb(164, 221, 237)
-            inline constexpr u32 Non_photo_blue = 0xa4dded;
-            /// @brief Baker-Miller pink rgb(255, 145, 175)
-            inline constexpr u32 Baker_Miller_pink = 0xff91af;
-            /// @brief Schauss pink rgb(255, 145, 175)
-            inline constexpr u32 Schauss_pink = 0xff91af;
-            /// @brief Salmon pink rgb(255, 145, 164)
-            inline constexpr u32 Salmon_pink = 0xff91a4;
-            /// @brief Pastel magenta rgb(244, 154, 194)
-            inline constexpr u32 Pastel_magenta = 0xf49ac2;
-            /// @brief Amaranth pink rgb(241, 156, 187)
-            inline constexpr u32 Amaranth_pink = 0xf19cbb;
-            /// @brief Light orchid rgb(230, 168, 215)
-            inline constexpr u32 Light_orchid = 0xe6a8d7;
-            /// @brief Celadon rgb(172, 225, 175)
-            inline constexpr u32 Celadon = 0xace1af;
-            /// @brief Light Moss Green rgb(173, 223, 173)
-            inline constexpr u32 Light_Moss_Green = 0xaddfad;
-            /// @brief Pale chestnut rgb(221, 173, 175)
-            inline constexpr u32 Pale_chestnut = 0xddadaf;
-            /// @brief Macaroni and Cheese rgb(255, 189, 136)
-            inline constexpr u32 Macaroni_and_Cheese = 0xffbd88;
-            /// @brief Mauvelous rgb(239, 152, 170)
-            inline constexpr u32 Mauvelous = 0xef98aa;
-            /// @brief Tulip rgb(255, 135, 141)
-            inline constexpr u32 Tulip = 0xff878d;
-            /// @brief Tickle Me Pink rgb(252, 137, 172)
-            inline constexpr u32 Tickle_Me_Pink = 0xfc89ac;
-            /// @brief Pink Sherbet rgb(247, 143, 167)
-            inline constexpr u32 Pink_Sherbet = 0xf78fa7;
-            /// @brief Kobi rgb(231, 159, 196)
-            inline constexpr u32 Kobi = 0xe79fc4;
-            /// @brief Granny Smith apple rgb(168, 228, 160)
-            inline constexpr u32 Granny_Smith_apple = 0xa8e4a0;
-            /// @brief Pale silver rgb(201, 192, 187)
-            inline constexpr u32 Pale_silver = 0xc9c0bb;
-            /// @brief Silver (Crayola) rgb(201, 192, 187)
-            inline constexpr u32 Silver_Crayola = 0xc9c0bb;
-            /// @brief Mindaro rgb(227, 249, 136)
-            inline constexpr u32 Mindaro = 0xe3f988;
-            /// @brief Vanilla ice rgb(243, 143, 169)
-            inline constexpr u32 Vanilla_ice = 0xf38fa9;
-            /// @brief Green-yellow (Crayola) rgb(240, 232, 145)
-            inline constexpr u32 Green_yellow_Crayola = 0xf0e891;
-            /// @brief Pastel pink rgb(222, 165, 164)
-            inline constexpr u32 Pastel_pink = 0xdea5a4;
-            /// @brief Silver sand rgb(191, 193, 194)
-            inline constexpr u32 Silver_sand = 0xbfc1c2;
-            /// @brief Yellow (Crayola) rgb(252, 232, 131)
-            inline constexpr u32 Yellow_Crayola = 0xfce883;
-            /// @brief Pale cyan rgb(135, 211, 248)
-            inline constexpr u32 Pale_cyan = 0x87d3f8;
-            /// @brief Key lime rgb(232, 244, 140)
-            inline constexpr u32 Key_lime = 0xe8f48c;
-            /// @brief Bright lilac rgb(216, 145, 239)
-            inline constexpr u32 Bright_lilac = 0xd891ef;
-            /// @brief Teal deer rgb(153, 230, 179)
-            inline constexpr u32 Teal_deer = 0x99e6b3;
-            /// @brief Silver rgb(192, 192, 192)
-            inline constexpr u32 Silver = 0xc0c0c0;
-            /// @brief Aquamarine rgb(127, 255, 212)
-            inline constexpr u32 Aquamarine = 0x7fffd4;
-            /// @brief Light fuchsia pink rgb(249, 132, 239)
-            inline constexpr u32 Light_fuchsia_pink = 0xf984ef;
-            /// @brief Pale magenta rgb(249, 132, 229)
-            inline constexpr u32 Pale_magenta = 0xf984e5;
-            /// @brief Cornflower blue (Crayola) rgb(147, 204, 234)
-            inline constexpr u32 Cornflower_blue_Crayola = 0x93ccea;
-            /// @brief Light cornflower blue rgb(147, 204, 234)
-            inline constexpr u32 Light_cornflower_blue = 0x93ccea;
-            /// @brief Aquamarine (Crayola) rgb(149, 224, 232)
-            inline constexpr u32 Aquamarine_Crayola = 0x95e0e8;
-            /// @brief Pale cerulean rgb(155, 196, 226)
-            inline constexpr u32 Pale_cerulean = 0x9bc4e2;
-            /// @brief Orchid (Crayola) rgb(226, 156, 210)
-            inline constexpr u32 Orchid_Crayola = 0xe29cd2;
-            /// @brief Medium lavender magenta rgb(221, 160, 221)
-            inline constexpr u32 Medium_lavender_magenta = 0xdda0dd;
-            /// @brief Pale plum rgb(221, 160, 221)
-            inline constexpr u32 Pale_plum = 0xdda0dd;
-            /// @brief Plum (web) rgb(221, 160, 221)
-            inline constexpr u32 Plum_web = 0xdda0dd;
-            /// @brief Pastel blue rgb(174, 198, 207)
-            inline constexpr u32 Pastel_blue = 0xaec6cf;
-            /// @brief Topaz rgb(255, 200, 124)
-            inline constexpr u32 Topaz = 0xffc87c;
-            /// @brief Electric blue rgb(125, 249, 255)
-            inline constexpr u32 Electric_blue = 0x7df9ff;
-            /// @brief Khaki (X11) (Light khaki) rgb(240, 230, 140)
-            inline constexpr u32 Khaki_X11_Light_khaki = 0xf0e68c;
-            /// @brief Wisteria rgb(201, 160, 220)
-            inline constexpr u32 Wisteria = 0xc9a0dc;
-            /// @brief Gray (X11) rgb(190, 190, 190)
-            inline constexpr u32 Gray_X11 = 0xbebebe;
-            /// @brief Baby blue rgb(137, 207, 240)
-            inline constexpr u32 Baby_blue = 0x89cff0;
-            /// @brief Dark vanilla rgb(209, 190, 168)
-            inline constexpr u32 Dark_vanilla = 0xd1bea8;
-            /// @brief Very light tangelo rgb(255, 176, 119)
-            inline constexpr u32 Very_light_tangelo = 0xffb077;
-            /// @brief Jasmine rgb(248, 222, 126)
-            inline constexpr u32 Jasmine = 0xf8de7e;
-            /// @brief Mellow yellow rgb(248, 222, 126)
-            inline constexpr u32 Mellow_yellow = 0xf8de7e;
-            /// @brief Persian pink rgb(247, 127, 190)
-            inline constexpr u32 Persian_pink = 0xf77fbe;
-            /// @brief Turquoise green rgb(160, 214, 180)
-            inline constexpr u32 Turquoise_green = 0xa0d6b4;
-            /// @brief French sky blue rgb(119, 181, 254)
-            inline constexpr u32 French_sky_blue = 0x77b5fe;
-            /// @brief Charm pink rgb(230, 143, 172)
-            inline constexpr u32 Charm_pink = 0xe68fac;
-            /// @brief Light Thulian pink rgb(230, 143, 172)
-            inline constexpr u32 Light_Thulian_pink = 0xe68fac;
-            /// @brief Pale robin egg blue rgb(150, 222, 209)
-            inline constexpr u32 Pale_robin_egg_blue = 0x96ded1;
-            /// @brief Light pastel purple rgb(177, 156, 217)
-            inline constexpr u32 Light_pastel_purple = 0xb19cd9;
-            /// @brief Heliotrope rgb(223, 115, 255)
-            inline constexpr u32 Heliotrope = 0xdf73ff;
-            /// @brief Pink flamingo rgb(252, 116, 253)
-            inline constexpr u32 Pink_flamingo = 0xfc74fd;
-            /// @brief Congo pink rgb(248, 131, 121)
-            inline constexpr u32 Congo_pink = 0xf88379;
-            /// @brief Coral pink rgb(248, 131, 121)
-            inline constexpr u32 Coral_pink = 0xf88379;
-            /// @brief Tea rose rgb(248, 131, 121)
-            inline constexpr u32 Tea_rose = 0xf88379;
-            /// @brief Buff rgb(240, 220, 130)
-            inline constexpr u32 Buff = 0xf0dc82;
-            /// @brief Sky blue rgb(135, 206, 235)
-            inline constexpr u32 Sky_blue = 0x87ceeb;
-            /// @brief Salmon Rose rgb(231, 150, 139)
-            inline constexpr u32 Salmon_Rose = 0xe7968b;
-            /// @brief Blue bell rgb(162, 162, 208)
-            inline constexpr u32 Blue_bell = 0xa2a2d0;
-            /// @brief Silver pink rgb(196, 174, 173)
-            inline constexpr u32 Silver_pink = 0xc4aead;
-            /// @brief Shandy rgb(255, 230, 112)
-            inline constexpr u32 Shandy = 0xffe670;
-            /// @brief Very light azure rgb(116, 187, 251)
-            inline constexpr u32 Very_light_azure = 0x74bbfb;
-            /// @brief Mellow apricot rgb(248, 184, 120)
-            inline constexpr u32 Mellow_apricot = 0xf8b878;
-            /// @brief Flax rgb(238, 220, 130)
-            inline constexpr u32 Flax = 0xeedc82;
-            /// @brief Lavender magenta rgb(238, 130, 238)
-            inline constexpr u32 Lavender_magenta = 0xee82ee;
-            /// @brief Violet (web) rgb(238, 130, 238)
-            inline constexpr u32 Violet_web = 0xee82ee;
-            /// @brief Gold (Crayola) rgb(230, 190, 138)
-            inline constexpr u32 Gold_Crayola = 0xe6be8a;
-            /// @brief Pale gold rgb(230, 190, 138)
-            inline constexpr u32 Pale_gold = 0xe6be8a;
-            /// @brief Ash gray rgb(178, 190, 181)
-            inline constexpr u32 Ash_gray = 0xb2beb5;
-            /// @brief Shocking pink (Crayola) rgb(255, 111, 255)
-            inline constexpr u32 Shocking_pink_Crayola = 0xff6fff;
-            /// @brief Ultra pink rgb(255, 111, 255)
-            inline constexpr u32 Ultra_pink = 0xff6fff;
-            /// @brief Maya blue rgb(115, 194, 251)
-            inline constexpr u32 Maya_blue = 0x73c2fb;
-            /// @brief Light medium orchid rgb(211, 155, 203)
-            inline constexpr u32 Light_medium_orchid = 0xd39bcb;
-            /// @brief Black Shadows rgb(191, 175, 178)
-            inline constexpr u32 Black_Shadows = 0xbfafb2;
-            /// @brief Medium pink rgb(254, 110, 159)
-            inline constexpr u32 Medium_pink = 0xfe6e9f;
-            /// @brief Salmon rgb(250, 128, 114)
-            inline constexpr u32 Salmon = 0xfa8072;
-            /// @brief Medium sky blue rgb(128, 218, 235)
-            inline constexpr u32 Medium_sky_blue = 0x80daeb;
-            /// @brief Opal rgb(168, 195, 188)
-            inline constexpr u32 Opal = 0xa8c3bc;
-            /// @brief French pink rgb(253, 108, 158)
-            inline constexpr u32 French_pink = 0xfd6c9e;
-            /// @brief Ultra red rgb(252, 108, 133)
-            inline constexpr u32 Ultra_red = 0xfc6c85;
-            /// @brief Wild watermelon rgb(252, 108, 133)
-            inline constexpr u32 Wild_watermelon = 0xfc6c85;
-            /// @brief Lilac rgb(200, 162, 200)
-            inline constexpr u32 Lilac = 0xc8a2c8;
-            /// @brief Hot pink rgb(255, 105, 180)
-            inline constexpr u32 Hot_pink = 0xff69b4;
-            /// @brief Yellow-green (Crayola) rgb(197, 227, 132)
-            inline constexpr u32 Yellow_green_Crayola = 0xc5e384;
-            /// @brief Light cobalt blue rgb(136, 172, 224)
-            inline constexpr u32 Light_cobalt_blue = 0x88ace0;
-            /// @brief Atomic tangerine rgb(255, 153, 102)
-            inline constexpr u32 Atomic_tangerine = 0xff9966;
-            /// @brief Laser Lemon rgb(255, 255, 102)
-            inline constexpr u32 Laser_Lemon = 0xffff66;
-            /// @brief Unmellow yellow rgb(255, 255, 102)
-            inline constexpr u32 Unmellow_yellow = 0xffff66;
-            /// @brief Screamin' green rgb(102, 255, 102)
-            inline constexpr u32 Screamin_green = 0x66ff66;
-            /// @brief Very light blue rgb(102, 102, 255)
-            inline constexpr u32 Very_light_blue = 0x6666ff;
-            /// @brief Burlywood rgb(222, 184, 135)
-            inline constexpr u32 Burlywood = 0xdeb887;
-            /// @brief Tumbleweed rgb(222, 170, 136)
-            inline constexpr u32 Tumbleweed = 0xdeaa88;
-            /// @brief Middle blue green rgb(141, 217, 204)
-            inline constexpr u32 Middle_blue_green = 0x8dd9cc;
-            /// @brief Light grayish magenta rgb(204, 153, 204)
-            inline constexpr u32 Light_grayish_magenta = 0xcc99cc;
-            /// @brief Philippine silver rgb(179, 179, 179)
-            inline constexpr u32 Philippine_silver = 0xb3b3b3;
-            /// @brief Cyclamen rgb(245, 111, 161)
-            inline constexpr u32 Cyclamen = 0xf56fa1;
-            /// @brief Dark salmon rgb(233, 150, 122)
-            inline constexpr u32 Dark_salmon = 0xe9967a;
-            /// @brief Aero rgb(124, 185, 232)
-            inline constexpr u32 Aero = 0x7cb9e8;
-            /// @brief Middle blue rgb(126, 212, 230)
-            inline constexpr u32 Middle_blue = 0x7ed4e6;
-            /// @brief Medium spring bud rgb(201, 220, 135)
-            inline constexpr u32 Medium_spring_bud = 0xc9dc87;
-            /// @brief Pastel violet rgb(203, 153, 201)
-            inline constexpr u32 Pastel_violet = 0xcb99c9;
-            /// @brief Cambridge blue rgb(163, 193, 173)
-            inline constexpr u32 Cambridge_blue = 0xa3c1ad;
-            /// @brief Middle yellow red rgb(236, 177, 118)
-            inline constexpr u32 Middle_yellow_red = 0xecb176;
-            /// @brief Dark sky blue rgb(140, 190, 214)
-            inline constexpr u32 Dark_sky_blue = 0x8cbed6;
-            /// @brief Pastel red rgb(255, 105, 97)
-            inline constexpr u32 Pastel_red = 0xff6961;
-            /// @brief Orange-yellow (Crayola) rgb(248, 213, 104)
-            inline constexpr u32 Orange_yellow_Crayola = 0xf8d568;
-            /// @brief Sky blue (Crayola) rgb(118, 215, 234)
-            inline constexpr u32 Sky_blue_Crayola = 0x76d7ea;
-            /// @brief Shimmering Blush rgb(217, 134, 149)
-            inline constexpr u32 Shimmering_Blush = 0xd98695;
-            /// @brief Pearl Aqua rgb(136, 216, 192)
-            inline constexpr u32 Pearl_Aqua = 0x88d8c0;
-            /// @brief Silver foil rgb(175, 177, 174)
-            inline constexpr u32 Silver_foil = 0xafb1ae;
-            /// @brief Light crimson rgb(245, 105, 145)
-            inline constexpr u32 Light_crimson = 0xf56991;
-            /// @brief Tan rgb(210, 180, 140)
-            inline constexpr u32 Tan = 0xd2b48c;
-            /// @brief Eton blue rgb(150, 200, 162)
-            inline constexpr u32 Eton_blue = 0x96c8a2;
-            /// @brief Lemon lime rgb(92, 255, 103)
-            inline constexpr u32 Lemon_lime = 0x5cff67;
-            /// @brief Bittersweet rgb(254, 111, 94)
-            inline constexpr u32 Bittersweet = 0xfe6f5e;
-            /// @brief Icterine rgb(252, 247, 94)
-            inline constexpr u32 Icterine = 0xfcf75e;
-            /// @brief Rajah rgb(251, 171, 96)
-            inline constexpr u32 Rajah = 0xfbab60;
-            /// @brief Brink pink rgb(251, 96, 127)
-            inline constexpr u32 Brink_pink = 0xfb607f;
-            /// @brief Lavender (floral) rgb(181, 126, 220)
-            inline constexpr u32 Lavender_floral = 0xb57edc;
-            /// @brief Middle purple rgb(217, 130, 181)
-            inline constexpr u32 Middle_purple = 0xd982b5;
-            /// @brief Naples yellow rgb(250, 218, 94)
-            inline constexpr u32 Naples_yellow = 0xfada5e;
-            /// @brief Royal yellow rgb(250, 218, 94)
-            inline constexpr u32 Royal_yellow = 0xfada5e;
-            /// @brief Stil de grain yellow rgb(250, 218, 94)
-            inline constexpr u32 Stil_de_grain_yellow = 0xfada5e;
-            /// @brief Middle red rgb(229, 142, 115)
-            inline constexpr u32 Middle_red = 0xe58e73;
-            /// @brief Tiffany Blue rgb(129, 216, 208)
-            inline constexpr u32 Tiffany_Blue = 0x81d8d0;
-            /// @brief Tuscany rgb(192, 153, 153)
-            inline constexpr u32 Tuscany = 0xc09999;
-            /// @brief Silver chalice rgb(172, 172, 172)
-            inline constexpr u32 Silver_chalice = 0xacacac;
-            /// @brief Mustard rgb(255, 219, 88)
-            inline constexpr u32 Mustard = 0xffdb58;
-            /// @brief Strawberry rgb(252, 90, 141)
-            inline constexpr u32 Strawberry = 0xfc5a8d;
-            /// @brief Strawberry iced tea rgb(252, 90, 141)
-            inline constexpr u32 Strawberry_iced_tea = 0xfc5a8d;
-            /// @brief Maize rgb(251, 236, 93)
-            inline constexpr u32 Maize = 0xfbec5d;
-            /// @brief Medium slate blue rgb(123, 104, 238)
-            inline constexpr u32 Medium_slate_blue = 0x7b68ee;
-            /// @brief New York pink rgb(215, 131, 127)
-            inline constexpr u32 New_York_pink = 0xd7837f;
-            /// @brief Laurel green rgb(169, 186, 157)
-            inline constexpr u32 Laurel_green = 0xa9ba9d;
-            /// @brief Silver (Metallic) rgb(170, 169, 173)
-            inline constexpr u32 Silver_Metallic = 0xaaa9ad;
-            /// @brief Sandy brown rgb(244, 164, 96)
-            inline constexpr u32 Sandy_brown = 0xf4a460;
-            /// @brief Fawn rgb(229, 170, 112)
-            inline constexpr u32 Fawn = 0xe5aa70;
-            /// @brief Candy pink rgb(228, 113, 122)
-            inline constexpr u32 Candy_pink = 0xe4717a;
-            /// @brief Tango pink rgb(228, 113, 122)
-            inline constexpr u32 Tango_pink = 0xe4717a;
-            /// @brief Pastel green rgb(119, 221, 119)
-            inline constexpr u32 Pastel_green = 0x77dd77;
-            /// @brief Vista blue rgb(124, 158, 217)
-            inline constexpr u32 Vista_blue = 0x7c9ed9;
-            /// @brief Puce rgb(204, 136, 153)
-            inline constexpr u32 Puce = 0xcc8899;
-            /// @brief Metallic silver rgb(168, 169, 173)
-            inline constexpr u32 Metallic_silver = 0xa8a9ad;
-            /// @brief Fiery rose rgb(255, 84, 112)
-            inline constexpr u32 Fiery_rose = 0xff5470;
-            /// @brief Arylide yellow rgb(233, 214, 107)
-            inline constexpr u32 Arylide_yellow = 0xe9d66b;
-            /// @brief Hansa yellow rgb(233, 214, 107)
-            inline constexpr u32 Hansa_yellow = 0xe9d66b;
-            /// @brief Straw rgb(228, 217, 111)
-            inline constexpr u32 Straw = 0xe4d96f;
-            /// @brief Khaki (web) (Khaki) rgb(195, 176, 145)
-            inline constexpr u32 Khaki_web_Khaki = 0xc3b091;
-            /// @brief Pastel purple rgb(179, 158, 181)
-            inline constexpr u32 Pastel_purple = 0xb39eb5;
-            /// @brief Cornflower blue (web) rgb(100, 149, 237)
-            inline constexpr u32 Cornflower_blue_web = 0x6495ed;
-            /// @brief Mocha rgb(190, 164, 147)
-            inline constexpr u32 Mocha = 0xbea493;
-            /// @brief Dark gray (X11) rgb(169, 169, 169)
-            inline constexpr u32 Dark_gray_X11 = 0xa9a9a9;
-            /// @brief Coral rgb(255, 127, 80)
-            inline constexpr u32 Coral = 0xff7f50;
-            /// @brief Sunset orange rgb(253, 94, 83)
-            inline constexpr u32 Sunset_orange = 0xfd5e53;
-            /// @brief Lemon yellow rgb(255, 244, 79)
-            inline constexpr u32 Lemon_yellow = 0xfff44f;
-            /// @brief Very light malachite green rgb(100, 233, 134)
-            inline constexpr u32 Very_light_malachite_green = 0x64e986;
-            /// @brief Brilliant rose rgb(230, 103, 206)
-            inline constexpr u32 Brilliant_rose = 0xe667ce;
-            /// @brief Light carmine pink rgb(230, 103, 113)
-            inline constexpr u32 Light_carmine_pink = 0xe66771;
-            /// @brief China pink rgb(222, 111, 161)
-            inline constexpr u32 China_pink = 0xde6fa1;
-            /// @brief Liseran purple rgb(222, 111, 161)
-            inline constexpr u32 Liseran_purple = 0xde6fa1;
-            /// @brief Thulian pink rgb(222, 111, 161)
-            inline constexpr u32 Thulian_pink = 0xde6fa1;
-            /// @brief Purple pizzazz rgb(254, 78, 218)
-            inline constexpr u32 Purple_pizzazz = 0xfe4eda;
-            /// @brief Watermelon rgb(240, 92, 133)
-            inline constexpr u32 Watermelon = 0xf05c85;
-            /// @brief Booger Buster rgb(221, 226, 106)
-            inline constexpr u32 Booger_Buster = 0xdde26a;
-            /// @brief Medium purple rgb(147, 112, 219)
-            inline constexpr u32 Medium_purple = 0x9370db;
-            /// @brief Pale violet-red rgb(219, 112, 147)
-            inline constexpr u32 Pale_violet_red = 0xdb7093;
-            /// @brief Dark sea green rgb(143, 188, 143)
-            inline constexpr u32 Dark_sea_green = 0x8fbc8f;
-            /// @brief Quick silver rgb(166, 166, 166)
-            inline constexpr u32 Quick_silver = 0xa6a6a6;
-            /// @brief Inchworm rgb(178, 236, 93)
-            inline constexpr u32 Inchworm = 0xb2ec5d;
-            /// @brief Blue jeans rgb(93, 173, 236)
-            inline constexpr u32 Blue_jeans = 0x5dadec;
-            /// @brief Little boy blue rgb(108, 160, 220)
-            inline constexpr u32 Little_boy_blue = 0x6ca0dc;
-            /// @brief Orchid rgb(218, 112, 214)
-            inline constexpr u32 Orchid = 0xda70d6;
-            /// @brief Orange-red (Crayola) rgb(255, 83, 73)
-            inline constexpr u32 Orange_red_Crayola = 0xff5349;
-            /// @brief Deep mauve rgb(212, 115, 212)
-            inline constexpr u32 Deep_mauve = 0xd473d4;
-            /// @brief French mauve rgb(212, 115, 212)
-            inline constexpr u32 French_mauve = 0xd473d4;
-            /// @brief Light French beige rgb(200, 173, 127)
-            inline constexpr u32 Light_French_beige = 0xc8ad7f;
-            /// @brief Tomato rgb(255, 99, 71)
-            inline constexpr u32 Tomato = 0xff6347;
-            /// @brief Pastel orange rgb(255, 179, 71)
-            inline constexpr u32 Pastel_orange = 0xffb347;
-            /// @brief Blueberry rgb(79, 134, 247)
-            inline constexpr u32 Blueberry = 0x4f86f7;
-            /// @brief Minion yellow rgb(245, 224, 80)
-            inline constexpr u32 Minion_yellow = 0xf5e050;
-            /// @brief Tan (Crayola) rgb(217, 154, 108)
-            inline constexpr u32 Tan_Crayola = 0xd99a6c;
-            /// @brief Sage rgb(188, 184, 138)
-            inline constexpr u32 Sage = 0xbcb88a;
-            /// @brief Glossy grape rgb(171, 146, 179)
-            inline constexpr u32 Glossy_grape = 0xab92b3;
-            /// @brief Lilac Luster rgb(174, 152, 170)
-            inline constexpr u32 Lilac_Luster = 0xae98aa;
-            /// @brief Medium aquamarine rgb(102, 221, 170)
-            inline constexpr u32 Medium_aquamarine = 0x66ddaa;
-            /// @brief Wild orchid rgb(212, 112, 162)
-            inline constexpr u32 Wild_orchid = 0xd470a2;
-            /// @brief Iceberg rgb(113, 166, 210)
-            inline constexpr u32 Iceberg = 0x71a6d2;
-            /// @brief Mango Tango rgb(255, 130, 67)
-            inline constexpr u32 Mango_Tango = 0xff8243;
-            /// @brief Yellow Orange rgb(255, 174, 66)
-            inline constexpr u32 Yellow_Orange = 0xffae42;
-            /// @brief Wild Strawberry rgb(255, 67, 164)
-            inline constexpr u32 Wild_Strawberry = 0xff43a4;
-            /// @brief Tart Orange rgb(251, 77, 70)
-            inline constexpr u32 Tart_Orange = 0xfb4d46;
-            /// @brief Lavender indigo rgb(148, 87, 235)
-            inline constexpr u32 Lavender_indigo = 0x9457eb;
-            /// @brief Navy purple rgb(148, 87, 235)
-            inline constexpr u32 Navy_purple = 0x9457eb;
-            /// @brief Neon purple rgb(148, 87, 235)
-            inline constexpr u32 Neon_purple = 0x9457eb;
-            /// @brief Big Foot Feet rgb(232, 142, 90)
-            inline constexpr u32 Big_Foot_Feet = 0xe88e5a;
-            /// @brief Pale copper rgb(218, 138, 103)
-            inline constexpr u32 Pale_copper = 0xda8a67;
-            /// @brief Antique brass rgb(205, 149, 117)
-            inline constexpr u32 Antique_brass = 0xcd9575;
-            /// @brief Ecru rgb(194, 178, 128)
-            inline constexpr u32 Ecru = 0xc2b280;
-            /// @brief Sand rgb(194, 178, 128)
-            inline constexpr u32 Sand = 0xc2b280;
-            /// @brief African violet rgb(178, 132, 190)
-            inline constexpr u32 African_violet = 0xb284be;
-            /// @brief Pewter blue rgb(139, 168, 183)
-            inline constexpr u32 Pewter_blue = 0x8ba8b7;
-            /// @brief Cadet grey rgb(145, 163, 176)
-            inline constexpr u32 Cadet_grey = 0x91a3b0;
-            /// @brief Manatee rgb(151, 154, 170)
-            inline constexpr u32 Manatee = 0x979aaa;
-            /// @brief Heliotrope gray rgb(170, 152, 169)
-            inline constexpr u32 Heliotrope_gray = 0xaa98a9;
-            /// @brief Neon fuchsia rgb(254, 65, 100)
-            inline constexpr u32 Neon_fuchsia = 0xfe4164;
-            /// @brief French rose rgb(246, 74, 138)
-            inline constexpr u32 French_rose = 0xf64a8a;
-            /// @brief United Nations blue rgb(91, 146, 229)
-            inline constexpr u32 United_Nations_blue = 0x5b92e5;
-            /// @brief Earth yellow rgb(225, 169, 95)
-            inline constexpr u32 Earth_yellow = 0xe1a95f;
-            /// @brief Sky magenta rgb(207, 113, 175)
-            inline constexpr u32 Sky_magenta = 0xcf71af;
-            /// @brief Old rose rgb(192, 128, 129)
-            inline constexpr u32 Old_rose = 0xc08081;
-            /// @brief Royal orange rgb(249, 146, 69)
-            inline constexpr u32 Royal_orange = 0xf99245;
-            /// @brief Terra cotta rgb(226, 114, 91)
-            inline constexpr u32 Terra_cotta = 0xe2725b;
-            /// @brief French fuchsia rgb(253, 63, 146)
-            inline constexpr u32 French_fuchsia = 0xfd3f92;
-            /// @brief Mandarin rgb(243, 122, 72)
-            inline constexpr u32 Mandarin = 0xf37a48;
-            /// @brief Maximum yellow red rgb(242, 186, 73)
-            inline constexpr u32 Maximum_yellow_red = 0xf2ba49;
-            /// @brief Maize (Crayola) rgb(242, 198, 73)
-            inline constexpr u32 Maize_Crayola = 0xf2c649;
-            /// @brief Burnt sienna rgb(233, 116, 81)
-            inline constexpr u32 Burnt_sienna = 0xe97451;
-            /// @brief Light red ochre rgb(233, 116, 81)
-            inline constexpr u32 Light_red_ochre = 0xe97451;
-            /// @brief Indian yellow rgb(227, 168, 87)
-            inline constexpr u32 Indian_yellow = 0xe3a857;
-            /// @brief Sunray rgb(227, 171, 87)
-            inline constexpr u32 Sunray = 0xe3ab57;
-            /// @brief Lanzones rgb(224, 188, 91)
-            inline constexpr u32 Lanzones = 0xe0bc5b;
-            /// @brief Blush rgb(222, 93, 131)
-            inline constexpr u32 Blush = 0xde5d83;
-            /// @brief Rich lavender rgb(167, 107, 207)
-            inline constexpr u32 Rich_lavender = 0xa76bcf;
-            /// @brief Super pink rgb(207, 107, 169)
-            inline constexpr u32 Super_pink = 0xcf6ba9;
-            /// @brief Pale taupe rgb(188, 152, 126)
-            inline constexpr u32 Pale_taupe = 0xbc987e;
-            /// @brief Opera mauve rgb(183, 132, 167)
-            inline constexpr u32 Opera_mauve = 0xb784a7;
-            /// @brief Rich lilac rgb(182, 102, 210)
-            inline constexpr u32 Rich_lilac = 0xb666d2;
-            /// @brief Cool grey rgb(140, 146, 172)
-            inline constexpr u32 Cool_grey = 0x8c92ac;
-            /// @brief Outrageous orange rgb(255, 96, 55)
-            inline constexpr u32 Outrageous_orange = 0xff6037;
-            /// @brief Orange (Crayola) rgb(255, 117, 56)
-            inline constexpr u32 Orange_Crayola = 0xff7538;
-            /// @brief Sizzling Red rgb(255, 56, 85)
-            inline constexpr u32 Sizzling_Red = 0xff3855;
-            /// @brief Red Salsa rgb(253, 58, 74)
-            inline constexpr u32 Red_Salsa = 0xfd3a4a;
-            /// @brief Orange Soda rgb(250, 91, 61)
-            inline constexpr u32 Orange_Soda = 0xfa5b3d;
-            /// @brief Ultramarine blue rgb(65, 102, 245)
-            inline constexpr u32 Ultramarine_blue = 0x4166f5;
-            /// @brief Maximum Green Yellow rgb(217, 230, 80)
-            inline constexpr u32 Maximum_Green_Yellow = 0xd9e650;
-            /// @brief Blizzard blue rgb(80, 191, 230)
-            inline constexpr u32 Blizzard_blue = 0x50bfe6;
-            /// @brief Violet-blue (Crayola) rgb(118, 110, 200)
-            inline constexpr u32 Violet_blue_Crayola = 0x766ec8;
-            /// @brief Pistachio rgb(147, 197, 114)
-            inline constexpr u32 Pistachio = 0x93c572;
-            /// @brief English lavender rgb(180, 131, 149)
-            inline constexpr u32 English_lavender = 0xb48395;
-            /// @brief Portland Orange rgb(255, 90, 54)
-            inline constexpr u32 Portland_Orange = 0xff5a36;
-            /// @brief French lime rgb(158, 253, 56)
-            inline constexpr u32 French_lime = 0x9efd38;
-            /// @brief Moonstone blue rgb(115, 169, 194)
-            inline constexpr u32 Moonstone_blue = 0x73a9c2;
-            /// @brief Radical Red rgb(255, 53, 94)
-            inline constexpr u32 Radical_Red = 0xff355e;
-            /// @brief Fire opal rgb(233, 92, 75)
-            inline constexpr u32 Fire_opal = 0xe95c4b;
-            /// @brief Blue-gray rgb(102, 153, 204)
-            inline constexpr u32 Blue_gray = 0x6699cc;
-            /// @brief Livid rgb(102, 153, 204)
-            inline constexpr u32 Livid = 0x6699cc;
-            /// @brief Amethyst rgb(153, 102, 204)
-            inline constexpr u32 Amethyst = 0x9966cc;
-            /// @brief Air superiority blue rgb(114, 160, 193)
-            inline constexpr u32 Air_superiority_blue = 0x72a0c1;
-            /// @brief Sunglow rgb(255, 204, 51)
-            inline constexpr u32 Sunglow = 0xffcc33;
-            /// @brief Razzle Dazzle Rose rgb(255, 51, 204)
-            inline constexpr u32 Razzle_Dazzle_Rose = 0xff33cc;
-            /// @brief Yellow (RYB) rgb(254, 254, 51)
-            inline constexpr u32 Yellow_RYB = 0xfefe33;
-            /// @brief Neon pink rgb(254, 52, 126)
-            inline constexpr u32 Neon_pink = 0xfe347e;
-            /// @brief Maximum yellow rgb(250, 250, 55)
-            inline constexpr u32 Maximum_yellow = 0xfafa37;
-            /// @brief June bud rgb(189, 218, 87)
-            inline constexpr u32 June_bud = 0xbdda57;
-            /// @brief Persian orange rgb(217, 144, 88)
-            inline constexpr u32 Persian_orange = 0xd99058;
-            /// @brief Misty Moss rgb(187, 180, 119)
-            inline constexpr u32 Misty_Moss = 0xbbb477;
-            /// @brief Lavender purple rgb(150, 123, 182)
-            inline constexpr u32 Lavender_purple = 0x967bb6;
-            /// @brief Fandango pink rgb(222, 82, 133)
-            inline constexpr u32 Fandango_pink = 0xde5285;
-            /// @brief Raw Sienna rgb(214, 138, 89)
-            inline constexpr u32 Raw_Sienna = 0xd68a59;
-            /// @brief Cerulean frost rgb(109, 155, 195)
-            inline constexpr u32 Cerulean_frost = 0x6d9bc3;
-            /// @brief Middle blue purple rgb(139, 114, 190)
-            inline constexpr u32 Middle_blue_purple = 0x8b72be;
-            /// @brief Grullo rgb(169, 154, 134)
-            inline constexpr u32 Grullo = 0xa99a86;
-            /// @brief Morning blue rgb(141, 163, 153)
-            inline constexpr u32 Morning_blue = 0x8da399;
-            /// @brief Spanish gray rgb(152, 152, 152)
-            inline constexpr u32 Spanish_gray = 0x989898;
-            /// @brief Green-yellow rgb(173, 255, 47)
-            inline constexpr u32 Green_yellow = 0xadff2f;
-            /// @brief Picton blue rgb(69, 177, 232)
-            inline constexpr u32 Picton_blue = 0x45b1e8;
-            /// @brief Cinnamon Satin rgb(205, 96, 126)
-            inline constexpr u32 Cinnamon_Satin = 0xcd607e;
-            /// @brief Purple mountain majesty rgb(150, 120, 182)
-            inline constexpr u32 Purple_mountain_majesty = 0x9678b6;
-            /// @brief Majorelle Blue rgb(96, 80, 220)
-            inline constexpr u32 Majorelle_Blue = 0x6050dc;
-            /// @brief Camel rgb(193, 154, 107)
-            inline constexpr u32 Camel = 0xc19a6b;
-            /// @brief Desert rgb(193, 154, 107)
-            inline constexpr u32 Desert = 0xc19a6b;
-            /// @brief Fallow rgb(193, 154, 107)
-            inline constexpr u32 Fallow = 0xc19a6b;
-            /// @brief Lion rgb(193, 154, 107)
-            inline constexpr u32 Lion = 0xc19a6b;
-            /// @brief Wood brown rgb(193, 154, 107)
-            inline constexpr u32 Wood_brown = 0xc19a6b;
-            /// @brief Olivine rgb(154, 185, 115)
-            inline constexpr u32 Olivine = 0x9ab973;
-            /// @brief Spring Frost rgb(135, 255, 42)
-            inline constexpr u32 Spring_Frost = 0x87ff2a;
-            /// @brief Mystic rgb(214, 82, 130)
-            inline constexpr u32 Mystic = 0xd65282;
-            /// @brief Carolina blue rgb(86, 160, 211)
-            inline constexpr u32 Carolina_blue = 0x56a0d3;
-            /// @brief Indian red rgb(205, 92, 92)
-            inline constexpr u32 Indian_red = 0xcd5c5c;
-            /// @brief Dark khaki rgb(189, 183, 107)
-            inline constexpr u32 Dark_khaki = 0xbdb76b;
-            /// @brief Green Lizard rgb(167, 244, 50)
-            inline constexpr u32 Green_Lizard = 0xa7f432;
-            /// @brief Medium orchid rgb(186, 85, 211)
-            inline constexpr u32 Medium_orchid = 0xba55d3;
-            /// @brief Slate blue rgb(106, 90, 205)
-            inline constexpr u32 Slate_blue = 0x6a5acd;
-            /// @brief Mantis rgb(116, 195, 101)
-            inline constexpr u32 Mantis = 0x74c365;
-            /// @brief Turkish rose rgb(181, 114, 129)
-            inline constexpr u32 Turkish_rose = 0xb57281;
-            /// @brief Persian rose rgb(254, 40, 162)
-            inline constexpr u32 Persian_rose = 0xfe28a2;
-            /// @brief Ripe mango rgb(255, 195, 36)
-            inline constexpr u32 Ripe_mango = 0xffc324;
-            /// @brief Saffron rgb(244, 196, 48)
-            inline constexpr u32 Saffron = 0xf4c430;
-            /// @brief Bluetiful rgb(60, 105, 231)
-            inline constexpr u32 Bluetiful = 0x3c69e7;
-            /// @brief Paradise pink rgb(230, 62, 98)
-            inline constexpr u32 Paradise_pink = 0xe63e62;
-            /// @brief Royal blue rgb(65, 105, 225)
-            inline constexpr u32 Royal_blue = 0x4169e1;
-            /// @brief Xanthous rgb(241, 180, 47)
-            inline constexpr u32 Xanthous = 0xf1b42f;
-            /// @brief Frostbite rgb(233, 54, 167)
-            inline constexpr u32 Frostbite = 0xe936a7;
-            /// @brief Royal pink rgb(231, 56, 149)
-            inline constexpr u32 Royal_pink = 0xe73895;
-            /// @brief Turquoise rgb(64, 224, 208)
-            inline constexpr u32 Turquoise = 0x40e0d0;
-            /// @brief Pink (Pantone) rgb(215, 72, 148)
-            inline constexpr u32 Pink_Pantone = 0xd74894;
-            /// @brief Middle green yellow rgb(172, 191, 96)
-            inline constexpr u32 Middle_green_yellow = 0xacbf60;
-            /// @brief Pearly purple rgb(183, 104, 162)
-            inline constexpr u32 Pearly_purple = 0xb768a2;
-            /// @brief Red-orange (Crayola) rgb(255, 104, 31)
-            inline constexpr u32 Red_orange_Crayola = 0xff681f;
-            /// @brief Dodger blue rgb(30, 144, 255)
-            inline constexpr u32 Dodger_blue = 0x1e90ff;
-            /// @brief Blue (Crayola) rgb(31, 117, 254)
-            inline constexpr u32 Blue_Crayola = 0x1f75fe;
-            /// @brief Iris rgb(90, 79, 207)
-            inline constexpr u32 Iris = 0x5a4fcf;
-            /// @brief Vegas gold rgb(197, 179, 88)
-            inline constexpr u32 Vegas_gold = 0xc5b358;
-            /// @brief Bright yellow (Crayola) rgb(255, 170, 29)
-            inline constexpr u32 Bright_yellow_Crayola = 0xffaa1d;
-            /// @brief Watermelon Yellow rgb(238, 255, 27)
-            inline constexpr u32 Watermelon_Yellow = 0xeeff1b;
-            /// @brief Hot magenta rgb(255, 29, 206)
-            inline constexpr u32 Hot_magenta = 0xff1dce;
-            /// @brief Princeton orange rgb(245, 128, 37)
-            inline constexpr u32 Princeton_orange = 0xf58025;
-            /// @brief Cadmium orange rgb(237, 135, 45)
-            inline constexpr u32 Cadmium_orange = 0xed872d;
-            /// @brief Tiger's eye rgb(224, 141, 60)
-            inline constexpr u32 Tiger_s_eye = 0xe08d3c;
-            /// @brief Tufts blue rgb(62, 142, 222)
-            inline constexpr u32 Tufts_blue = 0x3e8ede;
-            /// @brief Eucalyptus rgb(68, 215, 168)
-            inline constexpr u32 Eucalyptus = 0x44d7a8;
-            /// @brief Copper red rgb(203, 109, 81)
-            inline constexpr u32 Copper_red = 0xcb6d51;
-            /// @brief Green Sheen rgb(110, 174, 161)
-            inline constexpr u32 Green_Sheen = 0x6eaea1;
-            /// @brief Shadow blue rgb(119, 139, 165)
-            inline constexpr u32 Shadow_blue = 0x778ba5;
-            /// @brief Bleu de France rgb(49, 140, 231)
-            inline constexpr u32 Bleu_de_France = 0x318ce7;
-            /// @brief Android green rgb(61, 220, 132)
-            inline constexpr u32 Android_green = 0x3ddc84;
-            /// @brief Medium turquoise rgb(72, 209, 204)
-            inline constexpr u32 Medium_turquoise = 0x48d1cc;
-            /// @brief Emerald rgb(80, 200, 120)
-            inline constexpr u32 Emerald = 0x50c878;
-            /// @brief Paris Green rgb(80, 200, 120)
-            inline constexpr u32 Paris_Green = 0x50c878;
-            /// @brief Mulberry (Crayola) rgb(200, 80, 155)
-            inline constexpr u32 Mulberry_Crayola = 0xc8509b;
-            /// @brief Roman silver rgb(131, 137, 150)
-            inline constexpr u32 Roman_silver = 0x838996;
-            /// @brief Philippine gray rgb(140, 140, 140)
-            inline constexpr u32 Philippine_gray = 0x8c8c8c;
-            /// @brief Neon red rgb(255, 24, 24)
-            inline constexpr u32 Neon_red = 0xff1818;
-            /// @brief Pumpkin rgb(255, 117, 24)
-            inline constexpr u32 Pumpkin = 0xff7518;
-            /// @brief Vivid tangelo rgb(240, 116, 39)
-            inline constexpr u32 Vivid_tangelo = 0xf07427;
-            /// @brief Imperial red rgb(237, 41, 57)
-            inline constexpr u32 Imperial_red = 0xed2939;
-            /// @brief Red (Pantone) rgb(237, 41, 57)
-            inline constexpr u32 Red_Pantone = 0xed2939;
-            /// @brief Vermilion rgb(227, 66, 52)
-            inline constexpr u32 Vermilion = 0xe34234;
-            /// @brief Silver Lake blue rgb(93, 137, 186)
-            inline constexpr u32 Silver_Lake_blue = 0x5d89ba;
-            /// @brief Glaucous rgb(96, 130, 182)
-            inline constexpr u32 Glaucous = 0x6082b6;
-            /// @brief Bud green rgb(123, 182, 97)
-            inline constexpr u32 Bud_green = 0x7bb661;
-            /// @brief Copper penny rgb(173, 111, 105)
-            inline constexpr u32 Copper_penny = 0xad6f69;
-            /// @brief Aztec gold rgb(195, 153, 83)
-            inline constexpr u32 Aztec_gold = 0xc39953;
-            /// @brief Deep fuchsia rgb(193, 84, 193)
-            inline constexpr u32 Deep_fuchsia = 0xc154c1;
-            /// @brief Fuchsia (Crayola) rgb(193, 84, 193)
-            inline constexpr u32 Fuchsia_Crayola = 0xc154c1;
-            /// @brief Burnished brown rgb(161, 122, 116)
-            inline constexpr u32 Burnished_brown = 0xa17a74;
-            /// @brief Arctic lime rgb(208, 255, 20)
-            inline constexpr u32 Arctic_lime = 0xd0ff14;
-            /// @brief Neon green rgb(57, 255, 20)
-            inline constexpr u32 Neon_green = 0x39ff14;
-            /// @brief Deep pink rgb(255, 20, 147)
-            inline constexpr u32 Deep_pink = 0xff1493;
-            /// @brief Philippine pink rgb(250, 26, 142)
-            inline constexpr u32 Philippine_pink = 0xfa1a8e;
-            /// @brief Orange-yellow rgb(245, 189, 31)
-            inline constexpr u32 Orange_yellow = 0xf5bd1f;
-            /// @brief Pear rgb(209, 226, 49)
-            inline constexpr u32 Pear = 0xd1e231;
-            /// @brief Medium vermilion rgb(217, 96, 59)
-            inline constexpr u32 Medium_vermilion = 0xd9603b;
-            /// @brief Han blue rgb(68, 108, 207)
-            inline constexpr u32 Han_blue = 0x446ccf;
-            /// @brief Maximum Blue rgb(71, 171, 204)
-            inline constexpr u32 Maximum_Blue = 0x47abcc;
-            /// @brief English vermillion rgb(204, 71, 75)
-            inline constexpr u32 English_vermillion = 0xcc474b;
-            /// @brief Mountbatten pink rgb(153, 122, 141)
-            inline constexpr u32 Mountbatten_pink = 0x997a8d;
-            /// @brief Cinereous rgb(152, 129, 123)
-            inline constexpr u32 Cinereous = 0x98817b;
-            /// @brief Lotion blue rgb(21, 242, 253)
-            inline constexpr u32 Lotion_blue = 0x15f2fd;
-            /// @brief Han purple rgb(82, 24, 250)
-            inline constexpr u32 Han_purple = 0x5218fa;
-            /// @brief Magenta (Pantone) rgb(208, 65, 126)
-            inline constexpr u32 Magenta_Pantone = 0xd0417e;
-            /// @brief Olive green rgb(181, 179, 92)
-            inline constexpr u32 Olive_green = 0xb5b35c;
-            /// @brief Red (RYB) rgb(254, 39, 18)
-            inline constexpr u32 Red_RYB = 0xfe2712;
-            /// @brief Orioles orange rgb(251, 79, 20)
-            inline constexpr u32 Orioles_orange = 0xfb4f14;
-            /// @brief Dandelion rgb(221, 247, 25)
-            inline constexpr u32 Dandelion = 0xddf719;
-            /// @brief Deep lemon rgb(245, 199, 26)
-            inline constexpr u32 Deep_lemon = 0xf5c71a;
-            /// @brief Microsoft red rgb(240, 78, 31)
-            inline constexpr u32 Microsoft_red = 0xf04e1f;
-            /// @brief Purple (X11) rgb(160, 32, 240)
-            inline constexpr u32 Purple_X11 = 0xa020f0;
-            /// @brief Veronica rgb(160, 32, 240)
-            inline constexpr u32 Veronica = 0xa020f0;
-            /// @brief Amaranth rgb(229, 43, 80)
-            inline constexpr u32 Amaranth = 0xe52b50;
-            /// @brief Cerise rgb(222, 49, 99)
-            inline constexpr u32 Cerise = 0xde3163;
-            /// @brief Mulberry rgb(197, 75, 140)
-            inline constexpr u32 Mulberry = 0xc54b8c;
-            /// @brief Beaver rgb(159, 129, 112)
-            inline constexpr u32 Beaver = 0x9f8170;
-            /// @brief Mummy's Tomb rgb(130, 142, 132)
-            inline constexpr u32 Mummy_s_Tomb = 0x828e84;
-            /// @brief Taupe gray rgb(139, 133, 137)
-            inline constexpr u32 Taupe_gray = 0x8b8589;
-            /// @brief Red (Crayola) rgb(238, 32, 77)
-            inline constexpr u32 Red_Crayola = 0xee204d;
-            /// @brief Carrot orange rgb(237, 145, 33)
-            inline constexpr u32 Carrot_orange = 0xed9121;
-            /// @brief Blue-violet rgb(138, 43, 226)
-            inline constexpr u32 Blue_violet = 0x8a2be2;
-            /// @brief Bittersweet shimmer rgb(191, 79, 81)
-            inline constexpr u32 Bittersweet_shimmer = 0xbf4f51;
-            /// @brief Mikado yellow rgb(255, 196, 12)
-            inline constexpr u32 Mikado_yellow = 0xffc40c;
-            /// @brief Metallic yellow rgb(253, 204, 13)
-            inline constexpr u32 Metallic_yellow = 0xfdcc0d;
-            /// @brief Scarlet (Crayola) rgb(253, 14, 53)
-            inline constexpr u32 Scarlet_Crayola = 0xfd0e35;
-            /// @brief Tractor red rgb(253, 14, 53)
-            inline constexpr u32 Tractor_red = 0xfd0e35;
-            /// @brief Shocking pink rgb(252, 15, 192)
-            inline constexpr u32 Shocking_pink = 0xfc0fc0;
-            /// @brief Jonquil rgb(244, 202, 22)
-            inline constexpr u32 Jonquil = 0xf4ca16;
-            /// @brief Marigold rgb(234, 162, 33)
-            inline constexpr u32 Marigold = 0xeaa221;
-            /// @brief Deep cerise rgb(218, 50, 135)
-            inline constexpr u32 Deep_cerise = 0xda3287;
-            /// @brief Gold (metallic) rgb(212, 175, 55)
-            inline constexpr u32 Gold_metallic = 0xd4af37;
-            /// @brief Old gold rgb(207, 181, 59)
-            inline constexpr u32 Old_gold = 0xcfb53b;
-            /// @brief Peru rgb(205, 133, 63)
-            inline constexpr u32 Peru = 0xcd853f;
-            /// @brief Brick red rgb(203, 65, 84)
-            inline constexpr u32 Brick_red = 0xcb4154;
-            /// @brief Fuchsia rose rgb(199, 67, 117)
-            inline constexpr u32 Fuchsia_rose = 0xc74375;
-            /// @brief Rhythm rgb(119, 118, 150)
-            inline constexpr u32 Rhythm = 0x777696;
-            /// @brief Middle grey rgb(139, 134, 128)
-            inline constexpr u32 Middle_grey = 0x8b8680;
-            /// @brief Fluorescent blue rgb(21, 244, 238)
-            inline constexpr u32 Fluorescent_blue = 0x15f4ee;
-            /// @brief Red (pigment) rgb(237, 28, 36)
-            inline constexpr u32 Red_pigment = 0xed1c24;
-            /// @brief Vivid vermilion rgb(229, 96, 36)
-            inline constexpr u32 Vivid_vermilion = 0xe56024;
-            /// @brief Palatinate blue rgb(39, 59, 226)
-            inline constexpr u32 Palatinate_blue = 0x273be2;
-            /// @brief Metallic gold rgb(211, 175, 55)
-            inline constexpr u32 Metallic_gold = 0xd3af37;
-            /// @brief Blast-off bronze rgb(165, 113, 100)
-            inline constexpr u32 Blast_off_bronze = 0xa57164;
-            /// @brief Rocket metallic rgb(138, 127, 128)
-            inline constexpr u32 Rocket_metallic = 0x8a7f80;
-            /// @brief Spanish yellow rgb(246, 181, 17)
-            inline constexpr u32 Spanish_yellow = 0xf6b511;
-            /// @brief Alizarin rgb(219, 45, 67)
-            inline constexpr u32 Alizarin = 0xdb2d43;
-            /// @brief Strawberry red rgb(200, 63, 73)
-            inline constexpr u32 Strawberry_red = 0xc83f49;
-            /// @brief Purple Plum rgb(156, 81, 182)
-            inline constexpr u32 Purple_Plum = 0x9c51b6;
-            /// @brief Oxley rgb(109, 154, 121)
-            inline constexpr u32 Oxley = 0x6d9a79;
-            /// @brief Titanium rgb(135, 134, 129)
-            inline constexpr u32 Titanium = 0x878681;
-            /// @brief Lust rgb(230, 32, 32)
-            inline constexpr u32 Lust = 0xe62020;
-            /// @brief Rusty red rgb(218, 44, 67)
-            inline constexpr u32 Rusty_red = 0xda2c43;
-            /// @brief Fuchsia purple rgb(204, 57, 123)
-            inline constexpr u32 Fuchsia_purple = 0xcc397b;
-            /// @brief Rackley rgb(93, 138, 168)
-            inline constexpr u32 Rackley = 0x5d8aa8;
-            /// @brief Forest green (Crayola) rgb(95, 167, 119)
-            inline constexpr u32 Forest_green_Crayola = 0x5fa777;
-            /// @brief Shiny shamrock rgb(95, 167, 120)
-            inline constexpr u32 Shiny_shamrock = 0x5fa778;
-            /// @brief Battleship grey rgb(132, 132, 130)
-            inline constexpr u32 Battleship_grey = 0x848482;
-            /// @brief Old silver rgb(132, 132, 130)
-            inline constexpr u32 Old_silver = 0x848482;
-            /// @brief Vivid red rgb(247, 13, 26)
-            inline constexpr u32 Vivid_red = 0xf70d1a;
-            /// @brief Flame rgb(226, 88, 34)
-            inline constexpr u32 Flame = 0xe25822;
-            /// @brief Vivid red-tangelo rgb(223, 97, 36)
-            inline constexpr u32 Vivid_red_tangelo = 0xdf6124;
-            /// @brief Twitter blue rgb(38, 167, 222)
-            inline constexpr u32 Twitter_blue = 0x26a7de;
-            /// @brief Telemagenta rgb(207, 52, 118)
-            inline constexpr u32 Telemagenta = 0xcf3476;
-            /// @brief Red-violet (Crayola) rgb(192, 68, 143)
-            inline constexpr u32 Red_violet_Crayola = 0xc0448f;
-            /// @brief Neon scarlet rgb(255, 38, 3)
-            inline constexpr u32 Neon_scarlet = 0xff2603;
-            /// @brief Medium orange rgb(255, 120, 2)
-            inline constexpr u32 Medium_orange = 0xff7802;
-            /// @brief Medium yellow rgb(255, 227, 2)
-            inline constexpr u32 Medium_yellow = 0xffe302;
-            /// @brief Vivid yellow rgb(255, 227, 2)
-            inline constexpr u32 Vivid_yellow = 0xffe302;
-            /// @brief Urobilin rgb(225, 173, 33)
-            inline constexpr u32 Urobilin = 0xe1ad21;
-            /// @brief Barbie pink rgb(224, 33, 138)
-            inline constexpr u32 Barbie_pink = 0xe0218a;
-            /// @brief Deep chestnut rgb(185, 78, 72)
-            inline constexpr u32 Deep_chestnut = 0xb94e48;
-            /// @brief Café au lait rgb(166, 123, 91)
-            inline constexpr u32 Café_au_lait = 0xa67b5b;
-            /// @brief French beige rgb(166, 123, 91)
-            inline constexpr u32 French_beige = 0xa67b5b;
-            /// @brief Tuscan tan rgb(166, 123, 91)
-            inline constexpr u32 Tuscan_tan = 0xa67b5b;
-            /// @brief Polished pine rgb(93, 164, 147)
-            inline constexpr u32 Polished_pine = 0x5da493;
-            /// @brief Red rgb(255, 0, 0)
-            inline constexpr u32 Red = 0xff0000;
-            /// @brief Candy apple red rgb(255, 8, 0)
-            inline constexpr u32 Candy_apple_red = 0xff0800;
-            /// @brief Scarlet rgb(255, 36, 0)
-            inline constexpr u32 Scarlet = 0xff2400;
-            /// @brief Coquelicot rgb(255, 56, 0)
-            inline constexpr u32 Coquelicot = 0xff3800;
-            /// @brief Red-orange (Color wheel) rgb(255, 69, 0)
-            inline constexpr u32 Red_orange_Color_wheel = 0xff4500;
-            /// @brief International orange (aerospace) rgb(255, 79, 0)
-            inline constexpr u32 International_orange_aerospace = 0xff4f00;
-            /// @brief Mystic red rgb(255, 85, 0)
-            inline constexpr u32 Mystic_red = 0xff5500;
-            /// @brief Orange (Pantone) rgb(255, 88, 0)
-            inline constexpr u32 Orange_Pantone = 0xff5800;
-            /// @brief Maximum orange rgb(255, 91, 0)
-            inline constexpr u32 Maximum_orange = 0xff5b00;
-            /// @brief Vivid orange rgb(255, 95, 0)
-            inline constexpr u32 Vivid_orange = 0xff5f00;
-            /// @brief Orange rgb(255, 102, 0)
-            inline constexpr u32 Orange = 0xff6600;
-            /// @brief Orange iced tea rgb(255, 103, 0)
-            inline constexpr u32 Orange_iced_tea = 0xff6700;
-            /// @brief Safety orange (blaze orange) rgb(255, 103, 0)
-            inline constexpr u32 Safety_orange_blaze_orange = 0xff6700;
-            /// @brief Philippine orange rgb(255, 115, 0)
-            inline constexpr u32 Philippine_orange = 0xff7300;
-            /// @brief Heat Wave rgb(255, 122, 0)
-            inline constexpr u32 Heat_Wave = 0xff7a00;
-            /// @brief Safety orange rgb(255, 120, 0)
-            inline constexpr u32 Safety_orange = 0xff7800;
-            /// @brief Amber (SAE/ECE) rgb(255, 126, 0)
-            inline constexpr u32 Amber_SAE_ECE = 0xff7e00;
-            /// @brief Orange (color wheel) rgb(255, 127, 0)
-            inline constexpr u32 Orange_color_wheel = 0xff7f00;
-            /// @brief Dark orange rgb(255, 140, 0)
-            inline constexpr u32 Dark_orange = 0xff8c00;
-            /// @brief Vivid gamboge rgb(255, 153, 0)
-            inline constexpr u32 Vivid_gamboge = 0xff9900;
-            /// @brief Vivid orange peel rgb(255, 160, 0)
-            inline constexpr u32 Vivid_orange_peel = 0xffa000;
-            /// @brief Orange (web) rgb(255, 165, 0)
-            inline constexpr u32 Orange_web = 0xffa500;
-            /// @brief Amber rgb(255, 191, 0)
-            inline constexpr u32 Amber = 0xffbf00;
-            /// @brief Selective yellow rgb(255, 186, 0)
-            inline constexpr u32 Selective_yellow = 0xffba00;
-            /// @brief Tangerine yellow rgb(255, 204, 0)
-            inline constexpr u32 Tangerine_yellow = 0xffcc00;
-            /// @brief Cyber yellow rgb(255, 211, 0)
-            inline constexpr u32 Cyber_yellow = 0xffd300;
-            /// @brief Gold (web) (Golden) rgb(255, 215, 0)
-            inline constexpr u32 Gold_web_Golden = 0xffd700;
-            /// @brief Yellow (NCS) rgb(255, 211, 0)
-            inline constexpr u32 Yellow_NCS = 0xffd300;
-            /// @brief School bus yellow rgb(255, 216, 0)
-            inline constexpr u32 School_bus_yellow = 0xffd800;
-            /// @brief Sizzling Sunrise rgb(255, 219, 0)
-            inline constexpr u32 Sizzling_Sunrise = 0xffdb00;
-            /// @brief Golden yellow rgb(255, 223, 0)
-            inline constexpr u32 Golden_yellow = 0xffdf00;
-            /// @brief Philippine golden yellow rgb(255, 223, 0)
-            inline constexpr u32 Philippine_golden_yellow = 0xffdf00;
-            /// @brief Canary yellow rgb(255, 239, 0)
-            inline constexpr u32 Canary_yellow = 0xffef00;
-            /// @brief Middle yellow rgb(255, 235, 0)
-            inline constexpr u32 Middle_yellow = 0xffeb00;
-            /// @brief Yellow (process) rgb(255, 239, 0)
-            inline constexpr u32 Yellow_process = 0xffef00;
-            /// @brief Yellow rose rgb(255, 240, 0)
-            inline constexpr u32 Yellow_rose = 0xfff000;
-            /// @brief Cadmium yellow rgb(255, 246, 0)
-            inline constexpr u32 Cadmium_yellow = 0xfff600;
-            /// @brief Lemon rgb(255, 247, 0)
-            inline constexpr u32 Lemon = 0xfff700;
-            /// @brief Neon yellow rgb(255, 247, 0)
-            inline constexpr u32 Neon_yellow = 0xfff700;
-            /// @brief Yellow Sunshine rgb(255, 247, 0)
-            inline constexpr u32 Yellow_Sunshine = 0xfff700;
-            /// @brief Lemon glacier rgb(253, 255, 0)
-            inline constexpr u32 Lemon_glacier = 0xfdff00;
-            /// @brief Yellow rgb(255, 255, 0)
-            inline constexpr u32 Yellow = 0xffff00;
-            /// @brief Lemon lime rgb(227, 255, 0)
-            inline constexpr u32 Lemon_lime = 0xe3ff00;
-            /// @brief Electric lime rgb(204, 255, 0)
-            inline constexpr u32 Electric_lime = 0xccff00;
-            /// @brief Lime (color wheel) rgb(191, 255, 0)
-            inline constexpr u32 Lime_color_wheel = 0xbfff00;
-            /// @brief Mango green rgb(150, 255, 0)
-            inline constexpr u32 Mango_green = 0x96ff00;
-            /// @brief Chartreuse rgb(127, 255, 0)
-            inline constexpr u32 Chartreuse = 0x7fff00;
-            /// @brief Bright green rgb(102, 255, 0)
-            inline constexpr u32 Bright_green = 0x66ff00;
-            /// @brief Harlequin rgb(63, 255, 0)
-            inline constexpr u32 Harlequin = 0x3fff00;
-            /// @brief Green rgb(0, 255, 0)
-            inline constexpr u32 Green = 0x00ff00;
-            /// @brief Lime (web) (X11 green) rgb(0, 255, 0)
-            inline constexpr u32 Lime_web_X11_green = 0x00ff00;
-            /// @brief Spring green rgb(0, 255, 127)
-            inline constexpr u32 Spring_green = 0x00ff7f;
-            /// @brief Sea green (Crayola) rgb(0, 255, 205)
-            inline constexpr u32 Sea_green_Crayola = 0x00ffcd;
-            /// @brief Aqua rgb(0, 255, 255)
-            inline constexpr u32 Aqua = 0x00ffff;
-            /// @brief Cyan rgb(0, 255, 255)
-            inline constexpr u32 Cyan = 0x00ffff;
-            /// @brief Spanish sky blue rgb(0, 255, 255)
-            inline constexpr u32 Spanish_sky_blue = 0x00ffff;
-            /// @brief Deep sky blue rgb(0, 191, 255)
-            inline constexpr u32 Deep_sky_blue = 0x00bfff;
-            /// @brief Azure rgb(0, 127, 255)
-            inline constexpr u32 Azure = 0x007fff;
-            /// @brief Philippine sky blue rgb(0, 102, 255)
-            inline constexpr u32 Philippine_sky_blue = 0x0066ff;
-            /// @brief Blue rgb(0, 0, 255)
-            inline constexpr u32 Blue = 0x0000ff;
-            /// @brief Indigo (color wheel) rgb(64, 0, 255)
-            inline constexpr u32 Indigo_color_wheel = 0x4000ff;
-            /// @brief Ultramarine rgb(63, 0, 255)
-            inline constexpr u32 Ultramarine = 0x3f00ff;
-            /// @brief Electric indigo rgb(111, 0, 255)
-            inline constexpr u32 Electric_indigo = 0x6f00ff;
-            /// @brief Violet (color wheel) rgb(127, 0, 255)
-            inline constexpr u32 Violet_color_wheel = 0x7f00ff;
-            /// @brief Electric violet rgb(143, 0, 255)
-            inline constexpr u32 Electric_violet = 0x8f00ff;
-            /// @brief Violet rgb(143, 0, 255)
-            inline constexpr u32 Violet = 0x8f00ff;
-            /// @brief Vivid violet rgb(159, 0, 255)
-            inline constexpr u32 Vivid_violet = 0x9f00ff;
-            /// @brief Electric purple rgb(191, 0, 255)
-            inline constexpr u32 Electric_purple = 0xbf00ff;
-            /// @brief Vivid orchid rgb(204, 0, 255)
-            inline constexpr u32 Vivid_orchid = 0xcc00ff;
-            /// @brief Phlox rgb(223, 0, 255)
-            inline constexpr u32 Phlox = 0xdf00ff;
-            /// @brief Psychedelic purple rgb(223, 0, 255)
-            inline constexpr u32 Psychedelic_purple = 0xdf00ff;
-            /// @brief Fuchsia rgb(255, 0, 255)
-            inline constexpr u32 Fuchsia = 0xff00ff;
-            /// @brief Magenta rgb(255, 0, 255)
-            inline constexpr u32 Magenta = 0xff00ff;
-            /// @brief Hot fuchsia rgb(255, 0, 198)
-            inline constexpr u32 Hot_fuchsia = 0xff00c6;
-            /// @brief Bright pink rgb(255, 0, 127)
-            inline constexpr u32 Bright_pink = 0xff007f;
-            /// @brief Rose rgb(255, 0, 127)
-            inline constexpr u32 Rose = 0xff007f;
-            /// @brief Winter Sky rgb(255, 0, 124)
-            inline constexpr u32 Winter_Sky = 0xff007c;
-            /// @brief Vivid raspberry rgb(255, 0, 108)
-            inline constexpr u32 Vivid_raspberry = 0xff006c;
-            /// @brief Poison Purple rgb(127, 1, 254)
-            inline constexpr u32 Poison_Purple = 0x7f01fe;
-            /// @brief Mango rgb(253, 190, 2)
-            inline constexpr u32 Mango = 0xfdbe02;
-            /// @brief Neon tangerine rgb(246, 137, 10)
-            inline constexpr u32 Neon_tangerine = 0xf6890a;
-            /// @brief Ultramarine blue (Caran d'Ache) rgb(33, 17, 239)
-            inline constexpr u32 Ultramarine_blue_Caran_d_Ache = 0x2111ef;
-            /// @brief Spanish crimson rgb(229, 26, 76)
-            inline constexpr u32 Spanish_crimson = 0xe51a4c;
-            /// @brief Bronze rgb(205, 127, 50)
-            inline constexpr u32 Bronze = 0xcd7f32;
-            /// @brief Yellow-green rgb(154, 205, 50)
-            inline constexpr u32 Yellow_green = 0x9acd32;
-            /// @brief Lime green rgb(50, 205, 50)
-            inline constexpr u32 Lime_green = 0x32cd32;
-            /// @brief Persian red rgb(204, 51, 51)
-            inline constexpr u32 Persian_red = 0xcc3333;
-            /// @brief Steel pink rgb(204, 51, 204)
-            inline constexpr u32 Steel_pink = 0xcc33cc;
-            /// @brief Madder Lake rgb(204, 51, 54)
-            inline constexpr u32 Madder_Lake = 0xcc3336;
-            /// @brief Satin sheen gold rgb(203, 161, 53)
-            inline constexpr u32 Satin_sheen_gold = 0xcba135;
-            /// @brief Watermelon red rgb(191, 65, 71)
-            inline constexpr u32 Watermelon_red = 0xbf4147;
-            /// @brief Cadet blue rgb(95, 158, 160)
-            inline constexpr u32 Cadet_blue = 0x5f9ea0;
-            /// @brief Copper rose rgb(153, 102, 102)
-            inline constexpr u32 Copper_rose = 0x996666;
-            /// @brief Dark blue-gray rgb(102, 102, 153)
-            inline constexpr u32 Dark_blue_gray = 0x666699;
-            /// @brief Slate gray rgb(112, 128, 144)
-            inline constexpr u32 Slate_gray = 0x708090;
-            /// @brief Gray (web) rgb(128, 128, 128)
-            inline constexpr u32 Gray_web = 0x808080;
-            /// @brief Neon gray rgb(128, 128, 128)
-            inline constexpr u32 Neon_gray = 0x808080;
-            /// @brief Trolley grey rgb(128, 128, 128)
-            inline constexpr u32 Trolley_grey = 0x808080;
-            /// @brief Willpower orange rgb(253, 88, 0)
-            inline constexpr u32 Willpower_orange = 0xfd5800;
-            /// @brief Microsoft yellow rgb(253, 185, 0)
-            inline constexpr u32 Microsoft_yellow = 0xfdb900;
-            /// @brief Philippine yellow rgb(254, 203, 0)
-            inline constexpr u32 Philippine_yellow = 0xfecb00;
-            /// @brief Yellow (Pantone) rgb(254, 223, 0)
-            inline constexpr u32 Yellow_Pantone = 0xfedf00;
-            /// @brief Aureolin rgb(253, 238, 0)
-            inline constexpr u32 Aureolin = 0xfdee00;
-            /// @brief Neon cyan rgb(0, 254, 252)
-            inline constexpr u32 Neon_cyan = 0x00fefc;
-            /// @brief Orange (RYB) rgb(251, 153, 2)
-            inline constexpr u32 Orange_RYB = 0xfb9902;
-            /// @brief Dark orchid rgb(153, 50, 204)
-            inline constexpr u32 Dark_orchid = 0x9932cc;
-            /// @brief Cedar Chest rgb(202, 52, 53)
-            inline constexpr u32 Cedar_Chest = 0xca3435;
-            /// @brief Golden poppy rgb(252, 194, 0)
-            inline constexpr u32 Golden_poppy = 0xfcc200;
-            /// @brief Spring bud rgb(167, 252, 0)
-            inline constexpr u32 Spring_bud = 0xa7fc00;
-            /// @brief Orange soda rgb(231, 78, 20)
-            inline constexpr u32 Orange_soda = 0xe74e14;
-            /// @brief Moonstone rgb(58, 168, 193)
-            inline constexpr u32 Moonstone = 0x3aa8c1;
-            /// @brief Brown sugar rgb(175, 110, 77)
-            inline constexpr u32 Brown_sugar = 0xaf6e4d;
-            /// @brief Purpureus rgb(154, 78, 174)
-            inline constexpr u32 Purpureus = 0x9a4eae;
-            /// @brief Asparagus rgb(123, 160, 91)
-            inline constexpr u32 Asparagus = 0x7ba05b;
-            /// @brief Rose dust rgb(158, 94, 111)
-            inline constexpr u32 Rose_dust = 0x9e5e6f;
-            /// @brief Tangelo rgb(249, 77, 0)
-            inline constexpr u32 Tangelo = 0xf94d00;
-            /// @brief Medium spring green rgb(0, 250, 154)
-            inline constexpr u32 Medium_spring_green = 0x00fa9a;
-            /// @brief Goldenrod rgb(218, 165, 32)
-            inline constexpr u32 Goldenrod = 0xdaa520;
-            /// @brief Maximum red rgb(217, 33, 33)
-            inline constexpr u32 Maximum_red = 0xd92121;
-            /// @brief Steel blue rgb(70, 130, 180)
-            inline constexpr u32 Steel_blue = 0x4682b4;
-            /// @brief Royal purple rgb(120, 81, 169)
-            inline constexpr u32 Royal_purple = 0x7851a9;
-            /// @brief Amethyst (Crayola) rgb(100, 96, 154)
-            inline constexpr u32 Amethyst_Crayola = 0x64609a;
-            /// @brief Russian green rgb(103, 146, 103)
-            inline constexpr u32 Russian_green = 0x679267;
-            /// @brief Xanadu rgb(115, 134, 120)
-            inline constexpr u32 Xanadu = 0x738678;
-            /// @brief Xanthic rgb(238, 237, 9)
-            inline constexpr u32 Xanthic = 0xeeed09;
-            /// @brief Vivid cerise rgb(218, 29, 129)
-            inline constexpr u32 Vivid_cerise = 0xda1d81;
-            /// @brief Vermilion rgb(217, 56, 30)
-            inline constexpr u32 Vermilion = 0xd9381e;
-            /// @brief Dingy Dungeon rgb(197, 49, 81)
-            inline constexpr u32 Dingy_Dungeon = 0xc53151;
-            /// @brief Irresistible rgb(179, 68, 108)
-            inline constexpr u32 Irresistible = 0xb3446c;
-            /// @brief Plump Purple rgb(89, 70, 178)
-            inline constexpr u32 Plump_Purple = 0x5946b2;
-            /// @brief Blue yonder rgb(80, 114, 167)
-            inline constexpr u32 Blue_yonder = 0x5072a7;
-            /// @brief Middle red purple rgb(165, 83, 83)
-            inline constexpr u32 Middle_red_purple = 0xa55353;
-            /// @brief Redwood rgb(164, 90, 82)
-            inline constexpr u32 Redwood = 0xa45a52;
-            /// @brief Fashion fuchsia rgb(244, 0, 161)
-            inline constexpr u32 Fashion_fuchsia = 0xf400a1;
-            /// @brief Hollywood cerise rgb(244, 0, 161)
-            inline constexpr u32 Hollywood_cerise = 0xf400a1;
-            /// @brief Royal fuchsia rgb(202, 44, 146)
-            inline constexpr u32 Royal_fuchsia = 0xca2c92;
-            /// @brief Verdigris rgb(67, 179, 174)
-            inline constexpr u32 Verdigris = 0x43b3ae;
-            /// @brief English red rgb(171, 75, 82)
-            inline constexpr u32 English_red = 0xab4b52;
-            /// @brief Moss green rgb(138, 154, 91)
-            inline constexpr u32 Moss_green = 0x8a9a5b;
-            /// @brief Smoke rgb(115, 130, 118)
-            inline constexpr u32 Smoke = 0x738276;
-            /// @brief Gamboge rgb(228, 155, 15)
-            inline constexpr u32 Gamboge = 0xe49b0f;
-            /// @brief Cerulean (Crayola) rgb(29, 172, 214)
-            inline constexpr u32 Cerulean_Crayola = 0x1dacd6;
-            /// @brief French raspberry rgb(199, 44, 72)
-            inline constexpr u32 French_raspberry = 0xc72c48;
-            /// @brief Mint rgb(62, 180, 137)
-            inline constexpr u32 Mint = 0x3eb489;
-            /// @brief Tangerine rgb(242, 133, 0)
-            inline constexpr u32 Tangerine = 0xf28500;
-            /// @brief Red (Munsell) rgb(242, 0, 60)
-            inline constexpr u32 Red_Munsell = 0xf2003c;
-            /// @brief Ruby rgb(224, 17, 95)
-            inline constexpr u32 Ruby = 0xe0115f;
-            /// @brief Yellow (Munsell) rgb(239, 204, 0)
-            inline constexpr u32 Yellow_Munsell = 0xefcc00;
-            /// @brief Safety yellow rgb(238, 210, 2)
-            inline constexpr u32 Safety_yellow = 0xeed202;
-            /// @brief Red strawberry rgb(236, 3, 4)
-            inline constexpr u32 Red_strawberry = 0xec0304;
-            /// @brief Bright turquoise rgb(8, 232, 222)
-            inline constexpr u32 Bright_turquoise = 0x08e8de;
-            /// @brief Vivid mulberry rgb(184, 12, 227)
-            inline constexpr u32 Vivid_mulberry = 0xb80ce3;
-            /// @brief Crimson rgb(220, 20, 60)
-            inline constexpr u32 Crimson = 0xdc143c;
-            /// @brief Dogwood rose rgb(215, 24, 104)
-            inline constexpr u32 Dogwood_rose = 0xd71868;
-            /// @brief Chocolate (web) rgb(210, 105, 30)
-            inline constexpr u32 Chocolate_web = 0xd2691e;
-            /// @brief Cocoa brown rgb(210, 105, 30)
-            inline constexpr u32 Cocoa_brown = 0xd2691e;
-            /// @brief Green-blue (Crayola) rgb(40, 135, 200)
-            inline constexpr u32 Green_blue_Crayola = 0x2887c8;
-            /// @brief Maximum Blue Green rgb(48, 191, 191)
-            inline constexpr u32 Maximum_Blue_Green = 0x30bfbf;
-            /// @brief Byzantine rgb(189, 51, 164)
-            inline constexpr u32 Byzantine = 0xbd33a4;
-            /// @brief Medium sea green rgb(60, 179, 113)
-            inline constexpr u32 Medium_sea_green = 0x3cb371;
-            /// @brief Mystic maroon rgb(173, 67, 121)
-            inline constexpr u32 Mystic_maroon = 0xad4379;
-            /// @brief Mauve taupe rgb(145, 95, 109)
-            inline constexpr u32 Mauve_taupe = 0x915f6d;
-            /// @brief Titanium yellow rgb(238, 230, 0)
-            inline constexpr u32 Titanium_yellow = 0xeee600;
-            /// @brief Vivid cerulean rgb(0, 170, 238)
-            inline constexpr u32 Vivid_cerulean = 0x00aaee;
-            /// @brief Microsoft blue rgb(0, 162, 237)
-            inline constexpr u32 Microsoft_blue = 0x00a2ed;
-            /// @brief Citrine rgb(228, 208, 10)
-            inline constexpr u32 Citrine = 0xe4d00a;
-            /// @brief Raspberry rgb(227, 11, 93)
-            inline constexpr u32 Raspberry = 0xe30b5d;
-            /// @brief Razzmatazz rgb(227, 11, 92)
-            inline constexpr u32 Razzmatazz = 0xe30b5c;
-            /// @brief Bitter lemon rgb(202, 224, 13)
-            inline constexpr u32 Bitter_lemon = 0xcae00d;
-            /// @brief Fire engine red rgb(206, 32, 41)
-            inline constexpr u32 Fire_engine_red = 0xce2029;
-            /// @brief Ochre rgb(204, 119, 34)
-            inline constexpr u32 Ochre = 0xcc7722;
-            /// @brief Neon brown rgb(195, 115, 42)
-            inline constexpr u32 Neon_brown = 0xc3732a;
-            /// @brief Medium red-violet rgb(187, 51, 133)
-            inline constexpr u32 Medium_red_violet = 0xbb3385;
-            /// @brief Brown (crayola) rgb(175, 89, 62)
-            inline constexpr u32 Brown_crayola = 0xaf593e;
-            /// @brief Dirt rgb(155, 118, 83)
-            inline constexpr u32 Dirt = 0x9b7653;
-            /// @brief Liver chestnut rgb(152, 116, 86)
-            inline constexpr u32 Liver_chestnut = 0x987456;
-            /// @brief Antique fuchsia rgb(145, 92, 131)
-            inline constexpr u32 Antique_fuchsia = 0x915c83;
-            /// @brief Steel teal rgb(95, 138, 143)
-            inline constexpr u32 Steel_teal = 0x5f8a8f;
-            /// @brief French lilac rgb(134, 96, 142)
-            inline constexpr u32 French_lilac = 0x86608e;
-            /// @brief Pomp and Power rgb(134, 96, 142)
-            inline constexpr u32 Pomp_and_Power = 0x86608e;
-            /// @brief Persimmon rgb(236, 88, 0)
-            inline constexpr u32 Persimmon = 0xec5800;
-            /// @brief Bright navy blue rgb(25, 116, 210)
-            inline constexpr u32 Bright_navy_blue = 0x1974d2;
-            /// @brief Navy blue (Crayola) rgb(25, 116, 210)
-            inline constexpr u32 Navy_blue_Crayola = 0x1974d2;
-            /// @brief International orange (Golden Gate Bridge) rgb(192, 54, 44)
-            inline constexpr u32 International_orange_Golden_Gate_Bridge = 0xc0362c;
-            /// @brief Copper rgb(184, 115, 51)
-            inline constexpr u32 Copper = 0xb87333;
-            /// @brief Metallic bronze rgb(169, 113, 66)
-            inline constexpr u32 Metallic_bronze = 0xa97142;
-            /// @brief Pale brown rgb(152, 118, 84)
-            inline constexpr u32 Pale_brown = 0x987654;
-            /// @brief Metallic orange rgb(218, 104, 15)
-            inline constexpr u32 Metallic_orange = 0xda680f;
-            /// @brief Lemon curry rgb(204, 160, 29)
-            inline constexpr u32 Lemon_curry = 0xcca01d;
-            /// @brief Mountain Meadow rgb(48, 186, 143)
-            inline constexpr u32 Mountain_Meadow = 0x30ba8f;
-            /// @brief Keppel rgb(58, 176, 158)
-            inline constexpr u32 Keppel = 0x3ab09e;
-            /// @brief Medium ruby rgb(170, 64, 105)
-            inline constexpr u32 Medium_ruby = 0xaa4069;
-            /// @brief Sonic silver rgb(117, 117, 117)
-            inline constexpr u32 Sonic_silver = 0x757575;
-            /// @brief Spanish orange rgb(232, 97, 0)
-            inline constexpr u32 Spanish_orange = 0xe86100;
-            /// @brief Medium candy apple red rgb(226, 6, 44)
-            inline constexpr u32 Medium_candy_apple_red = 0xe2062c;
-            /// @brief New Car rgb(33, 79, 198)
-            inline constexpr u32 New_Car = 0x214fc6;
-            /// @brief Cerulean blue rgb(42, 82, 190)
-            inline constexpr u32 Cerulean_blue = 0x2a52be;
-            /// @brief Fandango rgb(181, 51, 137)
-            inline constexpr u32 Fandango = 0xb53389;
-            /// @brief Shadow rgb(138, 121, 93)
-            inline constexpr u32 Shadow = 0x8a795d;
-            /// @brief Chinese violet rgb(133, 96, 136)
-            inline constexpr u32 Chinese_violet = 0x856088;
-            /// @brief Peridot rgb(230, 226, 0)
-            inline constexpr u32 Peridot = 0xe6e200;
-            /// @brief Spanish red rgb(230, 0, 38)
-            inline constexpr u32 Spanish_red = 0xe60026;
-            /// @brief Malachite rgb(11, 218, 81)
-            inline constexpr u32 Malachite = 0x0bda51;
-            /// @brief Pacific Blue rgb(28, 169, 201)
-            inline constexpr u32 Pacific_Blue = 0x1ca9c9;
-            /// @brief Nickel rgb(114, 116, 114)
-            inline constexpr u32 Nickel = 0x727472;
-            /// @brief Fulvous rgb(228, 132, 0)
-            inline constexpr u32 Fulvous = 0xe48400;
-            /// @brief Mexican pink rgb(228, 0, 124)
-            inline constexpr u32 Mexican_pink = 0xe4007c;
-            /// @brief Cadmium red rgb(227, 0, 34)
-            inline constexpr u32 Cadmium_red = 0xe30022;
-            /// @brief Nintendo red rgb(228, 0, 15)
-            inline constexpr u32 Nintendo_red = 0xe4000f;
-            /// @brief Stop red rgb(207, 20, 43)
-            inline constexpr u32 Stop_red = 0xcf142b;
-            /// @brief Bright maroon rgb(195, 33, 72)
-            inline constexpr u32 Bright_maroon = 0xc32148;
-            /// @brief Maroon (Crayola) rgb(195, 33, 72)
-            inline constexpr u32 Maroon_Crayola = 0xc32148;
-            /// @brief Violet-blue rgb(50, 74, 178)
-            inline constexpr u32 Violet_blue = 0x324ab2;
-            /// @brief Medium carmine rgb(175, 64, 53)
-            inline constexpr u32 Medium_carmine = 0xaf4035;
-            /// @brief Pale carmine rgb(175, 64, 53)
-            inline constexpr u32 Pale_carmine = 0xaf4035;
-            /// @brief Mustard yellow rgb(225, 173, 1)
-            inline constexpr u32 Mustard_yellow = 0xe1ad01;
-            /// @brief Cardinal rgb(196, 30, 58)
-            inline constexpr u32 Cardinal = 0xc41e3a;
-            /// @brief Liver (dogs) rgb(184, 109, 41)
-            inline constexpr u32 Liver_dogs = 0xb86d29;
-            /// @brief Green (RYB) rgb(102, 176, 50)
-            inline constexpr u32 Green_RYB = 0x66b032;
-            /// @brief Dark tan rgb(145, 129, 81)
-            inline constexpr u32 Dark_tan = 0x918151;
-            /// @brief Old lavender rgb(121, 104, 120)
-            inline constexpr u32 Old_lavender = 0x796878;
-            /// @brief Red cola rgb(223, 1, 24)
-            inline constexpr u32 Red_cola = 0xdf0118;
-            /// @brief Lava rgb(207, 16, 32)
-            inline constexpr u32 Lava = 0xcf1020;
-            /// @brief Philippine red rgb(206, 17, 39)
-            inline constexpr u32 Philippine_red = 0xce1127;
-            /// @brief Maroon (X11) rgb(176, 48, 96)
-            inline constexpr u32 Maroon_X11 = 0xb03060;
-            /// @brief Rich maroon rgb(176, 48, 96)
-            inline constexpr u32 Rich_maroon = 0xb03060;
-            /// @brief Maximum Red Purple rgb(166, 58, 121)
-            inline constexpr u32 Maximum_Red_Purple = 0xa63a79;
-            /// @brief Sugar plum rgb(145, 78, 117)
-            inline constexpr u32 Sugar_plum = 0x914e75;
-            /// @brief Vivid lime green rgb(166, 214, 8)
-            inline constexpr u32 Vivid_lime_green = 0xa6d608;
-            /// @brief Wintergreen dream rgb(86, 136, 125)
-            inline constexpr u32 Wintergreen_dream = 0x56887d;
-            /// @brief Medium violet-red rgb(199, 21, 133)
-            inline constexpr u32 Medium_violet_red = 0xc71585;
-            /// @brief Red-violet rgb(199, 21, 133)
-            inline constexpr u32 Red_violet = 0xc71585;
-            /// @brief Razzmic Berry rgb(141, 78, 133)
-            inline constexpr u32 Razzmic_Berry = 0x8d4e85;
-            /// @brief Deep Taupe rgb(126, 94, 96)
-            inline constexpr u32 Deep_Taupe = 0x7e5e60;
-            /// @brief Harvest gold rgb(218, 145, 0)
-            inline constexpr u32 Harvest_gold = 0xda9100;
-            /// @brief Acid green rgb(176, 191, 26)
-            inline constexpr u32 Acid_green = 0xb0bf1a;
-            /// @brief Sweet Brown rgb(168, 55, 49)
-            inline constexpr u32 Sweet_Brown = 0xa83731;
-            /// @brief Rum rgb(154, 78, 64)
-            inline constexpr u32 Rum = 0x9a4e40;
-            /// @brief Middle green rgb(77, 140, 87)
-            inline constexpr u32 Middle_green = 0x4d8c57;
-            /// @brief Microsoft Edge blue rgb(0, 120, 215)
-            inline constexpr u32 Microsoft_Edge_blue = 0x0078d7;
-            /// @brief Rich carmine rgb(215, 0, 64)
-            inline constexpr u32 Rich_carmine = 0xd70040;
-            /// @brief Rich electric blue rgb(8, 146, 208)
-            inline constexpr u32 Rich_electric_blue = 0x0892d0;
-            /// @brief Persian blue rgb(28, 57, 187)
-            inline constexpr u32 Persian_blue = 0x1c39bb;
-            /// @brief Denim Blue rgb(34, 67, 182)
-            inline constexpr u32 Denim_Blue = 0x2243b6;
-            /// @brief Berry parfait rgb(164, 52, 130)
-            inline constexpr u32 Berry_parfait = 0xa43482;
-            /// @brief Queen blue rgb(67, 107, 149)
-            inline constexpr u32 Queen_blue = 0x436b95;
-            /// @brief Spicy mix rgb(139, 95, 77)
-            inline constexpr u32 Spicy_mix = 0x8b5f4d;
-            /// @brief Sheen green rgb(143, 212, 0)
-            inline constexpr u32 Sheen_green = 0x8fd400;
-            /// @brief French violet rgb(136, 6, 206)
-            inline constexpr u32 French_violet = 0x8806ce;
-            /// @brief Sinopia rgb(203, 65, 11)
-            inline constexpr u32 Sinopia = 0xcb410b;
-            /// @brief Alloy orange rgb(196, 98, 16)
-            inline constexpr u32 Alloy_orange = 0xc46210;
-            /// @brief Metallic Sunburst rgb(156, 124, 56)
-            inline constexpr u32 Metallic_Sunburst = 0x9c7c38;
-            /// @brief Coconut rgb(150, 90, 62)
-            inline constexpr u32 Coconut = 0x965a3e;
-            /// @brief Pastel brown rgb(131, 105, 83)
-            inline constexpr u32 Pastel_brown = 0x836953;
-            /// @brief Dark violet rgb(148, 0, 211)
-            inline constexpr u32 Dark_violet = 0x9400d3;
-            /// @brief Denim rgb(21, 96, 189)
-            inline constexpr u32 Denim = 0x1560bd;
-            /// @brief Light brown rgb(181, 101, 29)
-            inline constexpr u32 Light_brown = 0xb5651d;
-            /// @brief Firebrick rgb(178, 34, 34)
-            inline constexpr u32 Firebrick = 0xb22222;
-            /// @brief Jungle green rgb(41, 171, 135)
-            inline constexpr u32 Jungle_green = 0x29ab87;
-            /// @brief Violet (crayola) rgb(150, 61, 127)
-            inline constexpr u32 Violet_crayola = 0x963d7f;
-            /// @brief Plum rgb(142, 69, 133)
-            inline constexpr u32 Plum = 0x8e4585;
-            /// @brief Twilight lavender rgb(138, 73, 107)
-            inline constexpr u32 Twilight_lavender = 0x8a496b;
-            /// @brief Gold Fusion rgb(133, 117, 78)
-            inline constexpr u32 Gold_Fusion = 0x85754e;
-            /// @brief Dark turquoise rgb(0, 206, 209)
-            inline constexpr u32 Dark_turquoise = 0x00ced1;
-            /// @brief Spanish carmine rgb(209, 0, 71)
-            inline constexpr u32 Spanish_carmine = 0xd10047;
-            /// @brief Kelly green rgb(76, 187, 23)
-            inline constexpr u32 Kelly_green = 0x4cbb17;
-            /// @brief Light sea green rgb(32, 178, 170)
-            inline constexpr u32 Light_sea_green = 0x20b2aa;
-            /// @brief Amaranth purple rgb(171, 39, 79)
-            inline constexpr u32 Amaranth_purple = 0xab274f;
-            /// @brief Metallic red rgb(166, 44, 43)
-            inline constexpr u32 Metallic_red = 0xa62c2b;
-            /// @brief Purple Heart rgb(105, 53, 156)
-            inline constexpr u32 Purple_Heart = 0x69359c;
-            /// @brief Red rum rgb(151, 58, 74)
-            inline constexpr u32 Red_rum = 0x973a4a;
-            /// @brief May green rgb(76, 145, 65)
-            inline constexpr u32 May_green = 0x4c9141;
-            /// @brief French bistre rgb(133, 109, 77)
-            inline constexpr u32 French_bistre = 0x856d4d;
-            /// @brief Dim gray rgb(105, 105, 105)
-            inline constexpr u32 Dim_gray = 0x696969;
-            /// @brief True blue rgb(0, 115, 207)
-            inline constexpr u32 True_blue = 0x0073cf;
-            /// @brief Royal red rgb(208, 0, 96)
-            inline constexpr u32 Royal_red = 0xd00060;
-            /// @brief Neon gold rgb(207, 170, 1)
-            inline constexpr u32 Neon_gold = 0xcfaa01;
-            /// @brief Venetian red rgb(200, 8, 21)
-            inline constexpr u32 Venetian_red = 0xc80815;
-            /// @brief Brown (web) rgb(165, 42, 42)
-            inline constexpr u32 Brown_web = 0xa52a2a;
-            /// @brief Red-brown rgb(165, 42, 42)
-            inline constexpr u32 Red_brown = 0xa52a2a;
-            /// @brief Tawny rgb(205, 87, 0)
-            inline constexpr u32 Tawny = 0xcd5700;
-            /// @brief Mustard brown rgb(205, 122, 0)
-            inline constexpr u32 Mustard_brown = 0xcd7a00;
-            /// @brief Medium blue rgb(0, 0, 205)
-            inline constexpr u32 Medium_blue = 0x0000cd;
-            /// @brief Pictorial carmine rgb(195, 11, 78)
-            inline constexpr u32 Pictorial_carmine = 0xc30b4e;
-            /// @brief Upsdell red rgb(174, 32, 41)
-            inline constexpr u32 Upsdell_red = 0xae2029;
-            /// @brief Vine Green rgb(56, 163, 42)
-            inline constexpr u32 Vine_Green = 0x38a32a;
-            /// @brief Purple navy rgb(78, 81, 128)
-            inline constexpr u32 Purple_navy = 0x4e5180;
-            /// @brief Granite gray rgb(103, 103, 103)
-            inline constexpr u32 Granite_gray = 0x676767;
-            /// @brief Burnt orange rgb(204, 85, 0)
-            inline constexpr u32 Burnt_orange = 0xcc5500;
-            /// @brief Vivid amber rgb(204, 153, 0)
-            inline constexpr u32 Vivid_amber = 0xcc9900;
-            /// @brief Caribbean green rgb(0, 204, 153)
-            inline constexpr u32 Caribbean_green = 0x00cc99;
-            /// @brief Robin egg blue rgb(0, 204, 204)
-            inline constexpr u32 Robin_egg_blue = 0x00cccc;
-            /// @brief Vivid crimson rgb(204, 0, 51)
-            inline constexpr u32 Vivid_crimson = 0xcc0033;
-            /// @brief Limerick rgb(157, 194, 9)
-            inline constexpr u32 Limerick = 0x9dc209;
-            /// @brief Blue (pigment) rgb(51, 51, 153)
-            inline constexpr u32 Blue_pigment = 0x333399;
-            /// @brief Rebecca Purple rgb(102, 51, 153)
-            inline constexpr u32 Rebecca_Purple = 0x663399;
-            /// @brief Dark electric blue rgb(83, 104, 120)
-            inline constexpr u32 Dark_electric_blue = 0x536878;
-            /// @brief Payne's grey rgb(83, 104, 120)
-            inline constexpr u32 Payne_s_grey = 0x536878;
-            /// @brief Sapphire rgb(15, 82, 186)
-            inline constexpr u32 Sapphire = 0x0f52ba;
-            /// @brief Amaranth deep purple rgb(159, 43, 104)
-            inline constexpr u32 Amaranth_deep_purple = 0x9f2b68;
-            /// @brief Chestnut rgb(149, 69, 53)
-            inline constexpr u32 Chestnut = 0x954535;
-            /// @brief Blue-green rgb(13, 152, 186)
-            inline constexpr u32 Blue_green = 0x0d98ba;
-            /// @brief Green (Crayola) rgb(28, 172, 120)
-            inline constexpr u32 Green_Crayola = 0x1cac78;
-            /// @brief Chinese red rgb(170, 56, 30)
-            inline constexpr u32 Chinese_red = 0xaa381e;
-            /// @brief Citron rgb(159, 169, 31)
-            inline constexpr u32 Citron = 0x9fa91f;
-            /// @brief Quinacridone magenta rgb(142, 58, 89)
-            inline constexpr u32 Quinacridone_magenta = 0x8e3a59;
-            /// @brief Dark slate blue rgb(72, 61, 139)
-            inline constexpr u32 Dark_slate_blue = 0x483d8b;
-            /// @brief Cordovan rgb(137, 63, 69)
-            inline constexpr u32 Cordovan = 0x893f45;
-            /// @brief Purple (Munsell) rgb(159, 0, 197)
-            inline constexpr u32 Purple_Munsell = 0x9f00c5;
-            /// @brief Red (NCS) rgb(196, 2, 51)
-            inline constexpr u32 Red_NCS = 0xc40233;
-            /// @brief International orange (engineering) rgb(186, 22, 12)
-            inline constexpr u32 International_orange_engineering = 0xba160c;
-            /// @brief Rust rgb(183, 65, 14)
-            inline constexpr u32 Rust = 0xb7410e;
-            /// @brief Green-blue rgb(17, 100, 180)
-            inline constexpr u32 Green_blue = 0x1164b4;
-            /// @brief Japanese carmine rgb(157, 41, 51)
-            inline constexpr u32 Japanese_carmine = 0x9d2933;
-            /// @brief Raw umber rgb(130, 102, 68)
-            inline constexpr u32 Raw_umber = 0x826644;
-            /// @brief Cadet rgb(83, 104, 114)
-            inline constexpr u32 Cadet = 0x536872;
-            /// @brief Dark pastel green rgb(3, 192, 60)
-            inline constexpr u32 Dark_pastel_green = 0x03c03c;
-            /// @brief Dark goldenrod rgb(184, 134, 11)
-            inline constexpr u32 Dark_goldenrod = 0xb8860b;
-            /// @brief Wine red rgb(177, 18, 38)
-            inline constexpr u32 Wine_red = 0xb11226;
-            /// @brief Tuscan red rgb(124, 72, 72)
-            inline constexpr u32 Tuscan_red = 0x7c4848;
-            /// @brief Black coral rgb(84, 98, 111)
-            inline constexpr u32 Black_coral = 0x54626f;
-            /// @brief Big dip o’ruby rgb(156, 37, 66)
-            inline constexpr u32 Big_dip_o_ruby = 0x9c2542;
-            /// @brief Lapis lazuli rgb(38, 97, 156)
-            inline constexpr u32 Lapis_lazuli = 0x26619c;
-            /// @brief B'dazzled blue rgb(46, 88, 148)
-            inline constexpr u32 B_dazzled_blue = 0x2e5894;
-            /// @brief Illuminating emerald rgb(49, 145, 119)
-            inline constexpr u32 Illuminating_emerald = 0x319177;
-            /// @brief Solid pink rgb(137, 56, 67)
-            inline constexpr u32 Solid_pink = 0x893843;
-            /// @brief Viridian rgb(64, 130, 109)
-            inline constexpr u32 Viridian = 0x40826d;
-            /// @brief Hooker's green rgb(73, 121, 107)
-            inline constexpr u32 Hooker_s_green = 0x49796b;
-            /// @brief Mahogany rgb(192, 64, 0)
-            inline constexpr u32 Mahogany = 0xc04000;
-            /// @brief Violet (Caran d'Ache) rgb(110, 0, 192)
-            inline constexpr u32 Violet_Caran_d_Ache = 0x6e00c0;
-            /// @brief Metallic brown rgb(172, 67, 19)
-            inline constexpr u32 Metallic_brown = 0xac4313;
-            /// @brief Milk chocolate rgb(132, 86, 60)
-            inline constexpr u32 Milk_chocolate = 0x84563c;
-            /// @brief Lemon iced tea rgb(189, 48, 0)
-            inline constexpr u32 Lemon_iced_tea = 0xbd3000;
-            /// @brief Blue (NCS) rgb(0, 135, 189)
-            inline constexpr u32 Blue_NCS = 0x0087bd;
-            /// @brief Ocean boat blue rgb(0, 119, 190)
-            inline constexpr u32 Ocean_boat_blue = 0x0077be;
-            /// @brief Red-violet (Color wheel) rgb(146, 43, 62)
-            inline constexpr u32 Red_violet_Color_wheel = 0x922b3e;
-            /// @brief YInMn Blue rgb(46, 80, 144)
-            inline constexpr u32 YInMn_Blue = 0x2e5090;
-            /// @brief Maximum Green rgb(94, 140, 49)
-            inline constexpr u32 Maximum_Green = 0x5e8c31;
-            /// @brief Teal blue rgb(54, 117, 136)
-            inline constexpr u32 Teal_blue = 0x367588;
-            /// @brief Coyote brown rgb(129, 97, 60)
-            inline constexpr u32 Coyote_brown = 0x81613c;
-            /// @brief Cyber grape rgb(88, 66, 124)
-            inline constexpr u32 Cyber_grape = 0x58427c;
-            /// @brief French blue rgb(0, 114, 187)
-            inline constexpr u32 French_blue = 0x0072bb;
-            /// @brief Vivid burgundy rgb(159, 29, 53)
-            inline constexpr u32 Vivid_burgundy = 0x9f1d35;
-            /// @brief Old moss green rgb(134, 126, 54)
-            inline constexpr u32 Old_moss_green = 0x867e36;
-            /// @brief Fern green rgb(79, 121, 66)
-            inline constexpr u32 Fern_green = 0x4f7942;
-            /// @brief Absolute Zero rgb(0, 72, 186)
-            inline constexpr u32 Absolute_Zero = 0x0048ba;
-            /// @brief Tomato sauce rgb(178, 24, 7)
-            inline constexpr u32 Tomato_sauce = 0xb21807;
-            /// @brief Sea green rgb(46, 139, 87)
-            inline constexpr u32 Sea_green = 0x2e8b57;
-            /// @brief Independence rgb(76, 81, 109)
-            inline constexpr u32 Independence = 0x4c516d;
-            /// @brief Microsoft green rgb(125, 183, 0)
-            inline constexpr u32 Microsoft_green = 0x7db700;
-            /// @brief Star command blue rgb(0, 123, 184)
-            inline constexpr u32 Star_command_blue = 0x007bb8;
-            /// @brief Spanish blue rgb(0, 112, 184)
-            inline constexpr u32 Spanish_blue = 0x0070b8;
-            /// @brief Egyptian blue rgb(16, 52, 166)
-            inline constexpr u32 Egyptian_blue = 0x1034a6;
-            /// @brief Royal red rgb(155, 28, 49)
-            inline constexpr u32 Royal_red = 0x9b1c31;
-            /// @brief Maximum violet rgb(137, 47, 119)
-            inline constexpr u32 Maximum_violet = 0x892f77;
-            /// @brief Deep Space Sparkle rgb(74, 100, 108)
-            inline constexpr u32 Deep_Space_Sparkle = 0x4a646c;
-            /// @brief Wenge rgb(100, 84, 82)
-            inline constexpr u32 Wenge = 0x645452;
-            /// @brief Philippine gold rgb(177, 115, 4)
-            inline constexpr u32 Philippine_gold = 0xb17304;
-            /// @brief Vivid auburn rgb(146, 39, 36)
-            inline constexpr u32 Vivid_auburn = 0x922724;
-            /// @brief Cosmic cobalt rgb(46, 45, 136)
-            inline constexpr u32 Cosmic_cobalt = 0x2e2d88;
-            /// @brief Amazon rgb(59, 122, 87)
-            inline constexpr u32 Amazon = 0x3b7a57;
-            /// @brief Medium red rgb(177, 3, 4)
-            inline constexpr u32 Medium_red = 0xb10304;
-            /// @brief Maximum Purple rgb(115, 51, 128)
-            inline constexpr u32 Maximum_Purple = 0x733380;
-            /// @brief Ming rgb(54, 116, 125)
-            inline constexpr u32 Ming = 0x36747d;
-            /// @brief Bole rgb(121, 68, 59)
-            inline constexpr u32 Bole = 0x79443b;
-            /// @brief Medium Tuscan red rgb(121, 68, 59)
-            inline constexpr u32 Medium_Tuscan_red = 0x79443b;
-            /// @brief Artichoke green rgb(75, 111, 68)
-            inline constexpr u32 Artichoke_green = 0x4b6f44;
-            /// @brief Light gold rgb(178, 151, 0)
-            inline constexpr u32 Light_gold = 0xb29700;
-            /// @brief Spartan Crimson rgb(158, 19, 22)
-            inline constexpr u32 Spartan_Crimson = 0x9e1316;
-            /// @brief Olive drab (#3) rgb(107, 142, 35)
-            inline constexpr u32 Olive_drab_3 = 0x6b8e23;
-            /// @brief Eminence rgb(108, 48, 130)
-            inline constexpr u32 Eminence = 0x6c3082;
-            /// @brief Spanish bistre rgb(128, 117, 50)
-            inline constexpr u32 Spanish_bistre = 0x807532;
-            /// @brief Roast coffee rgb(112, 66, 65)
-            inline constexpr u32 Roast_coffee = 0x704241;
-            /// @brief Blue (Munsell) rgb(0, 147, 175)
-            inline constexpr u32 Blue_Munsell = 0x0093af;
-            /// @brief Honolulu blue rgb(0, 109, 176)
-            inline constexpr u32 Honolulu_blue = 0x006db0;
-            /// @brief Crimson (UA) rgb(175, 0, 42)
-            inline constexpr u32 Crimson_UA = 0xaf002a;
-            /// @brief Violet (RYB) rgb(134, 1, 175)
-            inline constexpr u32 Violet_RYB = 0x8601af;
-            /// @brief Rufous rgb(168, 28, 7)
-            inline constexpr u32 Rufous = 0xa81c07;
-            /// @brief Jazzberry jam rgb(165, 11, 94)
-            inline constexpr u32 Jazzberry_jam = 0xa50b5e;
-            /// @brief Samsung blue rgb(18, 39, 158)
-            inline constexpr u32 Samsung_blue = 0x12279e;
-            /// @brief KSU Purple rgb(81, 40, 136)
-            inline constexpr u32 KSU_Purple = 0x512888;
-            /// @brief Quincy rgb(106, 84, 69)
-            inline constexpr u32 Quincy = 0x6a5445;
-            /// @brief Mordant red 19 rgb(174, 12, 0)
-            inline constexpr u32 Mordant_red_19 = 0xae0c00;
-            /// @brief Green (Pantone) rgb(0, 173, 67)
-            inline constexpr u32 Green_Pantone = 0x00ad43;
-            /// @brief Blue Ribbon rgb(11, 16, 162)
-            inline constexpr u32 Blue_Ribbon = 0x0b10a2;
-            /// @brief Neon green rgb(19, 155, 66)
-            inline constexpr u32 Neon_green = 0x139b42;
-            /// @brief Golden brown rgb(153, 101, 21)
-            inline constexpr u32 Golden_brown = 0x996515;
-            /// @brief Bistre brown rgb(150, 113, 23)
-            inline constexpr u32 Bistre_brown = 0x967117;
-            /// @brief Mode beige rgb(150, 113, 23)
-            inline constexpr u32 Mode_beige = 0x967117;
-            /// @brief Sand dune rgb(150, 113, 23)
-            inline constexpr u32 Sand_dune = 0x967117;
-            /// @brief Sandy taupe rgb(150, 113, 23)
-            inline constexpr u32 Sandy_taupe = 0x967117;
-            /// @brief Slimy green rgb(41, 150, 23)
-            inline constexpr u32 Slimy_green = 0x299617;
-            /// @brief Forest green (web) rgb(34, 139, 34)
-            inline constexpr u32 Forest_green_web = 0x228b22;
-            /// @brief Burnt umber rgb(138, 51, 36)
-            inline constexpr u32 Burnt_umber = 0x8a3324;
-            /// @brief Dark raspberry rgb(135, 38, 87)
-            inline constexpr u32 Dark_raspberry = 0x872657;
-            /// @brief Metallic blue rgb(50, 82, 123)
-            inline constexpr u32 Metallic_blue = 0x32527b;
-            /// @brief Mud rgb(112, 84, 62)
-            inline constexpr u32 Mud = 0x70543e;
-            /// @brief Liver rgb(103, 76, 71)
-            inline constexpr u32 Liver = 0x674c47;
-            /// @brief Medium taupe rgb(103, 76, 71)
-            inline constexpr u32 Medium_taupe = 0x674c47;
-            /// @brief Ebony rgb(85, 93, 80)
-            inline constexpr u32 Ebony = 0x555d50;
-            /// @brief GO green rgb(0, 171, 102)
-            inline constexpr u32 GO_green = 0x00ab66;
-            /// @brief Cobalt blue rgb(0, 71, 171)
-            inline constexpr u32 Cobalt_blue = 0x0047ab;
-            /// @brief Windsor tan rgb(167, 85, 2)
-            inline constexpr u32 Windsor_tan = 0xa75502;
-            /// @brief Dark Fuchsia rgb(160, 9, 85)
-            inline constexpr u32 Dark_Fuchsia = 0xa00955;
-            /// @brief Spanish violet rgb(76, 40, 130)
-            inline constexpr u32 Spanish_violet = 0x4c2882;
-            /// @brief Myrtle green rgb(49, 120, 115)
-            inline constexpr u32 Myrtle_green = 0x317873;
-            /// @brief Umber rgb(99, 81, 71)
-            inline constexpr u32 Umber = 0x635147;
-            /// @brief Feldgrau rgb(77, 93, 83)
-            inline constexpr u32 Feldgrau = 0x4d5d53;
-            /// @brief Davy's grey rgb(85, 85, 85)
-            inline constexpr u32 Davy_s_grey = 0x555555;
-            /// @brief Jade rgb(0, 168, 107)
-            inline constexpr u32 Jade = 0x00a86b;
-            /// @brief Green (Munsell) rgb(0, 168, 119)
-            inline constexpr u32 Green_Munsell = 0x00a877;
-            /// @brief Cerulean rgb(0, 123, 167)
-            inline constexpr u32 Cerulean = 0x007ba7;
-            /// @brief Philippine blue rgb(0, 56, 167)
-            inline constexpr u32 Philippine_blue = 0x0038a7;
-            /// @brief Royal azure rgb(0, 56, 168)
-            inline constexpr u32 Royal_azure = 0x0038a8;
-            /// @brief Blue (Pantone) rgb(0, 24, 168)
-            inline constexpr u32 Blue_Pantone = 0x0018a8;
-            /// @brief Zaffre rgb(0, 20, 168)
-            inline constexpr u32 Zaffre = 0x0014a8;
-            /// @brief Sap green rgb(80, 125, 42)
-            inline constexpr u32 Sap_green = 0x507d2a;
-            /// @brief Garnet rgb(115, 54, 53)
-            inline constexpr u32 Garnet = 0x733635;
-            /// @brief Gold rgb(165, 124, 0)
-            inline constexpr u32 Gold = 0xa57c00;
-            /// @brief Green (pigment) rgb(0, 165, 80)
-            inline constexpr u32 Green_pigment = 0x00a550;
-            /// @brief Persian green rgb(0, 166, 147)
-            inline constexpr u32 Persian_green = 0x00a693;
-            /// @brief Medium Persian blue rgb(0, 103, 165)
-            inline constexpr u32 Medium_Persian_blue = 0x0067a5;
-            /// @brief Sapphire blue rgb(0, 103, 165)
-            inline constexpr u32 Sapphire_blue = 0x0067a5;
-            /// @brief Neon blue rgb(27, 3, 163)
-            inline constexpr u32 Neon_blue = 0x1b03a3;
-            /// @brief Fuzzy Wuzzy rgb(135, 66, 31)
-            inline constexpr u32 Fuzzy_Wuzzy = 0x87421f;
-            /// @brief Catawba rgb(112, 54, 66)
-            inline constexpr u32 Catawba = 0x703642;
-            /// @brief Coffee rgb(111, 78, 55)
-            inline constexpr u32 Coffee = 0x6f4e37;
-            /// @brief Tuscan brown rgb(111, 78, 55)
-            inline constexpr u32 Tuscan_brown = 0x6f4e37;
-            /// @brief Flirt rgb(162, 0, 109)
-            inline constexpr u32 Flirt = 0xa2006d;
-            /// @brief Puce red rgb(114, 47, 55)
-            inline constexpr u32 Puce_red = 0x722f37;
-            /// @brief Wine rgb(114, 47, 55)
-            inline constexpr u32 Wine = 0x722f37;
-            /// @brief Police blue rgb(55, 79, 107)
-            inline constexpr u32 Police_blue = 0x374f6b;
-            /// @brief Eggplant rgb(97, 64, 81)
-            inline constexpr u32 Eggplant = 0x614051;
-            /// @brief Green (NCS) rgb(0, 159, 107)
-            inline constexpr u32 Green_NCS = 0x009f6b;
-            /// @brief Kobe rgb(136, 45, 23)
-            inline constexpr u32 Kobe = 0x882d17;
-            /// @brief Sienna rgb(136, 45, 23)
-            inline constexpr u32 Sienna = 0x882d17;
-            /// @brief Antique ruby rgb(132, 27, 45)
-            inline constexpr u32 Antique_ruby = 0x841b2d;
-            /// @brief Shamrock green rgb(0, 158, 96)
-            inline constexpr u32 Shamrock_green = 0x009e60;
-            /// @brief Saddle Brown rgb(139, 69, 19)
-            inline constexpr u32 Saddle_Brown = 0x8b4513;
-            /// @brief St. Patrick's blue rgb(35, 41, 122)
-            inline constexpr u32 St_Patrick_s_blue = 0x23297a;
-            /// @brief Mustard green rgb(110, 110, 48)
-            inline constexpr u32 Mustard_green = 0x6e6e30;
-            /// @brief Dark liver rgb(83, 75, 79)
-            inline constexpr u32 Dark_liver = 0x534b4f;
-            /// @brief Paolo Veronese green rgb(0, 155, 125)
-            inline constexpr u32 Paolo_Veronese_green = 0x009b7d;
-            /// @brief Duke blue rgb(0, 0, 156)
-            inline constexpr u32 Duke_blue = 0x00009c;
-            /// @brief Metallic violet rgb(91, 10, 145)
-            inline constexpr u32 Metallic_violet = 0x5b0a91;
-            /// @brief Russet rgb(128, 70, 27)
-            inline constexpr u32 Russet = 0x80461b;
-            /// @brief OU Crimson red rgb(153, 0, 0)
-            inline constexpr u32 OU_Crimson_red = 0x990000;
-            /// @brief Green-cyan rgb(0, 153, 102)
-            inline constexpr u32 Green_cyan = 0x009966;
-            /// @brief Smalt (Dark powder blue) rgb(0, 51, 153)
-            inline constexpr u32 Smalt_Dark_powder_blue = 0x003399;
-            /// @brief Medium electric blue rgb(3, 80, 150)
-            inline constexpr u32 Medium_electric_blue = 0x035096;
-            /// @brief Byzantium rgb(112, 41, 99)
-            inline constexpr u32 Byzantium = 0x702963;
-            /// @brief Dark olive green rgb(85, 107, 47)
-            inline constexpr u32 Dark_olive_green = 0x556b2f;
-            /// @brief Quartz rgb(81, 72, 79)
-            inline constexpr u32 Quartz = 0x51484f;
-            /// @brief Brown rgb(150, 75, 0)
-            inline constexpr u32 Brown = 0x964b00;
-            /// @brief Viridian green rgb(0, 150, 152)
-            inline constexpr u32 Viridian_green = 0x009698;
-            /// @brief Carmine rgb(150, 0, 24)
-            inline constexpr u32 Carmine = 0x960018;
-            /// @brief Metallic Seaweed rgb(10, 126, 140)
-            inline constexpr u32 Metallic_Seaweed = 0x0a7e8c;
-            /// @brief Claret rgb(127, 23, 52)
-            inline constexpr u32 Claret = 0x7f1734;
-            /// @brief Falu red rgb(128, 24, 24)
-            inline constexpr u32 Falu_red = 0x801818;
-            /// @brief Midnight rgb(112, 38, 112)
-            inline constexpr u32 Midnight = 0x702670;
-            /// @brief Old mauve rgb(103, 49, 71)
-            inline constexpr u32 Old_mauve = 0x673147;
-            /// @brief Medium violet rgb(101, 49, 95)
-            inline constexpr u32 Medium_violet = 0x65315f;
-            /// @brief Dark byzantium rgb(93, 57, 84)
-            inline constexpr u32 Dark_byzantium = 0x5d3954;
-            /// @brief English violet rgb(86, 60, 92)
-            inline constexpr u32 English_violet = 0x563c5c;
-            /// @brief Old heliotrope rgb(86, 60, 92)
-            inline constexpr u32 Old_heliotrope = 0x563c5c;
-            /// @brief Sea blue rgb(0, 105, 148)
-            inline constexpr u32 Sea_blue = 0x006994;
-            /// @brief Hunter green rgb(53, 94, 59)
-            inline constexpr u32 Hunter_green = 0x355e3b;
-            /// @brief Spanish green rgb(0, 145, 80)
-            inline constexpr u32 Spanish_green = 0x009150;
-            /// @brief Blue sapphire rgb(18, 97, 128)
-            inline constexpr u32 Blue_sapphire = 0x126180;
-            /// @brief Salem rgb(23, 123, 77)
-            inline constexpr u32 Salem = 0x177b4d;
-            /// @brief India green rgb(19, 136, 8)
-            inline constexpr u32 India_green = 0x138808;
-            /// @brief Smokey Topaz rgb(131, 42, 13)
-            inline constexpr u32 Smokey_Topaz = 0x832a0d;
-            /// @brief Pansy purple rgb(120, 24, 74)
-            inline constexpr u32 Pansy_purple = 0x78184a;
-            /// @brief Palatinate purple rgb(104, 40, 96)
-            inline constexpr u32 Palatinate_purple = 0x682860;
-            /// @brief Mughal green rgb(48, 96, 48)
-            inline constexpr u32 Mughal_green = 0x306030;
-            /// @brief Purple taupe rgb(80, 64, 77)
-            inline constexpr u32 Purple_taupe = 0x50404d;
-            /// @brief Kobicha rgb(107, 68, 35)
-            inline constexpr u32 Kobicha = 0x6b4423;
-            /// @brief Van Dyke brown rgb(102, 66, 40)
-            inline constexpr u32 Van_Dyke_brown = 0x664228;
-            /// @brief Japanese violet rgb(91, 50, 86)
-            inline constexpr u32 Japanese_violet = 0x5b3256;
-            /// @brief Outer Space rgb(65, 74, 76)
-            inline constexpr u32 Outer_Space = 0x414a4c;
-            /// @brief Dark red rgb(139, 0, 0)
-            inline constexpr u32 Dark_red = 0x8b0000;
-            /// @brief Dark cyan rgb(0, 139, 139)
-            inline constexpr u32 Dark_cyan = 0x008b8b;
-            /// @brief Midnight blue rgb(0, 70, 140)
-            inline constexpr u32 Midnight_blue = 0x00468c;
-            /// @brief Dark blue rgb(0, 0, 139)
-            inline constexpr u32 Dark_blue = 0x00008b;
-            /// @brief Dark magenta rgb(139, 0, 139)
-            inline constexpr u32 Dark_magenta = 0x8b008b;
-            /// @brief UP maroon rgb(123, 17, 19)
-            inline constexpr u32 UP_maroon = 0x7b1113;
-            /// @brief Persian indigo rgb(50, 18, 122)
-            inline constexpr u32 Persian_indigo = 0x32127a;
-            /// @brief Persian plum rgb(112, 28, 28)
-            inline constexpr u32 Persian_plum = 0x701c1c;
-            /// @brief Prune rgb(112, 28, 28)
-            inline constexpr u32 Prune = 0x701c1c;
-            /// @brief Liver (organ) rgb(108, 46, 31)
-            inline constexpr u32 Liver_organ = 0x6c2e1f;
-            /// @brief Phthalo blue rgb(0, 15, 137)
-            inline constexpr u32 Phthalo_blue = 0x000f89;
-            /// @brief Dark spring green rgb(23, 114, 69)
-            inline constexpr u32 Dark_spring_green = 0x177245;
-            /// @brief Midnight blue rgb(25, 25, 112)
-            inline constexpr u32 Midnight_blue = 0x191970;
-            /// @brief Field drab rgb(108, 84, 30)
-            inline constexpr u32 Field_drab = 0x6c541e;
-            /// @brief Resolution blue rgb(0, 35, 135)
-            inline constexpr u32 Resolution_blue = 0x002387;
-            /// @brief Mardi Gras rgb(136, 0, 133)
-            inline constexpr u32 Mardi_Gras = 0x880085;
-            /// @brief Royal brown rgb(82, 59, 53)
-            inline constexpr u32 Royal_brown = 0x523b35;
-            /// @brief Philippine green rgb(0, 133, 67)
-            inline constexpr u32 Philippine_green = 0x008543;
-            /// @brief Dark brown rgb(101, 67, 33)
-            inline constexpr u32 Dark_brown = 0x654321;
-            /// @brief Otter brown rgb(101, 67, 33)
-            inline constexpr u32 Otter_brown = 0x654321;
-            /// @brief Charcoal rgb(54, 69, 79)
-            inline constexpr u32 Charcoal = 0x36454f;
-            /// @brief Neon dark green rgb(0, 132, 67)
-            inline constexpr u32 Neon_dark_green = 0x008443;
-            /// @brief Sepia rgb(112, 66, 20)
-            inline constexpr u32 Sepia = 0x704214;
-            /// @brief Antique bronze rgb(102, 93, 30)
-            inline constexpr u32 Antique_bronze = 0x665d1e;
-            /// @brief Rifle green rgb(68, 76, 56)
-            inline constexpr u32 Rifle_green = 0x444c38;
-            /// @brief Teal green rgb(0, 130, 127)
-            inline constexpr u32 Teal_green = 0x00827f;
-            /// @brief Indigo rgb(75, 0, 130)
-            inline constexpr u32 Indigo = 0x4b0082;
-            /// @brief Philippine violet rgb(129, 0, 127)
-            inline constexpr u32 Philippine_violet = 0x81007f;
-            /// @brief Maroon (HTML/CSS) rgb(128, 0, 0)
-            inline constexpr u32 Maroon_HTML_CSS = 0x800000;
-            /// @brief Olive rgb(128, 128, 0)
-            inline constexpr u32 Olive = 0x808000;
-            /// @brief Napier green rgb(42, 128, 0)
-            inline constexpr u32 Napier_green = 0x2a8000;
-            /// @brief Green (HTML/CSS color) rgb(0, 128, 0)
-            inline constexpr u32 Green_HTML_CSS_color = 0x008000;
-            /// @brief Office green rgb(0, 128, 0)
-            inline constexpr u32 Office_green = 0x008000;
-            /// @brief Spanish viridian rgb(0, 127, 92)
-            inline constexpr u32 Spanish_viridian = 0x007f5c;
-            /// @brief Generic viridian rgb(0, 127, 102)
-            inline constexpr u32 Generic_viridian = 0x007f66;
-            /// @brief Teal rgb(0, 128, 128)
-            inline constexpr u32 Teal = 0x008080;
-            /// @brief Navy blue rgb(0, 0, 128)
-            inline constexpr u32 Navy_blue = 0x000080;
-            /// @brief Patriarch rgb(128, 0, 128)
-            inline constexpr u32 Patriarch = 0x800080;
-            /// @brief Purple (HTML) rgb(128, 0, 128)
-            inline constexpr u32 Purple_HTML = 0x800080;
-            /// @brief Burgundy rgb(128, 0, 32)
-            inline constexpr u32 Burgundy = 0x800020;
-            /// @brief Oxblood rgb(128, 0, 32)
-            inline constexpr u32 Oxblood = 0x800020;
-            /// @brief La Salle green rgb(8, 120, 48)
-            inline constexpr u32 La_Salle_green = 0x087830;
-            /// @brief Dark moss green rgb(74, 93, 35)
-            inline constexpr u32 Dark_moss_green = 0x4a5d23;
-            /// @brief Barn red rgb(124, 10, 2)
-            inline constexpr u32 Barn_red = 0x7c0a02;
-            /// @brief Dark slate gray rgb(47, 79, 79)
-            inline constexpr u32 Dark_slate_gray = 0x2f4f4f;
-            /// @brief Chocolate (traditional) rgb(123, 63, 0)
-            inline constexpr u32 Chocolate_traditional = 0x7b3f00;
-            /// @brief Medium green rgb(3, 121, 73)
-            inline constexpr u32 Medium_green = 0x037949;
-            /// @brief Pullman Brown (UPS Brown) rgb(100, 65, 23)
-            inline constexpr u32 Pullman_Brown_UPS_Brown = 0x644117;
-            /// @brief Pine green rgb(1, 121, 111)
-            inline constexpr u32 Pine_green = 0x01796f;
-            /// @brief Dark lava rgb(72, 60, 50)
-            inline constexpr u32 Dark_lava = 0x483c32;
-            /// @brief Taupe rgb(72, 60, 50)
-            inline constexpr u32 Taupe = 0x483c32;
-            /// @brief Tropical rain forest rgb(0, 117, 94)
-            inline constexpr u32 Tropical_rain_forest = 0x00755e;
-            /// @brief Philippine bronze rgb(110, 58, 7)
-            inline constexpr u32 Philippine_bronze = 0x6e3a07;
-            /// @brief Skobeloff rgb(0, 116, 116)
-            inline constexpr u32 Skobeloff = 0x007474;
-            /// @brief Philippine brown rgb(93, 25, 22)
-            inline constexpr u32 Philippine_brown = 0x5d1916;
-            /// @brief Light chocolate cosmos rgb(85, 31, 47)
-            inline constexpr u32 Light_chocolate_cosmos = 0x551f2f;
-            /// @brief Old burgundy rgb(67, 48, 46)
-            inline constexpr u32 Old_burgundy = 0x43302e;
-            /// @brief Kombu green rgb(53, 66, 48)
-            inline constexpr u32 Kombu_green = 0x354230;
-            /// @brief Black olive rgb(59, 60, 54)
-            inline constexpr u32 Black_olive = 0x3b3c36;
-            /// @brief Dartmouth green rgb(0, 112, 60)
-            inline constexpr u32 Dartmouth_green = 0x00703c;
-            /// @brief Metallic green rgb(41, 110, 1)
-            inline constexpr u32 Metallic_green = 0x296e01;
-            /// @brief Space cadet rgb(29, 41, 81)
-            inline constexpr u32 Space_cadet = 0x1d2951;
-            /// @brief Onyx rgb(53, 56, 57)
-            inline constexpr u32 Onyx = 0x353839;
-            /// @brief Cadmium green rgb(0, 107, 60)
-            inline constexpr u32 Cadmium_green = 0x006b3c;
-            /// @brief Café Noir rgb(75, 54, 33)
-            inline constexpr u32 Café_Noir = 0x4b3621;
-            /// @brief Indigo dye rgb(0, 65, 106)
-            inline constexpr u32 Indigo_dye = 0x00416a;
-            /// @brief Philippine indigo rgb(0, 65, 106)
-            inline constexpr u32 Philippine_indigo = 0x00416a;
-            /// @brief Violin Brown rgb(103, 68, 3)
-            inline constexpr u32 Violin_Brown = 0x674403;
-            /// @brief Spanish purple rgb(102, 3, 60)
-            inline constexpr u32 Spanish_purple = 0x66033c;
-            /// @brief Royal green rgb(19, 98, 7)
-            inline constexpr u32 Royal_green = 0x136207;
-            /// @brief Tyrian purple rgb(102, 2, 60)
-            inline constexpr u32 Tyrian_purple = 0x66023c;
-            /// @brief Outer space (Crayola) rgb(45, 56, 58)
-            inline constexpr u32 Outer_space_Crayola = 0x2d383a;
-            /// @brief Jet rgb(52, 52, 52)
-            inline constexpr u32 Jet = 0x343434;
-            /// @brief Blood red rgb(102, 0, 0)
-            inline constexpr u32 Blood_red = 0x660000;
-            /// @brief Pakistan green rgb(0, 102, 0)
-            inline constexpr u32 Pakistan_green = 0x006600;
-            /// @brief Dark midnight blue rgb(0, 51, 102)
-            inline constexpr u32 Dark_midnight_blue = 0x003366;
-            /// @brief Royal blue rgb(0, 35, 102)
-            inline constexpr u32 Royal_blue = 0x002366;
-            /// @brief Dark green (X11) rgb(0, 100, 0)
-            inline constexpr u32 Dark_green_X11 = 0x006400;
-            /// @brief Seal brown rgb(89, 38, 11)
-            inline constexpr u32 Seal_brown = 0x59260b;
-            /// @brief Pineapple rgb(86, 60, 13)
-            inline constexpr u32 Pineapple = 0x563c0d;
-            /// @brief Russian violet rgb(50, 23, 77)
-            inline constexpr u32 Russian_violet = 0x32174d;
-            /// @brief Gunmetal rgb(42, 52, 57)
-            inline constexpr u32 Gunmetal = 0x2a3439;
-            /// @brief Lincoln green rgb(25, 89, 5)
-            inline constexpr u32 Lincoln_green = 0x195905;
-            /// @brief MSU green rgb(24, 69, 59)
-            inline constexpr u32 MSU_green = 0x18453b;
-            /// @brief Temptress rgb(60, 33, 38)
-            inline constexpr u32 Temptress = 0x3c2126;
-            /// @brief Bistre rgb(61, 43, 31)
-            inline constexpr u32 Bistre = 0x3d2b1f;
-            /// @brief Olive drab #7 rgb(60, 52, 31)
-            inline constexpr u32 Olive_drab_7 = 0x3c341f;
-            /// @brief Midnight green (Eagle green) rgb(0, 73, 83)
-            inline constexpr u32 Midnight_green_Eagle_green = 0x004953;
-            /// @brief Prussian blue rgb(0, 49, 83)
-            inline constexpr u32 Prussian_blue = 0x003153;
-            /// @brief Medium jungle green rgb(28, 53, 45)
-            inline constexpr u32 Medium_jungle_green = 0x1c352d;
-            /// @brief Pine green rgb(42, 47, 35)
-            inline constexpr u32 Pine_green = 0x2a2f23;
-            /// @brief Dark sienna rgb(60, 20, 20)
-            inline constexpr u32 Dark_sienna = 0x3c1414;
-            /// @brief Dark purple rgb(48, 25, 52)
-            inline constexpr u32 Dark_purple = 0x301934;
-            /// @brief Charleston green rgb(35, 43, 43)
-            inline constexpr u32 Charleston_green = 0x232b2b;
-            /// @brief Deep jungle green rgb(0, 75, 73)
-            inline constexpr u32 Deep_jungle_green = 0x004b49;
-            /// @brief Oxford blue rgb(0, 33, 71)
-            inline constexpr u32 Oxford_blue = 0x002147;
-            /// @brief Phthalo green rgb(18, 53, 36)
-            inline constexpr u32 Phthalo_green = 0x123524;
-            /// @brief Forest green (traditional) rgb(1, 68, 33)
-            inline constexpr u32 Forest_green_traditional = 0x014421;
-            /// @brief Raisin black rgb(36, 33, 36)
-            inline constexpr u32 Raisin_black = 0x242124;
-            /// @brief British racing green rgb(0, 66, 37)
-            inline constexpr u32 British_racing_green = 0x004225;
-            /// @brief Black bean rgb(61, 12, 2)
-            inline constexpr u32 Black_bean = 0x3d0c02;
-            /// @brief Maastricht Blue rgb(0, 28, 61)
-            inline constexpr u32 Maastricht_Blue = 0x001c3d;
-            /// @brief Sacramento State green rgb(4, 57, 39)
-            inline constexpr u32 Sacramento_State_green = 0x043927;
-            /// @brief Dark jungle green rgb(26, 36, 33)
-            inline constexpr u32 Dark_jungle_green = 0x1a2421;
-            /// @brief Eerie black rgb(27, 27, 27)
-            inline constexpr u32 Eerie_black = 0x1b1b1b;
-            /// @brief Dark green rgb(1, 50, 32)
-            inline constexpr u32 Dark_green = 0x013220;
-            /// @brief Zinnwaldite rgb(44, 22, 8)
-            inline constexpr u32 Zinnwaldite = 0x2c1608;
-            /// @brief Root beer rgb(41, 14, 5)
-            inline constexpr u32 Root_beer = 0x290e05;
-            /// @brief Licorice rgb(26, 17, 16)
-            inline constexpr u32 Licorice = 0x1a1110;
-            /// @brief Smoky black rgb(16, 12, 8)
-            inline constexpr u32 Smoky_black = 0x100c08;
-            /// @brief Vampire Black rgb(8, 8, 8)
-            inline constexpr u32 Vampire_Black = 0x080808;
-            /// @brief Black rgb(0, 0, 0)
-            inline constexpr u32 Black = 0x000000;
-            /// @brief Registration black rgb(0, 0, 0)
-            inline constexpr u32 Registration_black = 0x000000;
-        } // namespace Color
+            /// @brief This color is the bright color for generic purposes.
+            inline constexpr u32 BrightDebugColor = Color::Pale_Grey;
+            /// @brief This color is the dark color for generic purposes.
+            /// @note It's not totally black because Tracy explicitly states that color with number 0 is the no-color
+            /// selected value.
+            inline constexpr u32 DarkDebugColor = Color::Almost_Black;
+        } // namespace DebugColor
     } // namespace Graphics
 } // namespace Sola
 

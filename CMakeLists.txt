@@ -73,7 +73,6 @@ set(FT_WITH_HARFBUZZ OFF)
 set(NFD_INSTALL ON)
 
 add_compile_definitions(IMGUI_ENABLE_FREETYPE)
-add_compile_definitions(TRACY_ENABLE)
 
 find_program(CMAKE_CXX_CPPCHECK cppcheck)
 
@@ -148,6 +147,24 @@ if(BUILD_DOCS)
     set(DOXYGEN_QUIET YES)
     set(DOXYGEN_WARNINGS YES)
     set(DOXYGEN_WARN_AS_ERROR YES)
+    set(DOXYGEN_DISABLE_INDEX NO)
+    set(DOXYGEN_FULL_SIDEBAR NO)
+    set(DOXYGEN_HTML_COPY_CLIPBOARD NO)
+    set(DOXYGEN_DOT_IMAGE_FORMAT svg)
+    set(DOXYGEN_DOT_TRANSPARENT YES)
+    set(DOXYGEN_HTML_COLORSTYLE LIGHT)
+    set(DOXYGEN_HTML_EXTRA_FILES
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-darkmode-toggle.js
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-fragment-copy-button.js
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-paragraph-link.js
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-interactive-toc.js
+    )
+    set(DOXYGEN_HTML_EXTRA_STYLESHEET
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome.css
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-sidebar-only.css
+        ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-sidebar-only-darkmode-toggle.css
+    )
+    set(DOXYGEN_HTML_HEADER ${CMAKE_SOURCE_DIR}/scripts/docs-header.html)
 endif()
 
 # Add vendored

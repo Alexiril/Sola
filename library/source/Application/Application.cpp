@@ -1,9 +1,10 @@
+#include <tracy/Tracy.hpp>
+
 #include "Application/Application.hpp"
 #include "Graphics/Color.hpp"
 #include "Helpers/FileSystem.hpp"
 #include "Logger/Severity.hpp"
 #include "Python/API.hpp"
-#include "tracy/Tracy.hpp"
 
 namespace Sola
 {

@@ -1,3 +1,7 @@
+"""
+This script runs newly built python in the artifacts folder to download and install PIP automatically
+"""
+
 from os import name
 from pathlib import Path
 from subprocess import run

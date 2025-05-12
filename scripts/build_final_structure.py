@@ -1,5 +1,6 @@
-# This file creates the final structure of the Sola (currently Windows only)
-# TODO#5
+"""
+This file creates the final structure of the Sola (currently Windows only)
+"""
 
 from os import name
 from pathlib import Path
@@ -63,6 +64,7 @@ def main() -> None:
     copy_license("PPQSort", vendor_dir / "ppqsort" / "LICENSE")
     copy_license("Tracy", vendor_dir / "tracy" / "LICENSE")
     copy_license("Zstd", vendor_dir / "zstd" / "LICENSE")
+    copy_license("Doxygen Awesome", vendor_dir / "doxygen_awesome" / "LICENSE")
 
     # SDL puts its licenses into separate SDL folder. It's nice, but no, thanks.
     # The issue is - if we put all the licenses into separate folders, it's not looking

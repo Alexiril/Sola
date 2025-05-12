@@ -12,6 +12,7 @@ __pycache__
 # Third party libraries sources
 vendor/capstone
 vendor/cpython
+vendor/doxygen_awesome
 vendor/freetype
 vendor/glfw
 vendor/imgui

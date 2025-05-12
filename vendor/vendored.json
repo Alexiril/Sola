@@ -92,5 +92,12 @@
         "vendored": "Tracy",
         "patch": "tracy/capture/CMakeLists.txt",
         "path": "capture/CMakeLists.txt"
+    },
+    {
+        "type": "load-git",
+        "name": "Doxygen Awesome",
+        "path": "doxygen_awesome",
+        "url": "https://github.com/jothepro/doxygen-awesome-css.git",
+        "branch": "main"
     }
 ]

@@ -1,3 +1,7 @@
+"""
+This file counts all the text lines in the selected folder (recursively) with the selected file extension
+"""
+
 # Why does this file even exist?..
 
 from pathlib import Path

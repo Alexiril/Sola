@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.30)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 set(SOLA_VERSION_MAJOR 0)
 set(SOLA_VERSION_MINOR 1)
 set(SOLA_VERSION_PATCH 0)
 set(SOLA_VERSION_STRING "${SOLA_VERSION_MAJOR}.${SOLA_VERSION_MINOR}.${SOLA_VERSION_PATCH}")
+
+set(SOLA_PROFILER_INTERNAL_SECTION ON)
+set(SOLA_PROFILER_EXTERNAL_SECTION ON)
 
 project(sola)
 
@@ -18,12 +20,13 @@ option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(SOLA_DEBUG_LOG "Print debug logs" ON)
 option(DO_INSTALL_LOCALLY "Install the built artifacts to the 'artifacts' folder in the build directory" ON)
 option(UPDATE_VENDORED "Update vendored libraries if possible" ON)
+option(TRACY_ENABLE "Enable Tracy" ON)
 
 # Get vendored
 if(!UPDATE_VENDORED)
     set(VENDORED_AUTO_LOADER_ARGS "${VENDORED_AUTO_LOADER_ARGS} --no-update")
 endif()
-execute_process(COMMAND ${Python3_EXECUTABLE} "${CMAKE_SOURCE_DIR}/scripts/auto_loader.py" ${VENDORED_AUTO_LOADER_ARGS} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND_ERROR_IS_FATAL ANY)
+execute_process(COMMAND ${Python3_EXECUTABLE} -u "${CMAKE_SOURCE_DIR}/scripts/auto_loader.py" ${VENDORED_AUTO_LOADER_ARGS} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND_ERROR_IS_FATAL ANY)
 
 # For Windows Python embeddable package
 # TODO#6
@@ -37,8 +40,43 @@ set(SDL_INSTALL ON)
 set(REBUILD_PYTHON 0)
 set(BUILD_DOCS ON)
 
+set(ZSTD_BUILD_STATIC OFF)
+set(ZSTD_PROGRAMS_LINK_SHARED ON)
+set(CAPSTONE_X86_ATT_DISABLE ON)
+set(CAPSTONE_ALPHA_SUPPORT OFF)
+set(CAPSTONE_HPPA_SUPPORT OFF)
+set(CAPSTONE_LOONGARCH_SUPPORT OFF)
+set(CAPSTONE_M680X_SUPPORT OFF)
+set(CAPSTONE_M68K_SUPPORT OFF)
+set(CAPSTONE_MIPS_SUPPORT OFF)
+set(CAPSTONE_MOS65XX_SUPPORT OFF)
+set(CAPSTONE_PPC_SUPPORT OFF)
+set(CAPSTONE_SPARC_SUPPORT OFF)
+set(CAPSTONE_SYSTEMZ_SUPPORT OFF)
+set(CAPSTONE_XCORE_SUPPORT OFF)
+set(CAPSTONE_TRICORE_SUPPORT OFF)
+set(CAPSTONE_TMS320C64X_SUPPORT OF)
+set(CAPSTONE_M680X_SUPPORT OFF)
+set(CAPSTONE_EVM_SUPPORT OFF)
+set(CAPSTONE_WASM_SUPPORT OFF)
+set(CAPSTONE_BPF_SUPPORT OFF)
+set(CAPSTONE_RISCV_SUPPORT OFF)
+set(CAPSTONE_SH_SUPPORT OFF)
+set(CAPSTONE_XTENSA_SUPPORT OFF)
+set(CAPSTONE_BUILD_MACOS_THIN ON)
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_BUILD_DOCS OFF)
+set(GLFW_INSTALL ON)
+set(FT_DISABLE_HARFBUZZ ON)
+set(FT_WITH_HARFBUZZ OFF)
+set(NFD_INSTALL ON)
+
+add_compile_definitions(IMGUI_ENABLE_FREETYPE)
+add_compile_definitions(TRACY_ENABLE)
+
 find_program(CMAKE_CXX_CPPCHECK cppcheck)
-    
+
 if(CMAKE_CXX_CPPCHECK)
     set(CPP_CHECK_CMD ${CMAKE_CXX_CPPCHECK} --version)
     execute_process(COMMAND ${CPP_CHECK_CMD}
@@ -52,8 +90,8 @@ if(CMAKE_CXX_CPPCHECK)
         ProcessorCount(CPU_CORES)
         list(
             APPEND CMAKE_CXX_CPPCHECK
-            "--template=\"${CMAKE_SOURCE_DIR}/{file}({line}): {severity} ({id}): {message}\"" 
-            "--quiet" 
+            "--template=\"${CMAKE_SOURCE_DIR}/{file}({line}): {severity} ({id}): {message}\""
+            "--quiet"
             "--enable=all"
             "--std=c++20"
             "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppressions.txt"
@@ -62,7 +100,7 @@ if(CMAKE_CXX_CPPCHECK)
             "--addon-python=${Python_EXECUTABLE}"
             "--addon=threadsafety.py"
             "--checkers-report=${CMAKE_BINARY_DIR}/cppcheck/report.xml"
-            "-j${CPU_CORES}" 
+            "-j${CPU_CORES}"
             "-i./vendor"
             "-i./test"
             "-i./scripts"
@@ -113,10 +151,21 @@ if(BUILD_DOCS)
 endif()
 
 # Add vendored
-add_subdirectory(vendor/sdl)
-add_subdirectory(vendor/cpython)
+include(scripts/CPM.cmake)
+add_subdirectory(vendor/cpython)          # python interpreter
+add_subdirectory(vendor/capstone)         # disassembler framework (for Tracy only)
+add_subdirectory(vendor/glfw)             # media library (for Tracy only, Tracy uses GLFW, not SDL)
+add_subdirectory(vendor/zstd/build/cmake) # fast compression algorithm
+add_subdirectory(vendor/freetype)         # library for fonts
+# There should also be ImGui here, but there is no point in building it without an application
+add_subdirectory(vendor/nfd)
+add_subdirectory(vendor/ppqsort)          # parallel pattern quicksort algorithm
+add_subdirectory(vendor/sdl)              # media library for Sola
+add_subdirectory(vendor/tracy)            # profiler client (into profiled apps)
+add_subdirectory(vendor/tracy/profiler)   # profiler server (profiler application)
+add_subdirectory(vendor/tracy/capture)    # profile server no GUI, just saving
 
 add_subdirectory(library)
 add_subdirectory(editor)
 
-install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} \"${CMAKE_SOURCE_DIR}/scripts/build_final_structure.py\" \"${PYTHON_ARCH}\" \"${CMAKE_BINARY_DIR}\" \"${CMAKE_INSTALL_PREFIX}\" \"${CMAKE_INSTALL_LIBDIR}\" \"${CMAKE_INSTALL_BINDIR}\")")
+install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} \"${CMAKE_SOURCE_DIR}/scripts/build_final_structure.py\" \"${PYTHON_ARCH}\" \"${CMAKE_BINARY_DIR}\" \"${CMAKE_INSTALL_PREFIX}\" \"${CMAKE_INSTALL_LIBDIR}\" \"${CMAKE_INSTALL_BINDIR}\" \"${CMAKE_SOURCE_DIR}/vendor\")")

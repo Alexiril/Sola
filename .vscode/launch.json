@@ -7,7 +7,7 @@
             "name": "CMake: Debug configure project",
             "cmakeDebugType": "configure",
             "clean": false,
-            "configureAll": false
+            "configureAll": true
         },
         {
             "name": "MSVC Editor debug",

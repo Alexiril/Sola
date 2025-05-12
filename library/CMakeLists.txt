@@ -23,7 +23,7 @@ set(PUBLIC_HEADERS
     # Exception
     ${SOLA_INCLUDE_DIR}/Exception/GeneralException.hpp
     # Graphics
-    ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp 
+    ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp ${SOLA_INCLUDE_DIR}/Graphics/Color.hpp
     # Helpers
     ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp ${SOLA_INCLUDE_DIR}/Helpers/PythonModule.hpp
     # Logger
@@ -75,10 +75,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 # -- Target compile definitions --
 
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
 if(MSVC)
-    set(MAX_WARNINGS_OPTION /W4)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 else()
-    set(MAX_WARNINGS_OPTION -Wpedantic -Wall -Wextra -Wconversion -Warith-conversion -Wshadow -Wnull-dereference -Wformat=2 -Wfloat-equal -Wsign-conversion -Wfloat-conversion)
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wpedantic -Wall -Wextra -Wconversion
+        -Warith-conversion -Wshadow -Wnull-dereference -Wformat=2 -Wfloat-equal -Wsign-conversion -Wfloat-conversion)
 endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${MAX_WARNINGS_OPTION})
@@ -95,17 +98,29 @@ if (SOLA_DEBUG_LOG)
     target_compile_definitions(${PROJECT_NAME} PRIVATE SOLA_DEBUG_LOG)
 endif()
 
+if(SOLA_PROFILER_INTERNAL_SECTION)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SOLA_PROFILER_INTERNAL_SECTION)
+endif()
+
+if(SOLA_PROFILER_EXTERNAL_SECTION)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SOLA_PROFILER_EXTERNAL_SECTION)
+endif()
+
 # -- Dependencies / PRE_BUILD --
 
 add_dependencies(${PROJECT_NAME} python)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE python)
+target_link_libraries(${PROJECT_NAME} PUBLIC python)
 
 add_custom_target(solalib_python_cache COMMAND py -m compileall -j 0 -o 1 "${SOLA_PYTHON}")
 
 add_dependencies(${PROJECT_NAME} solalib_python_cache)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PUBLIC SDL3::SDL3)
+
+add_dependencies(${PROJECT_NAME} TracyClient)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC TracyClient)
 
 add_dependencies(${PROJECT_NAME} cppcheck)
 
@@ -125,6 +140,12 @@ if(BUILD_DOCS)
     doxygen_add_docs(sola_pythonlib_docs ${CMAKE_CURRENT_SOURCE_DIR} ALL)
     add_dependencies(${PROJECT_NAME} sola_pythonlib_docs)
 endif()
+
+# This is not really neeeded for the library to build or run,
+# but it is much more convinient for building the entire Sola framework
+
+add_dependencies(${PROJECT_NAME} tracy-profiler)
+add_dependencies(${PROJECT_NAME} tracy-capture)
 
 # -- Sources / Headers --
 

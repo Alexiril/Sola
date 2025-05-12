@@ -9,6 +9,14 @@ test/*
 # All the python cache. Anywhere.
 __pycache__
 
-# Third party libraries sources. Except the readme file and patches folder
-vendor/sdl
+# Third party libraries sources
+vendor/capstone
 vendor/cpython
+vendor/freetype
+vendor/glfw
+vendor/imgui
+vendor/nfd
+vendor/ppqsort
+vendor/sdl
+vendor/tracy
+vendor/zstd

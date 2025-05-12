@@ -1,7 +1,9 @@
 #include "Application/Application.hpp"
+#include "Graphics/Color.hpp"
 #include "Helpers/FileSystem.hpp"
 #include "Logger/Severity.hpp"
 #include "Python/API.hpp"
+#include "tracy/Tracy.hpp"
 
 namespace Sola
 {
@@ -15,6 +17,9 @@ namespace Sola
                                       const std::string &app_identifier, const std::string &app_creator,
                                       const std::string &app_copyright, const std::string &app_url)
         {
+#ifdef SOLA_PROFILER_INTERNAL_SECTION
+            ZoneScopedC(Graphics::Color::Amber);
+#endif
             if (instance != nullptr)
             {
                 return std::unexpected(ApplicationError::AppIsAlreadyInitialized);

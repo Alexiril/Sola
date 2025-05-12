@@ -1,0 +1,96 @@
+[
+    {
+        "type": "load-git",
+        "name": "Python",
+        "path": "cpython",
+        "url": "https://github.com/python/cpython.git",
+        "branch": "main"
+    },
+    {
+        "type": "patch",
+        "vendored": "Python",
+        "patch": "cpython/CMakeLists.txt",
+        "path": "CMakeLists.txt"
+    },
+    {
+        "type": "patch",
+        "vendored": "Python",
+        "patch": "cpython/PCbuild",
+        "path": "PCbuild"
+    },
+    {
+        "type": "load-git",
+        "name": "Capstone",
+        "path": "capstone",
+        "url": "https://github.com/capstone-engine/capstone.git",
+        "branch": "next"
+    },
+    {
+        "type": "load-git",
+        "name": "GLFW",
+        "path": "glfw",
+        "url": "https://github.com/glfw/glfw.git",
+        "branch": "master"
+    },
+    {
+        "type": "load-git",
+        "name": "FreeType",
+        "path": "freetype",
+        "url": "https://gitlab.freedesktop.org/freetype/freetype.git",
+        "branch": "master"
+    },
+    {
+        "type": "load-git",
+        "name": "Zstandard",
+        "path": "zstd",
+        "url": "https://github.com/facebook/zstd.git",
+        "branch": "release"
+    },
+    {
+        "type": "load-git",
+        "name": "ImGui",
+        "path": "imgui",
+        "url": "https://github.com/ocornut/imgui.git",
+        "branch": "v1.91.9b-docking"
+    },
+    {
+        "type": "load-git",
+        "name": "PPQSort",
+        "path": "ppqsort",
+        "url": "https://github.com/GabTux/PPQSort.git",
+        "branch": "master"
+    },
+    {
+        "type": "load-git",
+        "name": "Native File Dialog",
+        "path": "nfd",
+        "url": "https://github.com/btzy/nativefiledialog-extended.git",
+        "branch": "master"
+    },
+    {
+        "type": "load-git",
+        "name": "SDL",
+        "path": "sdl",
+        "url": "https://github.com/libsdl-org/SDL.git",
+        "branch": "main"
+    },
+    {
+        "type": "load-git",
+        "name": "Tracy",
+        "path": "tracy",
+        "url": "https://github.com/wolfpld/tracy.git",
+        "branch": "master"
+    },
+    {
+        "type": "patch",
+        "vendored": "Tracy",
+        "patch": "tracy/cmake/vendor.cmake",
+        "path": "cmake/vendor.cmake"
+    },
+    {
+        "type": "patch",
+        "vendored": "Tracy",
+        "patch": "tracy/capture/CMakeLists.txt",
+        "path": "capture/CMakeLists.txt"
+    }
+]

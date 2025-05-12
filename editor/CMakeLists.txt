@@ -42,6 +42,15 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 # -- Target compile definitions --
 
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wpedantic -Wall -Wextra -Wconversion
+        -Warith-conversion -Wshadow -Wnull-dereference -Wformat=2 -Wfloat-equal -Wsign-conversion -Wfloat-conversion)
+endif()
+
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     SOLA_VERSION_MAJOR=${SOLA_VERSION_MAJOR}
     SOLA_VERSION_MINOR=${SOLA_VERSION_MINOR}
@@ -55,10 +64,6 @@ endif()
 
 # -- Dependencies / PRE_BUILD --
 
-find_package(Python REQUIRED COMPONENTS Development.Embed)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Python::Python)
-
 add_dependencies(${PROJECT_NAME} sola)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sola)
@@ -68,8 +73,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE sola)
 target_include_directories(${PROJECT_NAME} PRIVATE ${EDITOR_INCLUDE_DIR} ${SOLA_PUBLIC_HEADERS})
 
 target_sources(${PROJECT_NAME} PRIVATE "${EDITOR_SOURCES}")
-
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
 # -- Installing --
 

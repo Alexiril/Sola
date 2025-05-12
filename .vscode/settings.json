@@ -1,8 +1,19 @@
 {
+    "cmake.configureArgs": [
+        "--graphviz=dependency-graph/graph.dot"
+    ],
     "editor.formatOnSave": true,
     "python.analysis.exclude": [
-        "vendor/sdl",
+        "vendor/capstone",
         "vendor/cpython",
+        "vendor/freetype",
+        "vendor/glfw",
+        "vendor/imgui",
+        "vendor/nfd",
+        "vendor/ppqsort",
+        "vendor/sdl",
+        "vendor/tracy",
+        "vendor/zstd",
         "build"
     ],
     "flake8.args": [

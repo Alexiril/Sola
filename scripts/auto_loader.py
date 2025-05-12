@@ -3,15 +3,19 @@ This file loads automatically all third-party files needed
 """
 
 from enum import Enum
+from json import loads
 from pathlib import Path
 from shutil import copyfile, copytree, which, rmtree
 from subprocess import STDOUT, run
 from sys import stdout, argv
 
 
+vendored: dict[str, dict[str, str]] = {}
+
+
 class VendoredType(Enum):
     GITREPO = "Git repository"
-    # TODO#4
+    # TODO: make archive / folder type of vendor
 
 
 def get_git_executable() -> str:
@@ -24,38 +28,31 @@ def get_git_executable() -> str:
     return git_executable
 
 
-def download_via_git(actual_path: Path, repository: str) -> None:
+def git_action(args: list[str], cwd: Path) -> None:
     run(
-        [
-            get_git_executable(),
-            "clone",
-            "--depth",
-            "1",
-            repository,
-            actual_path.as_posix(),
-        ],
+        [get_git_executable(), *args],
         stdout=stdout,
         stderr=STDOUT,
         check=True,
+        cwd=cwd,
     )
+
+
+def download_via_git(actual_path: Path, branch: str, repository: str) -> None:
+    git_action(["clone", "--depth", "1", "-b", branch, repository, actual_path.as_posix()], Path("."))
 
 
 def update_via_git(actual_path: Path) -> None:
-    run(
-        [
-            get_git_executable(),
-            "pull",
-        ],
-        stdout=stdout,
-        stderr=STDOUT,
-        check=True,
-        cwd=actual_path,
-    )
+    # We don't care about local changes
+    # They should be placed into patch folder anyway
+    git_action(["reset", "--hard", "HEAD"], actual_path)
+    git_action(["pull"], actual_path)
 
 
-def vendored(name: str, path: str, vendored_type: VendoredType, url: str, update: bool) -> None:
+def load(name: str, path: str, vendored_type: VendoredType, args: dict[str, str], update: bool) -> None:
     actual_path = Path("vendor") / path
     print(f"Working on {name}", actual_path.absolute().as_posix())
+    vendored[name] = args
     del_folder_on_error = False
     try:
         if actual_path.is_dir():
@@ -69,7 +66,7 @@ def vendored(name: str, path: str, vendored_type: VendoredType, url: str, update
             del_folder_on_error = True
             print(f"{name} will be downloaded. Please, wait.")
             if vendored_type == VendoredType.GITREPO:
-                download_via_git(actual_path, url)
+                download_via_git(actual_path, args["branch"], args["url"])
             print(f"{name} is downloaded.")
     except Exception as e:
         if del_folder_on_error:
@@ -77,7 +74,7 @@ def vendored(name: str, path: str, vendored_type: VendoredType, url: str, update
         raise e
 
 
-def patch_over(patch: str, vendored_path: str, patch_place: str) -> None:
+def patch(patch: str, vendored_path: str, patch_place: str) -> None:
     patches_dir = Path(".") / "vendor" / "patches"
     current_vendored = Path(".") / "vendor" / vendored_path
     if not current_vendored.is_dir():
@@ -96,34 +93,29 @@ def patch_over(patch: str, vendored_path: str, patch_place: str) -> None:
     print(f"Patch '{patch}' is embedded to '{vendored_path}' successfully.")
 
 
+def do_action(action: dict[str, str], update: bool) -> None:
+    global vendored
+    if action["type"] == "load-git":
+        load(action["name"], action["path"], VendoredType.GITREPO, action, update)
+    if action["type"] == "patch":
+        patch(action["patch"], vendored[action["vendored"]]["path"], action["path"])
+
+
 def main() -> None:
     update = True
     for arg in argv[1:]:
         if arg == "--no-update":
             update = False
     try:
-        vendored(
-            "Python",
-            "cpython",
-            VendoredType.GITREPO,
-            "https://github.com/python/cpython.git",
-            update,
-        )
-        patch_over("cpython/CMakeLists.txt", "cpython", "CMakeLists.txt")
-        patch_over(
-            "cpython/PCbuild",
-            "cpython",
-            "PCbuild",
-        )
-        vendored(
-            "SDL",
-            "sdl",
-            VendoredType.GITREPO,
-            "https://github.com/libsdl-org/SDL.git",
-            update,
-        )
+        vendor_dir = Path(".") / "vendor"
+        vendored = vendor_dir / "vendored.json"
+        with open(vendored, mode="r", encoding="utf-8") as inp:
+            actions: list[dict[str, str]] = loads(inp.read())
+        for action in actions:
+            do_action(action, update)
     except Exception as e:
         print(e)
+
 
 if __name__ == "__main__":
     main()

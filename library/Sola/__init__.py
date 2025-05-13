@@ -2,6 +2,6 @@
 This is the Sola Python library.
 """
 
-from .Application.Initializer import sola_init
+from .Application.Initializer import Initializer
 
-__all__ = ["sola_init"]
+__all__ = ["Initializer"]

@@ -13,6 +13,7 @@ namespace Sola
     {
         /// @brief This is a simple structure holding both the module name and the function pointer to the init
         /// function. It's used to register the internal modules that are needed for the interpreter to work.
+        /// @todo Why don't I use std::pair or std::map again?..
         struct InternalModule
         {
         public:
@@ -25,10 +26,15 @@ namespace Sola
         /// @brief Possible errors that can occur in the interpreter.
         enum class InterpreterError
         {
-            RunFunctionInterpNotInitialized,
-            RunFunctionObjectDoesNotExist,
-            RunFunctionObjectIsNotCallable,
-            RunFunctionCallFailed,
+            InterpNotInitialized,
+            NoModulesAvailable,
+            ObjectDoesNotExist,
+            ObjectIsNotCallable,
+            FunctionCallFailed,
+            PythonObjectAllocationFailed,
+            TransformStringToUnicodeFailed,
+            SetAttributeFailed,
+            DelAttributeFailed,
         };
 
         /// @brief The class that should be used to handle all the requests to the Python Interpreter (except for Sola
@@ -79,13 +85,23 @@ namespace Sola
             /// @brief Check if the interpreter is initialized.
             /// @return true if the interpreter successfully completed all initialization steps, otherwise false.
             /// @note Should be used to understand if the interpreter is ready, because the constructor does not throw
-            EXPORTED bool IsInitialized(void) noexcept;
+            EXPORTED bool is_initialized(void) noexcept;
 
             /// @brief Calls PyImport_ImportModule to import a new module (it should be a module in Lib folder or where
             /// the interpreter can reach it).
             /// @param module_name The name of the module to import (like numpy or smth).
             /// @return true if the module was imported successfully, otherwise false.
-            EXPORTED bool ImportModule(const std::string &module_name);
+            EXPORTED bool import_module(const std::string &module_name);
+
+            /// @brief Runs a method of an object inside the Python Interpreter
+            /// @param object the actual object with the callable method member
+            /// @param method_name the name of the function member that will be called
+            /// @param args a list of positional arguments which will be passed into the method
+            /// @param kwargs a dictionary (map) of named arguments
+            /// @return Result of the function or error
+            EXPORTED std::expected<PyObject *, InterpreterError>
+            run_function(PyObject *object, const std::string &method_name, const std::vector<PyObject *> &args,
+                         const std::unordered_map<std::string, PyObject *> &kwargs);
 
             /// @brief Runs any function (that is registered inside some imported module) inside the Python Interpreter
             /// @param module_name the name of the module where the function is registered
@@ -94,8 +110,62 @@ namespace Sola
             /// @param kwargs a dictionary (map) of named arguments
             /// @return Result of the function or error
             EXPORTED std::expected<PyObject *, InterpreterError>
-            RunFunction(const std::string &module_name, const std::string &function_name, std::vector<PyObject *> args,
-                        std::unordered_map<std::string, PyObject *> kwargs);
+            run_function(const std::string &module_name, const std::string &function_name,
+                                  const std::vector<PyObject *> &args, const std::unordered_map<std::string, PyObject *> &kwargs);
+
+            /// @brief It is a simple wrapper over PyObject_GetAttrString, to
+            /// simplify the process of working with Python objects
+            /// @param object the Python object with some set attributes
+            /// @param attribute_name the name of the attribute to get
+            /// @return Python object representing the attribute value or the error
+            EXPORTED std::expected<PyObject *, InterpreterError> get_attribute(PyObject *object,
+                                                                               const std::string &attribute_name);
+
+            /// @brief It is a simple wrapper over PyObject_GetAttrString for imported modules (imported via this class)
+            /// @param module_name the name of the module to look for the attribute
+            /// @param attribute_name the name of the attribute to get
+            /// @return Python object representing the attribute value or the error
+            EXPORTED std::expected<PyObject *, InterpreterError> get_attribute(const std::string &module_name,
+                                                                               const std::string &attribute_name);
+
+            /// @brief Simple wrapper over PyObject_SetAttr
+            /// @param object the Python object pointer, where the attribute will be set
+            /// @param attribute_name the name of the attribute
+            /// @param value the value of the attribute
+            /// @return the original object where the attribute is now set or error
+            EXPORTED std::expected<PyObject *, InterpreterError>
+            set_attribute(PyObject *object, const std::string &attribute_name, PyObject *value);
+
+            /// @brief Simple wrapper over PyObject_SetAttr specifically for strings
+            /// @param object the Python object pointer, where the attribute will be set
+            /// @param attribute_name the name of the attribute
+            /// @param value the string value of the attribute
+            /// @return the original object where the attribute is now set or error
+            EXPORTED std::expected<PyObject *, InterpreterError>
+            set_attribute(PyObject *object, const std::string &attribute_name, const std::string &value);
+
+            /// @brief Simple wrapper over PyObject_SetAttr specifically for signed integers
+            /// @param object the Python object pointer, where the attribute will be set
+            /// @param attribute_name the name of the attribute
+            /// @param value the integer value of the attribute
+            /// @return the original object where the attribute is now set or error
+            EXPORTED std::expected<PyObject *, InterpreterError>
+            set_attribute(PyObject *object, const std::string &attribute_name, i64 value);
+
+            /// @brief Simple wrapper over PyObject_SetAttr specifically for unsigned integers
+            /// @param object the Python object pointer, where the attribute will be set
+            /// @param attribute_name the name of the attribute
+            /// @param value the integer value of the attribute
+            /// @return the original object where the attribute is now set or error
+            EXPORTED std::expected<PyObject *, InterpreterError>
+            set_attribute(PyObject *object, const std::string &attribute_name, u64 value);
+
+            /// @brief Simple wrapper over PyObject_DelAttr
+            /// @param object the object with the attribute to be deleted
+            /// @param attribute_name the name of the attribute to be deleted
+            /// @return the original object with no more attribute, or error
+            EXPORTED std::expected<void, InterpreterError> delete_attribute(PyObject *object,
+                                                                            const std::string &attribute_name);
 
         private:
             bool _initialized;

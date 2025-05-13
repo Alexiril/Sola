@@ -121,15 +121,14 @@ namespace Sola
                 MessageBoxDataWithCallback *data = static_cast<MessageBoxDataWithCallback *>(userdata);
                 SDL_MessageBoxData *mbdata = data->mbdata;
                 bool show_mb_result = SDL_ShowMessageBox(mbdata, hit_button);
-                const std::function<void(i32)> &function = data->function;
-                delete data; // calling the MessageBoxDataWithCallback destructor and cleaning this manual memory
-                             // control mess
                 if (!show_mb_result)
                 {
                     print_warning("SDL_ShowMessageBox failed: " + std::string(SDL_GetError()));
                     *hit_button = -2;
                 }
-                function(*hit_button);
+                data->function(*hit_button);
+                delete data; // calling the MessageBoxDataWithCallback destructor and cleaning this manual memory
+                             // control mess
             }
 
             std::expected<void, WindowsManagerError>

@@ -14,7 +14,8 @@ class Initializer:
     Instead, it is used internally by the Sola Python API to set up the environment.
     """
 
-    def __init__(self, project_dir: str) -> None:
+    @staticmethod
+    def init(project_dir: str) -> None:
         """This method is called when the Sola Python API is imported.
         It initializes the Sola Python API and sets up the environment.
         """
@@ -24,11 +25,4 @@ class Initializer:
         )
 
 
-def sola_init(project_dir: str) -> None:
-    """Simple function to initialize the Sola Python API.
-    This function is not intended to be used directly.
-    """
-    Initializer(project_dir)
-
-
-__all__ = ["Initializer", "sola_init"]
+__all__ = ["Initializer"]

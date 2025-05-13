@@ -130,6 +130,7 @@
         "variant": "cpp",
         "expected": "cpp",
         "*.inc": "cpp",
-        "stdfloat": "cpp"
+        "stdfloat": "cpp",
+        "any": "cpp"
     },
 }

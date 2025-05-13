@@ -110,12 +110,12 @@ namespace Sola
             }
             Python::InternalModule module = {Python::API::module_name, Python::API::create_python_module};
             interpreter = std::make_unique<Python::Interpreter>(config, std::array<Python::InternalModule, 1>{module});
-            if (!interpreter->IsInitialized())
+            if (!interpreter->is_initialized())
             {
                 print_error("Python interpreter was not initialized");
                 return std::unexpected(ApplicationError::PythonInitializationFailed);
             }
-            if (!interpreter->ImportModule("Sola"))
+            if (!interpreter->import_module("Sola"))
             {
                 print_error("Couldn't import Sola core python module");
                 return std::unexpected(ApplicationError::SolaModuleImportFailed);
@@ -137,14 +137,16 @@ namespace Sola
                 return std::unexpected(ApplicationError::ProjectInitializationFailed);
             }
 
-            if (!interpreter->RunFunction("Sola", "sola_init", {}, {{"project_dir", py_project_dir}}).has_value())
+            if (!interpreter
+                     ->run_function(interpreter->get_attribute("Sola", "Initializer").value_or(nullptr), "init", {},
+                                    {{"project_dir", py_project_dir}})
+                     .has_value())
             {
                 print_error("Couldn't initialize project: " + app_project_dir);
                 return std::unexpected(ApplicationError::ProjectInitializationFailed);
             }
             py_project_dir = nullptr;
 
-            // TODO#2
             modules.push_back(Module::video);
 
             /* -- Project is ready to be started -- */

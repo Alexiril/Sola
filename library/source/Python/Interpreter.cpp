@@ -1,263 +1,215 @@
 #include "Python/Interpreter.hpp"
 
-namespace Sola
-{
-    namespace Python
-    {
-        Interpreter::Interpreter(Interpreter &&other)
-            : _initialized(std::exchange(other._initialized, false)), _modules(std::move(other._modules))
-        {
+namespace Sola::Python {
+    Interpreter::Interpreter(Interpreter &&Other) noexcept
+        : Initialized(std::exchange(Other.Initialized, false)), Modules(std::move(Other.Modules)) {}
+
+    Interpreter::~Interpreter() noexcept {
+        if (!Initialized) {
+            return;
         }
 
-        Interpreter::~Interpreter() noexcept
-        {
-            if (!_initialized)
-            {
-                return;
+        for (auto &[ModuleName, Module] : Modules) {
+            Py_XDECREF(Module);
+        }
+
+        Modules.clear();
+
+        if (Py_FinalizeEx() < 0) {
+            printError("Found python interpreter errors during finalization "
+                       "(flushing buffered data)");
+        }
+    }
+
+    auto Interpreter::isInitialized() const noexcept -> bool { return Initialized; }
+
+    auto Interpreter::importModule(const std::string &ModuleName) -> bool {
+        if (!Initialized) {
+            return false;
+        }
+
+        PyObject *Module = PyImport_ImportModule(ModuleName.c_str());
+
+        if (Module == nullptr) {
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
             }
+            printError("Failed to load Module \"" + ModuleName + "\"");
+            return false;
+        }
 
-            for (auto &[module_name, module] : _modules)
-            {
-                Py_XDECREF(module);
-            }
+        this->Modules[ModuleName] = Module;
 
-            _modules.clear();
+        return true;
+    }
 
-            if (Py_FinalizeEx() < 0)
-            {
-                print_error("Found python interpreter errors during finalization "
-                            "(flushing buffered data)");
+    auto Interpreter::runFunction(PyObject *Object, const std::string &MethodName, const std::vector<PyObject *> &Args,
+                                  const std::unordered_map<std::string, PyObject *> &Kwargs)
+        -> std::expected<PyObject *, InterpreterError> {
+        if (!Initialized) {
+            return std::unexpected(InterpreterError::InterpNotInitialized);
+        }
+
+        if (Object == nullptr) {
+            return std::unexpected(InterpreterError::ObjectDoesNotExist);
+        }
+
+        std::expected<PyObject *, InterpreterError> Result = nullptr;
+
+        PyObject *Function = nullptr;
+        std::expected<PyObject *, InterpreterError> Attribute = getAttribute(Object, MethodName);
+        if (!Attribute.has_value() || (Function = Attribute.value()) == nullptr) {
+            return Attribute;
+        }
+
+        if (PyCallable_Check(Function) != 1) {
+            Py_DECREF(Function);
+            printWarning("Python object '" + MethodName + "' is not callable.");
+            return std::unexpected(InterpreterError::ObjectIsNotCallable);
+        }
+
+        PyObject *PyArgs = PyTuple_New(Args.size());
+        PyObject *PyKwargs = PyDict_New();
+        PyObject *PyKey = nullptr;
+        if (PyArgs == nullptr || PyKwargs == nullptr) {
+            Result = std::unexpected(InterpreterError::PythonObjectAllocationFailed);
+            goto Finish;
+        }
+
+        for (u64 i = 0; i < Args.size(); i++) {
+            PyTuple_SetItem(PyArgs, i, Args[i]);
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
+                return std::unexpected(InterpreterError::FunctionCallFailed);
             }
         }
 
-        bool Interpreter::is_initialized() noexcept { return _initialized; }
-
-        bool Interpreter::import_module(const std::string &module_name)
-        {
-            if (!_initialized)
-            {
-                return false;
+        for (const auto &[Key, Value] : Kwargs) {
+            if ((PyKey = PyUnicode_FromString(Key.c_str())) == nullptr) {
+                printWarning("Cannot convert Key '" + Key + "' to Python Unicode");
+                Result = std::unexpected(InterpreterError::FunctionCallFailed);
+                goto Finish;
             }
-
-            PyObject *module = PyImport_ImportModule(module_name.c_str());
-
-            if (module == nullptr)
-            {
-                if (PyErr_Occurred())
-                {
-                    PyErr_Print();
-                }
-                print_error("Failed to load module \"" + module_name + "\"");
-                return false;
+            PyDict_SetItem(PyKwargs, PyKey, Value);
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
+                Result = std::unexpected(InterpreterError::FunctionCallFailed);
+                goto Finish;
             }
-
-            _modules[module_name] = module;
-
-            return true;
         }
 
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::run_function(PyObject *object, const std::string &method_name, const std::vector<PyObject *> &args,
-                                  const std::unordered_map<std::string, PyObject *> &kwargs)
-        {
-            if (!_initialized)
-            {
-                return std::unexpected(InterpreterError::InterpNotInitialized);
+        Result = PyObject_Call(Function, PyArgs, PyKwargs);
+
+        if (Result == nullptr) {
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
             }
-
-            if (object == nullptr)
-            {
-                return std::unexpected(InterpreterError::ObjectDoesNotExist);
-            }
-
-            std::expected<PyObject *, InterpreterError> result = nullptr;
-
-            PyObject *function = nullptr;
-            std::expected<PyObject *, InterpreterError> attribute = get_attribute(object, method_name);
-            if (!attribute.has_value() || (function = attribute.value()) == nullptr)
-            {
-                return attribute;
-            }
-
-            if (!PyCallable_Check(function))
-            {
-                Py_DECREF(function);
-                print_warning("Python object '" + method_name + "' is not callable.");
-                return std::unexpected(InterpreterError::ObjectIsNotCallable);
-            }
-
-            PyObject *py_args = PyTuple_New(args.size());
-            PyObject *py_kwargs = PyDict_New();
-            PyObject *py_key = nullptr;
-            if (py_args == nullptr || py_kwargs == nullptr)
-            {
-                result = std::unexpected(InterpreterError::PythonObjectAllocationFailed);
-                goto finish;
-            }
-
-            for (u64 i = 0; i < args.size(); i++)
-            {
-                PyTuple_SetItem(py_args, i, args[i]);
-                if (PyErr_Occurred() != nullptr)
-                {
-                    PyErr_Print();
-                    return std::unexpected(InterpreterError::FunctionCallFailed);
-                }
-            }
-
-            for (auto &[key, value] : kwargs)
-            {
-                if ((py_key = PyUnicode_FromString(key.c_str())) == 0)
-                {
-                    print_warning("Cannot convert key '" + key + "' to Python Unicode");
-                    result = std::unexpected(InterpreterError::FunctionCallFailed);
-                    goto finish;
-                }
-                PyDict_SetItem(py_kwargs, py_key, value);
-                if (PyErr_Occurred() != nullptr)
-                {
-                    PyErr_Print();
-                    result = std::unexpected(InterpreterError::FunctionCallFailed);
-                    goto finish;
-                }
-            }
-
-            result = PyObject_Call(function, py_args, py_kwargs);
-
-            if (result == nullptr)
-            {
-                if (PyErr_Occurred())
-                {
-                    PyErr_Print();
-                }
-                print_warning("Python function '" + method_name + "' call failed (returned null pointer).");
-                result = std::unexpected(InterpreterError::FunctionCallFailed);
-                goto finish;
-            }
-
-        finish:
-            Py_DECREF(function);
-            Py_XDECREF(py_args);
-            Py_XDECREF(py_kwargs);
-            return result;
+            printWarning("Python Function '" + MethodName + "' call failed (returned null pointer).");
+            Result = std::unexpected(InterpreterError::FunctionCallFailed);
+            goto Finish;
         }
 
-        std::expected<PyObject *, InterpreterError>
-        Interpreter::run_function(const std::string &module_name, const std::string &function_name,
-                                  const std::vector<PyObject *> &args, const std::unordered_map<std::string, PyObject *> &kwargs)
-        {
-            if (_modules.count(module_name) == 0)
-            {
-                return std::unexpected(InterpreterError::NoModulesAvailable);
-            }
+    Finish:
+        Py_DECREF(Function);
+        Py_XDECREF(PyArgs);
+        Py_XDECREF(PyKwargs);
+        return Result;
+    }
 
-            PyObject *module = _modules[module_name];
-            return run_function(module, function_name, args, kwargs);
+    auto Interpreter::runFunction(const std::string &ModuleName, const std::string &function_name,
+                                  const std::vector<PyObject *> &Args,
+                                  const std::unordered_map<std::string, PyObject *> &Kwargs)
+        -> std::expected<PyObject *, InterpreterError> {
+        if (!this->Modules.contains(ModuleName)) {
+            return std::unexpected(InterpreterError::NoModulesAvailable);
         }
 
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::get_attribute(PyObject *object, const std::string &attribute_name)
-        {
-            PyObject *result = nullptr;
-            if (object == nullptr || PyObject_GetOptionalAttrString(object, attribute_name.c_str(), &result) != 1 ||
-                result == nullptr)
-            {
-                return std::unexpected(InterpreterError::ObjectDoesNotExist);
-            }
+        PyObject *Module = this->Modules[ModuleName];
+        return runFunction(Module, function_name, Args, Kwargs);
+    }
 
-            return result;
+    auto Interpreter::getAttribute(PyObject *Object, const std::string &AttributeName)
+        -> std::expected<PyObject *, InterpreterError> {
+        PyObject *Result = nullptr;
+        if (Object == nullptr || PyObject_GetOptionalAttrString(Object, AttributeName.c_str(), &Result) != 1 ||
+            Result == nullptr) {
+            return std::unexpected(InterpreterError::ObjectDoesNotExist);
         }
 
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::get_attribute(const std::string &module_name, const std::string &attribute_name)
-        {
-            if (_modules.count(module_name) == 0)
-            {
-                return std::unexpected(InterpreterError::NoModulesAvailable);
-            }
+        return Result;
+    }
 
-            PyObject *module = _modules[module_name];
-            return get_attribute(module, attribute_name);
+    auto Interpreter::getAttribute(const std::string &ModuleName, const std::string &AttributeName)
+        -> std::expected<PyObject *, InterpreterError> {
+        if (!Modules.contains(ModuleName)) {
+            return std::unexpected(InterpreterError::NoModulesAvailable);
         }
 
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::set_attribute(PyObject *object, const std::string &attribute_name, PyObject *value)
-        {
-            if (object == nullptr || value == nullptr)
-            {
-                return std::unexpected(InterpreterError::SetAttributeFailed);
-            }
-            PyObject *py_attribute_name = PyUnicode_FromString(attribute_name.c_str());
-            if (py_attribute_name == nullptr)
-            {
-                return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
-            }
-            if (PyObject_SetAttr(object, py_attribute_name, value) != 0)
-            {
-                if (PyErr_Occurred() != nullptr)
-                {
-                    PyErr_Print();
-                }
-                return std::unexpected(InterpreterError::SetAttributeFailed);
-            }
-            return object;
-        }
+        PyObject *Module = Modules[ModuleName];
+        return getAttribute(Module, AttributeName);
+    }
 
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::set_attribute(PyObject *object, const std::string &attribute_name, const std::string &value)
-        {
-            PyObject *py_value = PyUnicode_FromString(value.c_str());
-            if (py_value == nullptr)
-            {
-                return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
-            }
-            return set_attribute(object, attribute_name, py_value);
+    auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, PyObject *Value)
+        -> std::expected<PyObject *, InterpreterError> {
+        if (Object == nullptr || Value == nullptr) {
+            return std::unexpected(InterpreterError::SetAttributeFailed);
         }
-
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::set_attribute(PyObject *object, const std::string &attribute_name, i64 value)
-        {
-            PyObject *py_value = PyLong_FromInt64(value);
-            if (py_value == nullptr)
-            {
-                return std::unexpected(InterpreterError::SetAttributeFailed);
-            }
-            return set_attribute(object, attribute_name, py_value);
+        PyObject *PyAttributeName = PyUnicode_FromString(AttributeName.c_str());
+        if (PyAttributeName == nullptr) {
+            return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
         }
-
-        EXPORTED std::expected<PyObject *, InterpreterError>
-        Interpreter::set_attribute(PyObject *object, const std::string &attribute_name, u64 value)
-        {
-            PyObject *py_value = PyLong_FromUInt64(value);
-            if (py_value == nullptr)
-            {
-                return std::unexpected(InterpreterError::SetAttributeFailed);
+        if (PyObject_SetAttr(Object, PyAttributeName, Value) != 0) {
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
             }
-            return set_attribute(object, attribute_name, py_value);
+            return std::unexpected(InterpreterError::SetAttributeFailed);
         }
+        return Object;
+    }
 
-        EXPORTED std::expected<void, InterpreterError> Interpreter::delete_attribute(PyObject *object,
-                                                                                     const std::string &attribute_name)
-        {
-            if (object == nullptr)
-            {
-                return std::unexpected(InterpreterError::SetAttributeFailed);
-            }
-            PyObject *py_attribute_name = PyUnicode_FromString(attribute_name.c_str());
-            if (py_attribute_name == nullptr)
-            {
-                return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
-            }
-            if (PyObject_DelAttr(object, py_attribute_name) == -1)
-            {
-                if (PyErr_Occurred() != nullptr)
-                {
-                    PyErr_Print();
-                }
-                return std::unexpected(InterpreterError::DelAttributeFailed);
-            }
-            return {};
+    auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, const std::string &Value)
+        -> std::expected<PyObject *, InterpreterError> {
+        PyObject *PyValue = PyUnicode_FromString(Value.c_str());
+        if (PyValue == nullptr) {
+            return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
         }
+        return setAttribute(Object, AttributeName, PyValue);
+    }
 
-    } // namespace Python
-} // namespace Sola
+    auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, i64 Value)
+        -> std::expected<PyObject *, InterpreterError> {
+        PyObject *PyValue = PyLong_FromInt64(Value);
+        if (PyValue == nullptr) {
+            return std::unexpected(InterpreterError::SetAttributeFailed);
+        }
+        return setAttribute(Object, AttributeName, PyValue);
+    }
+
+    auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, u64 Value)
+        -> std::expected<PyObject *, InterpreterError> {
+        PyObject *PyValue = PyLong_FromUInt64(Value);
+        if (PyValue == nullptr) {
+            return std::unexpected(InterpreterError::SetAttributeFailed);
+        }
+        return setAttribute(Object, AttributeName, PyValue);
+    }
+
+    auto Interpreter::deleteAttribute(PyObject *Object, const std::string &AttributeName)
+        -> std::expected<void, InterpreterError> {
+        if (Object == nullptr) {
+            return std::unexpected(InterpreterError::SetAttributeFailed);
+        }
+        PyObject *PyAttributeName = PyUnicode_FromString(AttributeName.c_str());
+        if (PyAttributeName == nullptr) {
+            return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
+        }
+        if (PyObject_DelAttr(Object, PyAttributeName) == -1) {
+            if (PyErr_Occurred() != nullptr) {
+                PyErr_Print();
+            }
+            return std::unexpected(InterpreterError::DelAttributeFailed);
+        }
+        return {};
+    }
+
+} // namespace Sola::Python

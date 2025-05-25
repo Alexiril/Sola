@@ -1,68 +1,52 @@
 #include "Application/Modules.hpp"
 
-namespace Sola
-{
-    namespace Application
-    {
-        namespace ModuleFunctions
-        {
-            Module from_text(const std::string &text)
-            {
-                if (text == "audio")
-                {
-                    return Module::audio;
-                }
-                else if (text == "video")
-                {
-                    return Module::video;
-                }
-                else if (text == "joystick")
-                {
-                    return Module::joystick;
-                }
-                else if (text == "haptic")
-                {
-                    return Module::haptic;
-                }
-                else if (text == "gamepad")
-                {
-                    return Module::gamepad;
-                }
-                else if (text == "sensor")
-                {
-                    return Module::sensor;
-                }
-                else if (text == "camera")
-                {
-                    return Module::camera;
-                }
+namespace Sola::Application::ModuleFunctions {
+    auto fromText(const std::string &Text) -> Application::Module {
+        if (Text == "audio") {
+            return Application::Module::Audio;
+        }
+        if (Text == "video") {
+            return Application::Module::Video;
+        }
+        if (Text == "joystick") {
+            return Application::Module::Joystick;
+        }
+        if (Text == "haptic") {
+            return Application::Module::Haptic;
+        }
+        if (Text == "gamepad") {
+            return Application::Module::Gamepad;
+        }
+        if (Text == "sensor") {
+            return Application::Module::Sensor;
+        }
+        if (Text == "camera") {
+            return Application::Module::Camera;
+        }
 
-                return Module::unknown;
-            }
+        return Application::Module::Unknown;
+    }
 
-            std::string to_text(Module module)
-            {
-                switch (module)
-                {
-                    case Module::audio:
-                        return std::string("audio");
-                    case Module::video:
-                        return std::string("video");
-                    case Module::joystick:
-                        return std::string("joystick");
-                    case Module::haptic:
-                        return std::string("haptic");
-                    case Module::gamepad:
-                        return std::string("gamepad");
-                    case Module::sensor:
-                        return std::string("sensor");
-                    case Module::camera:
-                        return std::string("camera");
-                    case Module::unknown:
-                    default:
-                        return "unknown";
-                }
-            }
-        } // namespace ModuleFunctions
-    } // namespace Application
-} // namespace Sola
+    auto toText(Application::Module Module) -> std::string {
+        switch (Module) {
+            case Application::Module::Audio:
+                return {"Audio"};
+            case Application::Module::Video:
+                return {"Video"};
+            case Application::Module::Joystick:
+                return {"Joystick"};
+            case Application::Module::Haptic:
+                return {"Haptic"};
+            case Application::Module::Gamepad:
+                return {"Gamepad"};
+            case Application::Module::Sensor:
+                return {"Sensor"};
+            case Application::Module::Camera:
+                return {"Camera"};
+            case Application::Module::Unknown:
+                [[fallthrough]];
+            default:
+                return {"Unknown"};
+        }
+    }
+} // namespace Sola::Application::ModuleFunctions

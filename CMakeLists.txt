@@ -22,11 +22,15 @@ option(DO_INSTALL_LOCALLY "Install the built artifacts to the 'artifacts' folder
 option(UPDATE_VENDORED "Update vendored libraries if possible" ON)
 option(TRACY_ENABLE "Enable Tracy" ON)
 
+set(LOAD_VENDORED 1)
+
 # Get vendored
 if(!UPDATE_VENDORED)
     set(VENDORED_AUTO_LOADER_ARGS "${VENDORED_AUTO_LOADER_ARGS} --no-update")
 endif()
-execute_process(COMMAND ${Python3_EXECUTABLE} -u "${CMAKE_SOURCE_DIR}/scripts/auto_loader.py" ${VENDORED_AUTO_LOADER_ARGS} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND_ERROR_IS_FATAL ANY)
+if(LOAD_VENDORED)
+    execute_process(COMMAND ${Python3_EXECUTABLE} -u "${CMAKE_SOURCE_DIR}/scripts/auto_loader.py" ${VENDORED_AUTO_LOADER_ARGS} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND_ERROR_IS_FATAL ANY)
+endif()
 
 # For Windows Python embeddable package
 # TODO#6
@@ -168,19 +172,21 @@ if(BUILD_DOCS)
 endif()
 
 # Add vendored
-include(scripts/CPM.cmake)
-add_subdirectory(vendor/cpython)          # python interpreter
-add_subdirectory(vendor/capstone)         # disassembler framework (for Tracy only)
-add_subdirectory(vendor/glfw)             # media library (for Tracy only, Tracy uses GLFW, not SDL)
-add_subdirectory(vendor/zstd/build/cmake) # fast compression algorithm
-add_subdirectory(vendor/freetype)         # library for fonts
-# There should also be ImGui here, but there is no point in building it without an application
-add_subdirectory(vendor/nfd)
-add_subdirectory(vendor/ppqsort)          # parallel pattern quicksort algorithm
-add_subdirectory(vendor/sdl)              # media library for Sola
-add_subdirectory(vendor/tracy)            # profiler client (into profiled apps)
-add_subdirectory(vendor/tracy/profiler)   # profiler server (profiler application)
-add_subdirectory(vendor/tracy/capture)    # profile server no GUI, just saving
+if(LOAD_VENDORED)
+    include(scripts/CPM.cmake)
+    add_subdirectory(vendor/cpython)          # python interpreter
+    add_subdirectory(vendor/capstone)         # disassembler framework (for Tracy only)
+    add_subdirectory(vendor/glfw)             # media library (for Tracy only, Tracy uses GLFW, not SDL)
+    add_subdirectory(vendor/zstd/build/cmake) # fast compression algorithm
+    add_subdirectory(vendor/freetype)         # library for fonts
+    # There should also be ImGui here, but there is no point in building it without an application
+    add_subdirectory(vendor/nfd)
+    add_subdirectory(vendor/ppqsort)          # parallel pattern quicksort algorithm
+    add_subdirectory(vendor/sdl)              # media library for Sola
+    add_subdirectory(vendor/tracy)            # profiler client (into profiled apps)
+    add_subdirectory(vendor/tracy/profiler)   # profiler server (profiler application)
+    add_subdirectory(vendor/tracy/capture)    # profile server no GUI, just saving
+endif()
 
 add_subdirectory(library)
 add_subdirectory(editor)

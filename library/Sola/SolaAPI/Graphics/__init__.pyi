@@ -8,20 +8,20 @@ from typing import Literal
 class ButtonData:
     """Class representing a button in a message box."""
 
-    def __init__(self, button_id: int, is_escape_default: bool, is_enter_default: bool, text: str) -> None:
+    def __init__(self, ButtonID: int, IsEscapeDefault: bool, IsEnterDefault: bool, Text: str) -> None:
         """Initialize a button with the given parameters.
         Args:
-            button_id (int): The ID of the button.
-            is_escape_default (bool): Whether this button is the default escape button.
-            is_enter_default (bool): Whether this button is the default enter button.
-            text (str): The text to display on the button.
+            ButtonID (int): The ID of the button.
+            IsEscapeDefault (bool): Whether this button is the default escape button.
+            IsEnterDefault (bool): Whether this button is the default enter button.
+            Text (str): The text to display on the button.
         """
 
-def show_message_box(
-    severity: Literal["none", "info", "warning", "error"],
-    title: str,
-    message: str,
-    buttons: list[ButtonData],
-    callback: Callable[[int], None],
+def showMessageBox(
+    Severity: Literal["none", "info", "warning", "error"],
+    Title: str,
+    Message: str,
+    Buttons: list[ButtonData],
+    Callback: Callable[[int], None],
 ) -> None:
     """Calls WindowsManager::show_message_box handler in C++ backend"""

@@ -64,6 +64,8 @@ endif()
 
 # -- Dependencies / PRE_BUILD --
 
+set(CMAKE_CXX_CLANG_TIDY clang-tidy --config-file=${CMAKE_SOURCE_DIR}/.clang-tidy)
+
 add_dependencies(${PROJECT_NAME} sola)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sola)

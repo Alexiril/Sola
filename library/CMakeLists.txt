@@ -17,27 +17,30 @@ set(SOLA_PYTHON_MODULE_NAME Sola)
 
 set(PUBLIC_HEADERS
     # General
-    ${SOLA_INCLUDE_DIR}/sola.hpp ${SOLA_INCLUDE_DIR}/sola_common.hpp
+    ${SOLA_INCLUDE_DIR}/Sola.hpp ${SOLA_INCLUDE_DIR}/SolaCommon.hpp
     # Application
     ${SOLA_INCLUDE_DIR}/Application/Application.hpp ${SOLA_INCLUDE_DIR}/Application/Modules.hpp
     # Exception
-    ${SOLA_INCLUDE_DIR}/Exception/GeneralException.hpp
+    ${SOLA_INCLUDE_DIR}/Exceptions/Exceptions.hpp ${SOLA_INCLUDE_DIR}/Exceptions/GeneralException.hpp
     # Graphics
-    ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp ${SOLA_INCLUDE_DIR}/Graphics/Color.hpp
+    ${SOLA_INCLUDE_DIR}/Graphics/Graphics.hpp ${SOLA_INCLUDE_DIR}/Graphics/WindowsManager.hpp
+    ${SOLA_INCLUDE_DIR}/Graphics/Color.hpp
     # Helpers
-    ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp ${SOLA_INCLUDE_DIR}/Helpers/PythonModule.hpp
+    ${SOLA_INCLUDE_DIR}/Helpers/Helpers.hpp ${SOLA_INCLUDE_DIR}/Helpers/FileSystem.hpp
+    ${SOLA_INCLUDE_DIR}/Helpers/PythonModule.hpp
     # Logger
     ${SOLA_INCLUDE_DIR}/Logger/Logger.hpp ${SOLA_INCLUDE_DIR}/Logger/Severity.hpp
     # Python
+    ${SOLA_INCLUDE_DIR}/Python/Python.hpp
     ${SOLA_INCLUDE_DIR}/Python/Interpreter.hpp
-    ${SOLA_INCLUDE_DIR}/Python/API.hpp
+    ${SOLA_INCLUDE_DIR}/Python/API/API.hpp
     ${SOLA_INCLUDE_DIR}/Python/API/Errors.hpp ${SOLA_INCLUDE_DIR}/Python/API/Logger.hpp
     ${SOLA_INCLUDE_DIR}/Python/API/Application.hpp ${SOLA_INCLUDE_DIR}/Python/API/Graphics.hpp
 )
 
 set(SOLA_SOURCES
     # General
-    ${SOLA_SOURCE_DIR}/sola_common.cpp
+    ${SOLA_SOURCE_DIR}/SolaCommon.cpp
     # Application
     ${SOLA_SOURCE_DIR}/Application/Application.cpp ${SOLA_SOURCE_DIR}/Application/Modules.cpp
     # Graphics
@@ -48,7 +51,7 @@ set(SOLA_SOURCES
     ${SOLA_SOURCE_DIR}/Logger/Logger.cpp ${SOLA_SOURCE_DIR}/Logger/Severity.cpp
     # Python
     ${SOLA_SOURCE_DIR}/Python/Interpreter.cpp
-    ${SOLA_SOURCE_DIR}/Python/API.cpp
+    ${SOLA_SOURCE_DIR}/Python/API/API.cpp
     ${SOLA_SOURCE_DIR}/Python/API/Errors.cpp ${SOLA_SOURCE_DIR}/Python/API/Logger.cpp
     ${SOLA_SOURCE_DIR}/Python/API/Application.cpp ${SOLA_SOURCE_DIR}/Python/API/Graphics.cpp
 )
@@ -107,6 +110,8 @@ if(SOLA_PROFILER_EXTERNAL_SECTION)
 endif()
 
 # -- Dependencies / PRE_BUILD --
+
+set(CMAKE_CXX_CLANG_TIDY clang-tidy --config-file=${CMAKE_SOURCE_DIR}/.clang-tidy)
 
 add_dependencies(${PROJECT_NAME} python)
 

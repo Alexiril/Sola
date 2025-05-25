@@ -4,32 +4,32 @@ This module is just a type definition for the Sola Python API Application.
 
 from typing import Any
 
-def is_app_editor() -> bool:
+def isAppEditor() -> bool:
     """Returns True if the application is editor, false otherwise."""
 
-def get_project_dir() -> str:
+def getProjectDir() -> str:
     """Returns the current opened project directory"""
 
-def get_app_name() -> str:
+def getAppName() -> str:
     """Returns the application name"""
 
-def get_app_version() -> str:
+def getAppVersion() -> str:
     """Returns the application version"""
 
-def get_app_identifier() -> str:
+def getAppIdentifier() -> str:
     """Returns the application identifier"""
 
-def get_app_creator() -> str:
+def getAppCreator() -> str:
     """Returns the application creator"""
 
-def get_app_copyright() -> str:
+def getAppCopyright() -> str:
     """Returns the application copyright"""
 
-def get_app_url() -> str:
+def getAppUrl() -> str:
     """Returns the application url"""
 
-def get_project_configuration() -> dict[str, Any]:
+def getProjectConfiguration() -> dict[str, Any]:
     """Returns the current project configuration data"""
 
-def set_project_configuration(config: dict[str, Any]) -> None:
+def setProjectConfiguraiton(Config: dict[str, Any]) -> None:
     """Stores actual project configuration in C++ backend"""

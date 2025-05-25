@@ -4,8 +4,8 @@ This module contains the Initializer class and the sola_init function.
 
 from sys import version
 
-from SolaAPI import get_engine_version_readable
-from SolaAPI.Logger import print_debug
+from SolaAPI import getEngineVersionReadable
+from SolaAPI.Logger import printDebug
 
 
 class Initializer:
@@ -15,13 +15,13 @@ class Initializer:
     """
 
     @staticmethod
-    def init(project_dir: str) -> None:
+    def init(ProjectDir: str) -> None:
         """This method is called when the Sola Python API is imported.
         It initializes the Sola Python API and sets up the environment.
         """
-        print_debug(
-            f"Sola ({get_engine_version_readable()}) Python Interpreter ({version}) "
-            f"is initialized for project {project_dir}"
+        printDebug(
+            f"Sola ({getEngineVersionReadable()}) Python Interpreter ({version}) "
+            f"is initialized for project {ProjectDir}"
         )
 
 

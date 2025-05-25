@@ -1,121 +1,103 @@
-#include "Python/API/Application.hpp"
 #include "Application/Application.hpp"
-#include "Python/API.hpp"
+#include "Python/API/API.hpp"
 
-namespace Sola
-{
-    namespace Python
-    {
-        namespace API
-        {
-            namespace Application
-            {
-                PyObject *is_app_editor(PyObject *, PyObject *)
-                {
-                    const Sola::Application::Application *application = Sola::Application::Application::get();
-                    if (application == nullptr)
-                    {
-                        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);
-                        return nullptr;
-                    }
-                    PyObject *result = application->is_editor() ? Py_True : Py_False;
-                    return result;
-                }
+// NOLINTBEGIN(readability-named-parameter): Most of those unnamed parameters are Python API Self and Args that we do
+// not need. Also, cppcheck and complier won't be happy with named, but unused parameters.
 
-                // I'm sorry about this
-                // I had no choice
-                // Hah just kidding
-                // I'm not sorry.
+namespace Sola::Python::API::Application {
+    auto isAppEditor(PyObject *, PyObject *) -> PyObject * {
+        const Sola::Application::Application *Application = Sola::Application::Application::get();
+        if (Application == nullptr) {
+            PyErr_SetString(PyExc_RuntimeError, ApplicationIsNotInitializedError);
+            return nullptr;
+        }
+        PyObject *result = Application->isEditor() ? Py_True : Py_False;
+        return result;
+    }
+
+    // I'm sorry about this
+    // I had no choice
+    // Hah just kidding
+    // I'm not sorry.
 #define GET_SOLA_APP_STRING_PARAM(app_function_name)                                                                   \
-    auto application = Sola::Application::Application::get();                                                          \
-    if (application == nullptr)                                                                                        \
-    {                                                                                                                  \
-        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);                                     \
+    auto Application = Sola::Application::Application::get();                                                          \
+    if (Application == nullptr) {                                                                                      \
+        PyErr_SetString(PyExc_RuntimeError, ApplicationIsNotInitializedError);                                         \
         return nullptr;                                                                                                \
     }                                                                                                                  \
-    const std::string &value = application->app_function_name();                                                       \
+    const std::string &value = Application->app_function_name();                                                       \
     PyObject *result = PyUnicode_FromStringAndSize(value.c_str(), value.size());                                       \
     return result;
 
-                PyObject *get_project_dir(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_project_dir)}
+    auto getProjectDir(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getProjectDir) }
 
-                PyObject *get_app_name(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_name)}
+    auto getAppName(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getName) }
 
-                PyObject *get_app_version(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_version)}
+    auto getAppVersion(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getVersion) }
 
-                PyObject *get_app_identifier(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_identifier)}
+    auto getAppIdentifier(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getIdentifier) }
 
-                PyObject *get_app_creator(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_creator)}
+    auto getAppCreator(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getCreator) }
 
-                PyObject *get_app_copyright(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_copyright)}
+    auto getAppCopyright(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getCopyright) }
 
-                PyObject *get_app_url(PyObject *, PyObject *){GET_SOLA_APP_STRING_PARAM(get_url)}
+    auto getAppURL(PyObject *, PyObject *) -> PyObject * { GET_SOLA_APP_STRING_PARAM(getUrl) }
 
 #undef GET_SOLA_APP_STRING_PARAM
 
-                PyObject *get_project_configuration(PyObject *, PyObject *)
-                {
-                    const Sola::Application::Application *application = Sola::Application::Application::get();
-                    if (application == nullptr)
-                    {
-                        PyErr_SetString(PyExc_RuntimeError, application_is_not_initialized_error);
-                        return nullptr;
-                    }
-                    PyObject *value = application->get_project_configuration();
-                    if (value == nullptr)
-                    {
-                        return Py_None;
-                    }
-                    return value;
-                }
+    auto getProjectConfiguration(PyObject *, PyObject *) -> PyObject * {
+        const Sola::Application::Application *Application = Sola::Application::Application::get();
+        if (Application == nullptr) {
+            PyErr_SetString(PyExc_RuntimeError, ApplicationIsNotInitializedError);
+            return nullptr;
+        }
+        PyObject *value = Application->getProjectConfiguration();
+        if (value == nullptr) {
+            return Py_None;
+        }
+        return value;
+    }
 
-                static const char * const set_project_configuration_kwlist[] = {"config", nullptr};
-                PyObject *set_project_configuration(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    PyObject *configuration = nullptr;
-                    Sola::Application::Application *application = Sola::Application::Application::get();
-                    if (application == nullptr ||
-                        !PyArg_ParseTupleAndKeywords(args, kwds, "O:set_project_configuration",
-                                                     set_project_configuration_kwlist, &configuration) ||
-                        configuration == nullptr || PyDict_Check(configuration) == 0)
-                    {
-                        PyErr_SetString(PyExc_RuntimeError, application == nullptr
-                                                                ? application_is_not_initialized_error
-                                                                : formatting_error);
-                        return nullptr;
-                    }
-                    application->set_project_configuration(configuration);
-                    return Py_None;
-                }
+    /// @brief Keyword list for the setProjectConfiguration function.
+    static const std::array<const char *, 2> SetProjectConfigurationKwlist = {"Config", nullptr};
+    auto setProjectConfiguration(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        PyObject *Configuration = nullptr;
+        Sola::Application::Application *Application = Sola::Application::Application::get();
+        if (Application == nullptr ||
+            PyArg_ParseTupleAndKeywords(Args, Kwds, "O:setProjectConfiguration", SetProjectConfigurationKwlist.data(),
+                                        &Configuration) != 1 ||
+            Configuration == nullptr || PyDict_Check(Configuration) == 0) {
+            PyErr_SetString(PyExc_RuntimeError,
+                            Application == nullptr ? ApplicationIsNotInitializedError : FormattingError);
+            return nullptr;
+        }
+        Application->setProjectConfiguration(Configuration);
+        return Py_None;
+    }
 
-                std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module)
-                {
-                    return {
-                        Helpers::PythonModule::NamedPythonObject("is_app_editor",
-                                                        PyCFunction_NewEx(&is_app_editor_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_project_dir",
-                                                        PyCFunction_NewEx(&get_project_dir_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_name",
-                                                        PyCFunction_NewEx(&get_app_name_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_version",
-                                                        PyCFunction_NewEx(&get_app_version_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_identifier",
-                                                        PyCFunction_NewEx(&get_app_identifier_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_creator",
-                                                        PyCFunction_NewEx(&get_app_creator_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_copyright",
-                                                        PyCFunction_NewEx(&get_app_copyright_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject("get_app_url",
-                                                        PyCFunction_NewEx(&get_app_url_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject(
-                            "get_project_configuration",
-                            PyCFunction_NewEx(&get_project_configuration_def, nullptr, module)),
-                        Helpers::PythonModule::NamedPythonObject(
-                            "set_project_configuration",
-                            PyCFunction_NewEx(&set_project_configuration_def, nullptr, module)),
-                    };
-                }
-            } // namespace Application
-        } // namespace API
-    } // namespace Python
-} // namespace Sola
+    auto getModuleFields(PyObject *Module) -> std::vector<Helpers::PythonModule::NamedPythonObject> {
+        return {
+            Helpers::PythonModule::NamedPythonObject("is_app_editor",
+                                                     PyCFunction_NewEx(&IsAppEditorDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("getProjectDir",
+                                                     PyCFunction_NewEx(&GetProjectDirDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_name",
+                                                     PyCFunction_NewEx(&GetAppNameDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_version",
+                                                     PyCFunction_NewEx(&GetAppVersionDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_identifier",
+                                                     PyCFunction_NewEx(&GetAppIdentifierDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_creator",
+                                                     PyCFunction_NewEx(&GetAppCreatorDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_copyright",
+                                                     PyCFunction_NewEx(&GetAppCopyrightDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("get_app_url", PyCFunction_NewEx(&GetAppURLDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("getProjectConfiguration",
+                                                     PyCFunction_NewEx(&GetProjectConfigurationDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("setProjectConfiguration",
+                                                     PyCFunction_NewEx(&SetProjectConfigurationDef, nullptr, Module)),
+        };
+    }
+} // namespace Sola::Python::API::Application
+
+// NOLINTEND(readability-named-parameter)

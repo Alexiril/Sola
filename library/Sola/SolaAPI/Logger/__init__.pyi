@@ -2,17 +2,17 @@
 This module is just a type definition for the Sola Python API Logger.
 """
 
-def print_debug(what: str) -> None:
+def printDebug(What: str) -> None:
     """Prints the debug log information."""
 
-def print_info(what: str) -> None:
+def printInfo(What: str) -> None:
     """Prints the info log information."""
 
-def print_warning(what: str) -> None:
+def printWarning(What: str) -> None:
     """Prints the warning log information."""
 
-def print_error(what: str) -> None:
+def printError(What: str) -> None:
     """Prints the error log information."""
 
-def print_fatal(what: str) -> None:
+def printFatal(What: str) -> None:
     """Prints the fatal log information."""

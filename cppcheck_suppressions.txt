@@ -1,2 +1,3 @@
 # Missing includes will be highlighted by compiler anyway
 missingIncludeSystem
+unusedFunction

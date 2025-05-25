@@ -1,61 +1,45 @@
 #include "Logger/Severity.hpp"
 
-namespace Sola
-{
-    namespace Logger
-    {
-        namespace SeverityFunctions
-        {
-            Severity from_text(const std::string &text)
-            {
-                if (text == "none")
-                {
-                    return Severity::none;
-                }
-                if (text == "debug")
-                {
-                    return Severity::debug;
-                }
-                if (text == "info")
-                {
-                    return Severity::info;
-                }
-                if (text == "warning")
-                {
-                    return Severity::warning;
-                }
-                if (text == "error")
-                {
-                    return Severity::error;
-                }
-                if (text == "fatal")
-                {
-                    return Severity::fatal;
-                }
-                return Severity::none;
-            }
+namespace Sola::Logger::SeverityFunctions {
+    auto fromText(const std::string &Text) -> Severity {
+        if (Text == "None") {
+            return Severity::None;
+        }
+        if (Text == "Debug") {
+            return Severity::Debug;
+        }
+        if (Text == "Info") {
+            return Severity::Info;
+        }
+        if (Text == "Warning") {
+            return Severity::Warning;
+        }
+        if (Text == "Error") {
+            return Severity::Error;
+        }
+        if (Text == "Fatal") {
+            return Severity::Fatal;
+        }
+        return Severity::None;
+    }
 
-            std::string to_text(Severity severity)
-            {
-                switch (severity)
-                {
-                    case Severity::none:
-                        return std::string("none");
-                    case Severity::debug:
-                        return std::string("debug");
-                    case Severity::info:
-                        return std::string("info");
-                    case Severity::warning:
-                        return std::string("warning");
-                    case Severity::error:
-                        return std::string("error");
-                    case Severity::fatal:
-                        return std::string("fatal");
-                    default:
-                        return "info";
-                }
-            }
+    auto toText(Logger::Severity severity) -> std::string {
+        switch (severity) {
+            case Logger::Severity::None:
+                return std::string("None");
+            case Logger::Severity::Debug:
+                return std::string("Debug");
+            case Logger::Severity::Info:
+                return std::string("Info");
+            case Logger::Severity::Warning:
+                return std::string("Warning");
+            case Logger::Severity::Error:
+                return std::string("Error");
+            case Logger::Severity::Fatal:
+                return std::string("Fatal");
+            default:
+                return "Info";
+        }
+    }
 
-        } // namespace SeverityFunctions
-    } // namespace Logger
-} // namespace Sola
+} // namespace Sola::Logger::SeverityFunctions

@@ -1,76 +1,60 @@
-#include "Python/API/Logger.hpp"
 #include "Logger/Logger.hpp"
-#include "Python/API.hpp"
+#include "Python/API/API.hpp"
 
-namespace Sola
-{
-    namespace Python
-    {
-        namespace API
-        {
-            namespace Logger
-            {
-                static const char *const kwlist[] = {"what", nullptr};
+// NOLINTBEGIN(readability-named-parameter): Most of those unnamed parameters are Python API Self and Args that we do
+// not need. Also, cppcheck and complier won't be happy with named, but unused parameters.
 
-                /// @brief Prints the log information.
-                /// @param args The arguments passed to the function.
-                /// @param kwds The keyword arguments passed to the function.
-                /// @param function_name The name of the function being called.
-                /// @param severity The severity level of the log.
-                /// @return A pointer to the Python None object.
-                PyObject *py_print_log(PyObject *args, PyObject *kwds, const std::string &function_name,
-                                       Sola::Logger::Severity severity)
-                {
-                    const char *what = nullptr;
-                    if (!PyArg_ParseTupleAndKeywords(args, kwds, ("s:" + function_name).c_str(), kwlist, &what) ||
-                        what == nullptr)
-                    {
-                        PyErr_SetString(PyExc_RuntimeError, formatting_error);
-                        return nullptr;
-                    }
-                    print(what, severity);
-                    return Py_None;
-                }
+namespace Sola::Python::API::Logger {
+    /// @brief Keyword list for the log printing functions.
+    static const std::array<const char *, 2> Kwlist = {"What", nullptr};
 
-                PyObject *py_print_debug(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    return py_print_log(args, kwds, "print_debug", Sola::Logger::Severity::debug);
-                }
+    /// @brief Prints the log information.
+    /// @param Args The arguments passed to the function.
+    /// @param Kwds The keyword arguments passed to the function.
+    /// @param FunctionName The name of the function being called.
+    /// @param Severity the severity level of the log.
+    /// @return A pointer to the Python None object.
+    auto pyPrintLog(PyObject *Args, PyObject *Kwds, const std::string &FunctionName, Sola::Logger::Severity Severity)
+        -> PyObject * {
+        const char *What = nullptr;
+        if (PyArg_ParseTupleAndKeywords(Args, Kwds, ("s:" + FunctionName).c_str(), Kwlist.data(), &What) == 0 ||
+            What == nullptr) {
+            PyErr_SetString(PyExc_RuntimeError, FormattingError);
+            return nullptr;
+        }
+        print(What, Severity);
+        return Py_None;
+    }
 
-                PyObject *py_print_info(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    return py_print_log(args, kwds, "print_info", Sola::Logger::Severity::info);
-                }
+    auto pyPrintDebug(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        return pyPrintLog(Args, Kwds, "printDebug", Sola::Logger::Severity::Debug);
+    }
 
-                PyObject *py_print_warning(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    return py_print_log(args, kwds, "print_warning", Sola::Logger::Severity::warning);
-                }
+    auto pyPrintInfo(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        return pyPrintLog(Args, Kwds, "printInfo", Sola::Logger::Severity::Info);
+    }
 
-                PyObject *py_print_error(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    return py_print_log(args, kwds, "print_error", Sola::Logger::Severity::error);
-                }
+    auto pyPrintWarning(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        return pyPrintLog(Args, Kwds, "printWarning", Sola::Logger::Severity::Warning);
+    }
 
-                PyObject *py_print_fatal(PyObject *, PyObject *args, PyObject *kwds)
-                {
-                    return py_print_log(args, kwds, "print_fatal", Sola::Logger::Severity::fatal);
-                }
+    auto pyPrintError(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        return pyPrintLog(Args, Kwds, "printError", Sola::Logger::Severity::Error);
+    }
 
-                std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module)
-                {
-                    return {Helpers::PythonModule::NamedPythonObject("print_debug",
-                                                            PyCFunction_NewEx(&print_debug_def, nullptr, module)),
-                            Helpers::PythonModule::NamedPythonObject("print_info",
-                                                            PyCFunction_NewEx(&print_info_def, nullptr, module)),
-                            Helpers::PythonModule::NamedPythonObject("print_warning",
-                                                            PyCFunction_NewEx(&print_warning_def, nullptr, module)),
-                            Helpers::PythonModule::NamedPythonObject("print_error",
-                                                            PyCFunction_NewEx(&print_error_def, nullptr, module)),
-                            Helpers::PythonModule::NamedPythonObject("print_fatal",
-                                                            PyCFunction_NewEx(&print_fatal_def, nullptr, module))};
-                }
-            } // namespace Logger
-        } // namespace API
-    } // namespace Python
-} // namespace Sola
+    auto pyPrintFatal(PyObject *, PyObject *Args, PyObject *Kwds) -> PyObject * {
+        return pyPrintLog(Args, Kwds, "printFatal", Sola::Logger::Severity::Fatal);
+    }
+
+    auto getModuleFields(PyObject *Module) -> std::vector<Helpers::PythonModule::NamedPythonObject> {
+        return {
+            Helpers::PythonModule::NamedPythonObject("printDebug", PyCFunction_NewEx(&PrintDebugDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("printInfo", PyCFunction_NewEx(&PrintInfoDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("printWarning",
+                                                     PyCFunction_NewEx(&PrintWarningDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("printError", PyCFunction_NewEx(&PrintErrorDef, nullptr, Module)),
+            Helpers::PythonModule::NamedPythonObject("printFatal", PyCFunction_NewEx(&PrintFatalDef, nullptr, Module))};
+    }
+} // namespace Sola::Python::API::Logger
+
+// NOLINTEND(readability-named-parameter)

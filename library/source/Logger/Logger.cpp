@@ -1,44 +1,38 @@
 #include "Logger/Logger.hpp"
 
-namespace Sola
-{
-    namespace Logger
-    {
-        static std::mutex output_mutex;
+namespace Sola::Logger {
+    static std::mutex OutputMutex;
 
-        void print_log(const std::string &file, u64 line, const std::string &what, Severity severity)
-        {
-            std::ostringstream output;
+    void printLog(const std::string &File, u64 Line, const std::string &What, Logger::Severity Severity) {
+        std::ostringstream Output;
 
-            output << SeverityFunctions::to_text(severity) << " [" << file << " : " << line << "]\n" << what;
+        Output << SeverityFunctions::toText(Severity) << " [" << File << " : " << Line << "]\n" << What;
 
-            std::lock_guard<std::mutex> lock(output_mutex); // It's released when functions ends
-            switch (severity)
-            {
-                case Severity::none:
-                    // No logging
-                    break;
-                case Severity::debug:
+        std::lock_guard<std::mutex> Lock(OutputMutex); // It's released when functions ends
+        switch (Severity) {
+            case Logger::Severity::None:
+                // No logging
+                break;
+            case Logger::Severity::Debug:
 #ifdef SOLA_DEBUG_LOG
-                    std::cout << "\033[90m" << output.str() << "\033[0m" << std::endl;
+                std::cout << "\033[90m" << Output.str() << "\033[0m" << '\n';
 #endif
-                    break;
-                case Severity::info:
-                    std::cout << "\033[37m" << output.str() << "\033[0m" << std::endl;
-                    break;
-                case Severity::warning:
-                    std::cerr << "\033[93m" << output.str() << "\033[0m" << std::endl;
-                    break;
-                case Severity::error:
-                    std::cerr << "\033[91m" << output.str() << "\033[0m" << std::endl;
-                    break;
-                case Severity::fatal:
-                    std::cerr << "\033[95m" << output.str() << "\033[0m" << std::endl;
-                    break;
-                default:
-                    break;
-            }
+                break;
+            case Logger::Severity::Info:
+                std::cout << "\033[37m" << Output.str() << "\033[0m" << '\n';
+                break;
+            case Logger::Severity::Warning:
+                std::cerr << "\033[93m" << Output.str() << "\033[0m" << '\n';
+                break;
+            case Logger::Severity::Error:
+                std::cerr << "\033[91m" << Output.str() << "\033[0m" << '\n';
+                break;
+            case Logger::Severity::Fatal:
+                std::cerr << "\033[95m" << Output.str() << "\033[0m" << '\n';
+                break;
+            default:
+                break;
         }
+    }
 
-    } // namespace Logger
-} // namespace Sola
+} // namespace Sola::Logger

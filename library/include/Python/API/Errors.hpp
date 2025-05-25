@@ -1,59 +1,49 @@
-#ifndef SOLA_PYTHON_API_ERRORS
-#define SOLA_PYTHON_API_ERRORS
+#ifndef PYTHON_API_ERRORS_HPP
+#define PYTHON_API_ERRORS_HPP
 
 #include "Helpers/PythonModule.hpp"
-#include "sola_common.hpp"
+#include "SolaCommon.hpp"
 
-namespace Sola
-{
-    namespace Python
-    {
-        namespace API
-        {
-            /// @brief This namespace contains all the code related to the Sola Python API Errors module.
-            namespace Errors
-            {
-                static const char *module_name = "Errors";
+namespace Sola::Python::API {
+    /// @brief This namespace contains all the code related to the Sola Python API Errors module.
+    namespace Errors {
+        static const char *ModuleName = "Errors";
 
-                /// @brief Raises a warning inside the C++ backend.
-                /// @param self not used.
-                /// @param args function arguments are used to get the warning text from the Python side to C++ backend.
-                /// @param kwds the key-value arguments may be used to pass the warning from Python to C++.
-                /// @return A pointer to the Python None object.
-                EXPORTED PyObject *raise_warning(PyObject *self, PyObject *args, PyObject *kwds);
+        /// @brief Raises a warning inside the C++ backend.
+        /// @param Self not used.
+        /// @param Args function arguments are used to get the warning text from the Python side to C++ backend.
+        /// @param Kwds the key-value arguments may be used to pass the warning from Python to C++.
+        /// @return A pointer to the Python None object.
+        EXPORTED PyObject *raiseWarning(PyObject *Self, PyObject *Args, PyObject *Kwds);
 
-                static PyMethodDef raise_warning_def = {"raise_warning", reinterpret_cast<PyCFunction>(raise_warning),
-                                                        METH_VARARGS | METH_KEYWORDS,
-                                                        "Raises warning inside C++ backend"};
+        static PyMethodDef RaiseWarningDef = {"raiseWarning", reinterpret_cast<PyCFunction>(raiseWarning),
+                                              METH_VARARGS | METH_KEYWORDS, "Raises warning inside C++ backend"};
 
-                /// @brief Raises an error inside the C++ backend.
-                /// @param self not used.
-                /// @param args function arguments are used to get the error text from the Python side to C++ backend.
-                /// @param kwds the key-value arguments may be used to pass the error from Python to C++.
-                /// @return A pointer to the Python None object.
-                EXPORTED PyObject *raise_error(PyObject *self, PyObject *args, PyObject *kwds);
+        /// @brief Raises an error inside the C++ backend.
+        /// @param Self not used.
+        /// @param Args function arguments are used to get the error text from the Python side to C++ backend.
+        /// @param Kwds the key-value arguments may be used to pass the error from Python to C++.
+        /// @return A pointer to the Python None object.
+        EXPORTED PyObject *raiseError(PyObject *Self, PyObject *Args, PyObject *Kwds);
 
-                static PyMethodDef raise_error_def = {"raise_error", reinterpret_cast<PyCFunction>(raise_error),
-                                                      METH_VARARGS | METH_KEYWORDS, "Raises error inside C++ backend"};
+        static PyMethodDef RaiseErrorDef = {"raiseError", reinterpret_cast<PyCFunction>(raiseError),
+                                            METH_VARARGS | METH_KEYWORDS, "Raises error inside C++ backend"};
 
-                /// @brief Raises an fatal error inside the C++ backend.
-                /// @param self not used.
-                /// @param args function arguments are used to get the error text from the Python side to C++ backend.
-                /// @param kwds the key-value arguments may be used to pass the error from Python to C++.
-                /// @return A pointer to the Python None object.
-                EXPORTED PyObject *raise_fatal(PyObject *self, PyObject *args, PyObject *kwds);
+        /// @brief Raises an fatal error inside the C++ backend.
+        /// @param Self not used.
+        /// @param Args function arguments are used to get the error text from the Python side to C++ backend.
+        /// @param Kwds the key-value arguments may be used to pass the error from Python to C++.
+        /// @return A pointer to the Python None object.
+        EXPORTED PyObject *raiseFatal(PyObject *Self, PyObject *Args, PyObject *Kwds);
 
-                static PyMethodDef raise_fatal_def = {"raise_fatal", reinterpret_cast<PyCFunction>(raise_fatal),
-                                                      METH_VARARGS | METH_KEYWORDS, "Raises fatal inside C++ backend"};
+        static PyMethodDef RaiseFatalDef = {"raiseFatal", reinterpret_cast<PyCFunction>(raiseFatal),
+                                            METH_VARARGS | METH_KEYWORDS, "Raises fatal error inside C++ backend"};
 
-                /// @brief This function makes an array of named python object which should be registered inside this
-                /// module
-                /// @param module the actual module
-                /// @return the vector of the name-object pointer pairs. May include functions, classes, values, etc.
-                EXPORTED std::vector<Helpers::PythonModule::NamedPythonObject> get_module_fields(PyObject *module);
-            } // namespace Errors
-        } // namespace API
-    } // namespace Python
-} // namespace Sola
-
+        /// @brief This function makes an array of named python object which should be registered inside this
+        /// module
+        /// @param Module the actual module
+        /// @return the vector of the name-object pointer pairs. May include functions, classes, values, etc.
+        EXPORTED std::vector<Helpers::PythonModule::NamedPythonObject> getModuleFields(PyObject *Module);
+    } // namespace Errors
+} // namespace Sola::Python::API
 #endif

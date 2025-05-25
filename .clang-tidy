@@ -1,0 +1,9 @@
+---
+Checks: "-*,clang-analyzer-*,llvm-*,readability-*,performance-*,modernize-*"
+WarningsAsErrors: "*"
+HeaderFileExtensions: ["", "hpp"]
+ImplementationFileExtensions: ["cpp"]
+FormatStyle: "file"
+InheritParentConfig: true
+UseColor: true
+SystemHeaders: false

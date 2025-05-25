@@ -1,6 +1,6 @@
 # This file is just a little script to make PNG images from Graphvis dependency
 $ErrorActionPreference = "Stop"
-cd "build"
+Set-Location "build"
 
 $directory = "dependency-graph"
 $destination = "dependency-graph-image"
@@ -17,4 +17,4 @@ Get-ChildItem -Path $directory | ForEach-Object {
     }
 }
 
-cd ..
+Set-Location ..

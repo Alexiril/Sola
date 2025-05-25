@@ -11,39 +11,28 @@
 #    include <unistd.h>
 #endif
 
-namespace Sola
-{
-    namespace Helpers
-    {
-        namespace FileSystem
-        {
-            std::expected<std::filesystem::path, FileSystemError> Sola::Helpers::FileSystem::get_executable_directory()
-            {
+namespace Sola::Helpers::FileSystem {
+    auto Sola::Helpers::FileSystem::getExecutableDirectory() -> std::expected<std::filesystem::path, FileSystemError> {
 #ifdef _WIN32
-                wchar_t szPath[MAX_PATH];
-                if (GetModuleFileNameW(nullptr, szPath, MAX_PATH) == 0)
-                {
-                    print_warning("GetModuleFileNameW failed with error code: " + std::to_string(GetLastError()));
+                std::array<wchar_t, MAX_PATH> SzPath;
+                if (GetModuleFileNameW(nullptr, SzPath.data(), MAX_PATH) == 0) {
+                    printWarning("GetModuleFileNameW failed with error code: " + std::to_string(GetLastError()));
                     return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
                 }
 #elif __APPLE__
-                char szPath[PATH_MAX];
+                std::array<char, PATH_MAX> SzPath;
                 uint32_t bufsize = PATH_MAX;
-                if (_NSGetExecutablePath(szPath, &bufsize))
-                {
+                if (_NSGetExecutablePath(SzPath.data(), &bufsize)) {
                     return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
                 }
 #else
-                char szPath[PATH_MAX];
-                ssize_t count = readlink("/proc/self/exe", szPath, PATH_MAX);
-                if (count < 0 || count >= PATH_MAX)
-                {
+                std::array<char, PATH_MAX> SzPath;
+                ssize_t count = readlink("/proc/self/exe", SzPath.data(), PATH_MAX);
+                if (count < 0 || count >= PATH_MAX) {
                     return std::unexpected<FileSystemError>(FileSystemError::ExecutableDirectoryUnavailable);
                 }
-                szPath[count] = '\0';
+                SzPath[count] = '\0';
 #endif
-                return std::filesystem::path{szPath}.parent_path() / "";
-            }
-        } // namespace FileSystem
-    } // namespace Helpers
-} // namespace Sola
+                return std::filesystem::path{SzPath.data()}.parent_path() / "";
+    }
+} // namespace Sola::Helpers::FileSystem

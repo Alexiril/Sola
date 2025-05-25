@@ -2,8 +2,8 @@
 This module is just a type definition for the Sola Python API.
 """
 
-def get_engine_version() -> int:
+def getEngineVersion() -> int:
     """Returns current engine version"""
 
-def get_engine_version_readable() -> str:
+def getEngineVersionReadable() -> str:
     """Returns current engine version in human readable format (like 1.0.0)"""

@@ -1,96 +1,75 @@
 #include "Helpers/PythonModule.hpp"
 #include "Logger/Logger.hpp"
 
-namespace Sola
-{
-    namespace Helpers
-    {
-        namespace PythonModule
-        {
-            std::expected<PyObject *, PythonModuleError> create_python_submodule(PyObject *main_module,
-                                                                                 const std::string &submodule_name)
-            {
-                if (main_module == nullptr)
-                {
+namespace Sola::Helpers::PythonModule {
+    auto createPythonSubmodule(PyObject *MainModule, const std::string &SubmoduleName)
+        -> std::expected<PyObject *, PythonModuleError> {
+        if (MainModule == nullptr) {
+            return nullptr;
+        }
+
+        if (SubmoduleName.back() == '.') {
+            printError(std::format("Submodule name cannot end with dot: {}", SubmoduleName));
+            return std::unexpected(PythonModuleError::SubmoduleNameEndsWithDot);
+        }
+
+        const std::string MainModuleName = PyModule_GetName(MainModule);
+
+        std::string Name = MainModuleName + "." + SubmoduleName;
+
+        u64 SubmoduleNameEnd = Name.find('.', MainModuleName.size() + 1);
+        if (SubmoduleNameEnd == std::string::npos) {
+            SubmoduleNameEnd = Name.size();
+        }
+
+        PyObject *Submodule = MainModule;
+
+        for (u64 SubmoduleNameStart = MainModuleName.size() + 1; SubmoduleNameStart < Name.size();) {
+            const std::string CurrentSubmoduleName =
+                Name.substr(SubmoduleNameStart, SubmoduleNameEnd - SubmoduleNameStart);
+
+            const std::string FullSubmoduleName = Name.substr(0, SubmoduleNameEnd);
+
+            PyObject *MainModuleDictionary = PyModule_GetDict(Submodule);
+            Submodule = PyDict_GetItemString(MainModuleDictionary, CurrentSubmoduleName.c_str());
+            if (Submodule == nullptr) {
+                Submodule = PyImport_AddModule(FullSubmoduleName.c_str());
+                if (Submodule == nullptr) {
                     return nullptr;
                 }
-
-                if (submodule_name.back() == '.')
-                {
-                    print_error(std::format("Submodule name cannot end with dot: {}", submodule_name));
-                    return std::unexpected(PythonModuleError::SubmoduleNameEndsWithDot);
-                }
-
-                const std::string main_module_name = PyModule_GetName(main_module);
-
-                std::string name = main_module_name + "." + submodule_name;
-
-                u64 submodule_name_end = name.find('.', main_module_name.size() + 1);
-                if (submodule_name_end == std::string::npos)
-                {
-                    submodule_name_end = name.size();
-                }
-
-                PyObject *submodule = main_module;
-
-                for (u64 submodule_name_start = main_module_name.size() + 1; submodule_name_start < name.size();)
-                {
-                    const std::string current_submodule_name =
-                        name.substr(submodule_name_start, submodule_name_end - submodule_name_start);
-
-                    const std::string full_submodule_name = name.substr(0, submodule_name_end);
-
-                    PyObject *main_module_dictionary = PyModule_GetDict(submodule);
-                    submodule = PyDict_GetItemString(main_module_dictionary, current_submodule_name.c_str());
-                    if (!submodule)
-                    {
-                        submodule = PyImport_AddModule(full_submodule_name.c_str());
-                        if (!submodule)
-                        {
-                            return nullptr;
-                        }
-                        if (PyDict_SetItemString(main_module_dictionary, current_submodule_name.c_str(), submodule) < 0)
-                        {
-                            print_error(std::format("Can't register a submodule '{}' (full name: '{}')",
-                                                    current_submodule_name, full_submodule_name));
-                            return std::unexpected(PythonModuleError::SubmoduleRegistrationFailed);
-                        }
-                    }
-
-                    submodule_name_start = submodule_name_end + 1;
-
-                    submodule_name_end = name.find('.', submodule_name_start);
-                    if (submodule_name_end == std::string::npos)
-                    {
-                        submodule_name_end = name.size();
-                    }
-                }
-
-                return submodule;
-            }
-
-            void fill_python_module(PyObject *module, const std::vector<NamedPythonObject> &items)
-            {
-                if (module == nullptr)
-                {
-                    return;
-                }
-                PyObject *module_dictionary = PyModule_GetDict(module);
-                for (auto &&item : items)
-                {
-                    if (item.value == nullptr)
-                    {
-                        PyErr_Print();
-                        continue;
-                    }
-                    if (PyDict_SetItemString(module_dictionary, item.name.c_str(), item.value) < 0)
-                    {
-                        const std::string module_name = PyModule_GetName(module);
-                        print_warning(std::format("Key {} cannot be set in the module {}", item.name, module_name));
-                        return;
-                    }
+                if (PyDict_SetItemString(MainModuleDictionary, CurrentSubmoduleName.c_str(), Submodule) < 0) {
+                    printError(std::format("Can't register a Submodule '{}' (full name: '{}')", CurrentSubmoduleName,
+                                           FullSubmoduleName));
+                    return std::unexpected(PythonModuleError::SubmoduleRegistrationFailed);
                 }
             }
-        } // namespace PythonModule
-    } // namespace Helpers
-} // namespace Sola
+
+            SubmoduleNameStart = SubmoduleNameEnd + 1;
+
+            SubmoduleNameEnd = Name.find('.', SubmoduleNameStart);
+            if (SubmoduleNameEnd == std::string::npos) {
+                SubmoduleNameEnd = Name.size();
+            }
+        }
+
+        return Submodule;
+    }
+
+    void fillPythonModule(PyObject *Module, const std::vector<NamedPythonObject> &Items) {
+        if (Module == nullptr) {
+            return;
+        }
+        PyObject *ModuleDictionary = PyModule_GetDict(Module);
+        for (auto &&Item : Items) {
+            if (Item.Value == nullptr) {
+                PyErr_Print();
+                continue;
+            }
+            if (PyDict_SetItemString(ModuleDictionary, Item.Name.c_str(), Item.Value) < 0) {
+                const std::string ModuleName = PyModule_GetName(Module);
+                printWarning(std::format("Key {} cannot be set in the module {}", Item.Name, ModuleName));
+                return;
+            }
+        }
+    }
+} // namespace Sola::Helpers::PythonModule

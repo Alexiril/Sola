@@ -1,145 +1,140 @@
-#ifndef SOLA_APPLICATION_APPLICATION
-#define SOLA_APPLICATION_APPLICATION
+#ifndef APPLICATION_APPLICATION_HPP
+#define APPLICATION_APPLICATION_HPP
 
 #include "Application/Modules.hpp"
 #include "Python/Interpreter.hpp"
-#include "sola_common.hpp"
+#include "SolaCommon.hpp"
 
-namespace Sola
-{
-    /// @brief This namespace contain all the general application code, including the Application singleton, and the application modules enumeration.
-    namespace Application
-    {
-        /// @brief Enumeration for the possible errors that can occur during the application processes.
-        enum class ApplicationError
-        {
-            AppIsAlreadyInitialized,
-            PythonInitializationFailed,
-            SolaModuleImportFailed,
-            ProjectInitializationFailed,
-            SDLInitializationFailed,
-        };
+/// @brief This namespace contain all the general application code, including the Application singleton, and the
+/// application modules enumeration.
+namespace Sola::Application {
+    /// @brief Enumeration for the possible errors that can occur during the application processes.
+    enum class ApplicationError {
+        AppIsAlreadyInitialized,
+        PythonInitializationFailed,
+        SolaModuleImportFailed,
+        ProjectInitializationFailed,
+        SDLInitializationFailed,
+    };
 
-        /// @brief This class is used to initialize the application and manage its state.
-        /// @note This class is represented with a singleton object. Please, do not use this class directly, use the
-        /// static methods instead.
-        class Application final
-        {
-        public:
-            /// @brief This is the entry point function for the application (Sola shared library).
-            /// @param is_editor true if the application is an editor, false if it is a runner.
-            /// @param project_dir the directory with the current opened (or opening) project.
-            /// @param argc amount of command line arguments (usually taken from main function).
-            /// @param argv pointer to the command line arguments (usually taken from main function as well).
-            /// @param app_name the name of the application (is used a lot via SDL, like in system menus).
-            /// @param app_version the version of the application (any custom string, no validation, optional, can be
-            /// empty).
-            /// @param app_identifier the identifier of the application (should be unique, like a package name -
-            /// com.company.project, optional).
-            /// @param app_creator the name of the application creator (optional).
-            /// @param app_copyright the copyright of the application (should be readable, like "© 2025 Company Ltd.").
-            /// @param app_url the URL for the application (optional).
-            /// @return a pointer to the application object if everything is ok, an error code otherwise.
-            /// @note **This function should be called only once**, otherwise it will return an error code.
-            EXPORTED static std::expected<Application *, ApplicationError>
-            init_application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
-                             const std::string &app_name, const std::string &app_version,
-                             const std::string &app_identifier, const std::string &app_creator,
-                             const std::string &app_copyright, const std::string &app_url);
+    /// @brief This class is used to initialize the application and manage its state.
+    /// @note This class is represented with a singleton object. Please, do not use this class directly, use the
+    /// static methods instead.
+    class Application final {
+    public:
+        /// @brief This is the entry point function for the application (Sola shared library).
+        /// @param IsEditor true if the application is an editor, false if it is a runner.
+        /// @param ProjectDir the directory with the current opened (or opening) project.
+        /// @param Argc amount of command line arguments (usually taken from main function).
+        /// @param Argv pointer to the command line arguments (usually taken from main function as well).
+        /// @param AppName the name of the application (is used a lot via SDL, like in system menus).
+        /// @param AppVersion the version of the application (any custom string, no validation, optional, can be
+        /// empty).
+        /// @param AppIdentifier the identifier of the application (should be unique, like a package name -
+        /// com.company.project, optional).
+        /// @param AppCreator the name of the application creator (optional).
+        /// @param AppCopyright the copyright of the application (should be readable, like "© 2025 Company Ltd.").
+        /// @param AppUrl the URL for the application (optional).
+        /// @return a pointer to the application object if everything is ok, an error code otherwise.
+        /// @note **This function should be called only once**, otherwise it will return an error code.
+        EXPORTED static auto initApplication(bool IsEditor, const std::string &ProjectDir, u64 Argc, char *const *Argv,
+                                             const std::string &AppName, const std::string &AppVersion,
+                                             const std::string &AppIdentifier, const std::string &AppCreator,
+                                             const std::string &AppCopyright, const std::string &AppUrl)
+            -> std::expected<Application *, ApplicationError>;
 
-            /// @brief Gets the current application instance.
-            /// @return pointer to the current application instance (`nullptr` if the application is not initialized
-            /// yet).
-            /// @note Do not try to pass something to this function, it will not work :)
-            EXPORTED static Application *get(void) noexcept;
+        /// @brief Gets the current application instance.
+        /// @return pointer to the current application instance (`nullptr` if the application is not initialized
+        /// yet).
+        /// @note Do not try to pass something to this function, it will not work :)
+        EXPORTED static auto get() noexcept -> Application *;
 
-            /// @brief No copy constructor, no copy assignment operator.
-            Application(const Application &) = delete;
-            /// @brief No copy constructor, no copy assignment operator.
-            Application &operator=(const Application &) = delete;
-            /// @brief No move constructor, no move assignment operator.
-            Application(Application &&) = delete;
-            /// @brief No move constructor, no move assignment operator.
-            Application &operator=(Application &&) = delete;
+        /// @brief No copy constructor, no copy assignment operator.
+        Application(const Application &) = delete;
+        /// @brief No copy constructor, no copy assignment operator.
+        auto operator=(const Application &) -> Application & = delete;
+        /// @brief No move constructor, no move assignment operator.
+        Application(Application &&) = delete;
+        /// @brief No move constructor, no move assignment operator.
+        auto operator=(Application &&) -> Application & = delete;
 
-            // getters
+        // getters
 
-            /// @brief Simple getter for is_editor_ variable. You can set it in the constructor only.
-            /// @return Current value of is_editor_ variable.
-            /// @note This function is used to check if the application is in the editor or a runner mode.
-            EXPORTED bool is_editor(void) const noexcept;
-            /// @brief Simple getter for app_project_dir variable. You can set it in the constructor only.
-            /// @return Current value of app_project_dir variable.
-            EXPORTED const std::string &get_project_dir(void) const noexcept;
-            /// @brief Simple getter for app_name variable. You can set it in the constructor only.
-            /// @return Current value of app_name variable.
-            EXPORTED const std::string &get_name(void) const noexcept;
-            /// @brief Simple getter for app_version variable. You can set it in the constructor only.
-            /// @return Current value of app_version variable.
-            EXPORTED const std::string &get_version(void) const noexcept;
-            /// @brief Simple getter for app_identifier variable. You can set it in the constructor only.
-            /// @return Current value of app_identifier variable.
-            EXPORTED const std::string &get_identifier(void) const noexcept;
-            /// @brief Simple getter for app_creator variable. You can set it in the constructor only.
-            /// @return Current value of app_creator variable.
-            EXPORTED const std::string &get_creator(void) const noexcept;
-            /// @brief Simple getter for app_copyright variable. You can set it in the constructor only.
-            /// @return Current value of app_copyright variable.
-            EXPORTED const std::string &get_copyright(void) const noexcept;
-            /// @brief Simple getter for app_url variable. You can set it in the constructor only.
-            /// @return Current value of app_url variable.
-            EXPORTED const std::string &get_url(void) const noexcept;
-            /// @brief Simple getter for project_configuration variable. You can set it in the set_project_configuration
-            /// function.
-            /// @return Current value of project_configuration variable.
-            /// @note It may return nullptr if the project configuration is not set yet.
-            EXPORTED PyObject *get_project_configuration(void) const noexcept;
+        /// @brief Simple getter for IsEditor variable. You can set it in the constructor only.
+        /// @return Current value of IsEditor variable.
+        /// @note This function is used to check if the application is in the editor or a runner mode.
+        EXPORTED auto isEditor() const noexcept -> bool;
+        /// @brief Simple getter for AppProjectDir variable. You can set it in the constructor only.
+        /// @return Current value of AppProjectDir variable.
+        EXPORTED auto getProjectDir() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppName variable. You can set it in the constructor only.
+        /// @return Current value of AppName variable.
+        EXPORTED auto getName() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppVersion variable. You can set it in the constructor only.
+        /// @return Current value of AppVersion variable.
+        EXPORTED auto getVersion() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppIdentifier variable. You can set it in the constructor only.
+        /// @return Current value of AppIdentifier variable.
+        EXPORTED auto getIdentifier() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppCreator variable. You can set it in the constructor only.
+        /// @return Current value of AppCreator variable.
+        EXPORTED auto getCreator() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppCopyright variable. You can set it in the constructor only.
+        /// @return Current value of AppCopyright variable.
+        EXPORTED auto getCopyright() const noexcept -> const std::string &;
+        /// @brief Simple getter for AppUrl variable. You can set it in the constructor only.
+        /// @return Current value of AppUrl variable.
+        EXPORTED auto getUrl() const noexcept -> const std::string &;
+        /// @brief Simple getter for ProjectConfiguration variable. You can set it in the setProjectConfiguration
+        /// function.
+        /// @return Current value of ProjectConfiguration variable.
+        /// @note It may return nullptr if the project configuration is not set yet.
+        EXPORTED auto getProjectConfiguration() const noexcept -> PyObject *;
 
-            // setters
+        // setters
 
-            /// @brief Sets the project_configuration member variable with a given PyObject pointer. The object should
-            /// be (or at least, inherit from, to be compatible with) a dictionary.
-            /// @param configuration PyObject pointer to the project configuration object (should be a dictionary).
-            /// @note It doesn't return anything. You should trust it unconditionally, as I do.
-            /// @note This function overwrites the previous value of the project_configuration variable, decreasing the
-            /// previous reference count if it was not `nullptr`.
-            EXPORTED void set_project_configuration(PyObject *configuration);
+        /// @brief Sets the ProjectConfiguration member variable with a given PyObject pointer. The object should
+        /// be (or at least, inherit from, to be compatible with) a dictionary.
+        /// @param configuration PyObject pointer to the project configuration object (should be a dictionary).
+        /// @note It doesn't return anything. You should trust it unconditionally, as I do.
+        /// @note This function overwrites the previous value of the ProjectConfiguration variable, decreasing the
+        /// previous reference count if it was not `nullptr`.
+        EXPORTED void setProjectConfiguration(PyObject *configuration);
 
-        private:
-            Application(bool is_editor, const std::string &project_dir, u64 argc, char *const *argv,
-                        const std::string &app_name, const std::string &app_version, const std::string &app_identifier,
-                        const std::string &app_creator, const std::string &app_copyright, const std::string &app_url);
-            ~Application(void) noexcept;
+    private:
+        Application(bool IsEditor, std::string ProjectDir, u64 Argc, char *const *Argv, std::string AppName,
+                    std::string AppVersion, std::string AppIdentifier, std::string AppCreator, std::string AppCopyright,
+                    std::string AppUrl);
+        ~Application() noexcept;
 
-            std::expected<void, ApplicationError> initialize_python(void);
-            std::expected<void, ApplicationError> initialize_project(void);
-            std::expected<void, ApplicationError> initialize_sdl(void);
+        auto initializePython() -> std::expected<void, ApplicationError>;
+        auto initializeProject() -> std::expected<void, ApplicationError>;
+        auto initializeSDL() -> std::expected<void, ApplicationError>;
 
-            std::expected<void, ApplicationError> set_sdl_metadata(const char *metadata_name, const std::string &value);
+        static auto setSDLMetadata(const char *metadata_name, const std::string &value)
+            -> std::expected<void, ApplicationError>;
 
-            void quit_python(void);
-            void quit_sdl(void);
+        void quitPython();
+        static void quitSDL();
 
-            bool is_editor_;
-            std::string app_name;
-            std::string app_version;
-            std::string app_identifier;
-            std::string app_creator;
-            std::string app_copyright;
-            std::string app_url;
-            std::vector<Module> modules;
-            u64 cmd_arguments_count;
-            char *const *cmd_arguments;
+        bool IsEditor;
+        std::string AppName;
+        std::string AppVersion;
+        std::string AppIdentifier;
+        std::string AppCreator;
+        std::string AppCopyright;
+        std::string AppUrl;
+        std::vector<Module> Modules;
+        u64 CMDArgumentsCount;
+        char *const *CMDArguments;
 
-            std::string app_project_dir;
-            PyObject *project_configuration;
+        std::string AppProjectDir;
+        PyObject *ProjectConfiguration;
 
-            std::unique_ptr<Python::Interpreter> interpreter;
+        std::unique_ptr<Python::Interpreter> Interpreter;
 
-            static Application *instance;
-        };
-    } // namespace Application
-
-} // namespace Sola
+        static Application *Instance;
+    };
+} // namespace Sola::Application
 
 #endif

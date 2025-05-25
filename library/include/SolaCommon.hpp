@@ -1,5 +1,5 @@
-#ifndef SOLA_COMMON
-#define SOLA_COMMON
+#ifndef SOLACOMMON_HPP
+#define SOLACOMMON_HPP
 
 // Python headers inclusion must be highest
 #include <Python.h>
@@ -24,8 +24,7 @@
 
 /// @brief Sola is the main namespace inside the whole Sola library and most of support tools (like editor). It contains
 /// all other objects and namespaces required for Sola to run properly.
-namespace Sola
-{
+namespace Sola {
     /// @brief Smaller alias for a signed fixed-width 8-bit (1 byte) integer type.
     /// @details The range is -128 to 127. On most architectures is the same as signed char.
     using i8 = int8_t;
@@ -65,11 +64,11 @@ namespace Sola
     /// @return unsigned 64-bit wide number with major part as highest two bytes, minor
     /// as middle two bytes, patch as smallest two bytes (like \\x00\\x01 \\x00\\xF0
     /// \\x00\\x02 = 4_310_695_938).
-    u64 get_engine_version(void);
+    auto getEngineVersion() -> u64;
 
     /// @brief Returns the current engine version in human readable format.
     /// @return string with major, minor and patch version numbers (like "0.1.2").
-    const std::string &get_engine_version_readable(void);
+    auto getEngineVersionReadable() -> const std::string &;
 } // namespace Sola
 
 // For shared library (windows mostly)

@@ -44,22 +44,7 @@ namespace Sola::Python {
         /// @note ModulesAmount type is u8, so the maximum amount of modules is 255. That should be enough for the
         /// internal modules in a normal case. Also, it seems to simplify the life of some sast tools (yep,
         /// cppcheck). If it won't be enough, we can rebuild the library with u16.
-        template <u8 ModulesAmount>
-        Interpreter(PyConfig &Config, std::array<InternalModule, ModulesAmount> InternalModules) {
-            for (u8 i = 0; i < ModulesAmount; i++) {
-                PyImport_AppendInittab(InternalModules[i].ModuleName, InternalModules[i].moduleInit);
-            }
-
-            PyStatus Status = Py_InitializeFromConfig(&Config);
-            PyConfig_Clear(&Config);
-            if (PyStatus_Exception(Status)) {
-                if (PyStatus_IsError(Status)) {
-                    printError(Status.err_msg);
-                }
-                return;
-            }
-            Initialized = true;
-        }
+        Interpreter(PyConfig &Config, const std::vector<InternalModule>& InternalModules);
 
         /// @brief No copy constructor for this class, only moves.
         Interpreter(const Interpreter &) = delete;
@@ -121,7 +106,7 @@ namespace Sola::Python {
         /// @param AttributeName the name of the attribute
         /// @param Value the value of the attribute
         /// @return the original object where the attribute is now set or error
-        static EXPORTED auto setAttribute(PyObject *Object, const std::string &AttributeName, PyObject *Value)
+        EXPORTED auto setAttribute(PyObject *Object, const std::string &AttributeName, PyObject *Value)
             -> std::expected<PyObject *, InterpreterError>;
 
         /// @brief Simple wrapper over PyObject_SetAttr specifically for strings

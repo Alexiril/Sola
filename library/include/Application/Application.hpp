@@ -101,6 +101,10 @@ namespace Sola::Application {
         /// previous reference count if it was not `nullptr`.
         EXPORTED void setProjectConfiguration(PyObject *configuration);
 
+        /// @brief Gets the Python interpreter instance.
+        /// @return Smart shared pointer to the Python interpreter instance.
+        EXPORTED auto getPythonInterpreter() const noexcept -> std::shared_ptr<Python::Interpreter>;
+
     private:
         Application(bool IsEditor, std::string ProjectDir, u64 Argc, char *const *Argv, std::string AppName,
                     std::string AppVersion, std::string AppIdentifier, std::string AppCreator, std::string AppCopyright,
@@ -131,7 +135,7 @@ namespace Sola::Application {
         std::string AppProjectDir;
         PyObject *ProjectConfiguration;
 
-        std::unique_ptr<Python::Interpreter> Interpreter;
+        std::shared_ptr<Python::Interpreter> Interpreter;
 
         static Application *Instance;
     };

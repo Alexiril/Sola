@@ -111,7 +111,7 @@ namespace Sola::Application {
         }
         Python::InternalModule Module = {.ModuleName = Python::API::ModuleName,
                                          .moduleInit = Python::API::createPythonModule};
-        Interpreter.reset(new Python::Interpreter(Config, std::array<Python::InternalModule, 1>{Module}));
+        Interpreter = std::make_shared<Python::Interpreter>(Config, std::vector<Python::InternalModule>{Module});
         if (!Interpreter->isInitialized()) {
             printError("Python interpreter was not initialized");
             return std::unexpected(ApplicationError::PythonInitializationFailed);
@@ -130,7 +130,7 @@ namespace Sola::Application {
         /* -- Initialize project -- */
 
         PyObject *PyProjectDir = PyUnicode_FromString(AppProjectDir.c_str());
-        if (PyProjectDir == 0) {
+        if (PyProjectDir == nullptr) {
             printError("Couldn't convert project directory to Python Unicode: " + AppProjectDir);
             return std::unexpected(ApplicationError::ProjectInitializationFailed);
         }
@@ -247,4 +247,9 @@ namespace Sola::Application {
 
         /* -- SDL3 finished -- */
     }
+
+    auto Application::getPythonInterpreter() const noexcept -> std::shared_ptr<Python::Interpreter> {
+        return Interpreter;
+    }
+
 } // namespace Sola::Application

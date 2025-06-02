@@ -1,6 +1,22 @@
 #include "Python/Interpreter.hpp"
 
 namespace Sola::Python {
+    Interpreter::Interpreter(PyConfig &Config, const std::vector<InternalModule>& InternalModules) {
+        for (auto &InternalModule : InternalModules) {
+            PyImport_AppendInittab(InternalModule.ModuleName, InternalModule.moduleInit);
+        }
+
+        PyStatus Status = Py_InitializeFromConfig(&Config);
+        PyConfig_Clear(&Config);
+        if (PyStatus_Exception(Status) != 0) {
+            if (PyStatus_IsError(Status) != 0) {
+                printError(Status.err_msg);
+            }
+            return;
+        }
+        Initialized = true;
+    }
+
     Interpreter::Interpreter(Interpreter &&Other) noexcept
         : Initialized(std::exchange(Other.Initialized, false)), Modules(std::move(Other.Modules)) {}
 
@@ -131,7 +147,7 @@ namespace Sola::Python {
     auto Interpreter::getAttribute(PyObject *Object, const std::string &AttributeName)
         -> std::expected<PyObject *, InterpreterError> {
         PyObject *Result = nullptr;
-        if (Object == nullptr || PyObject_GetOptionalAttrString(Object, AttributeName.c_str(), &Result) != 1 ||
+        if (!this->Initialized || Object == nullptr || PyObject_GetOptionalAttrString(Object, AttributeName.c_str(), &Result) != 1 ||
             Result == nullptr) {
             return std::unexpected(InterpreterError::ObjectDoesNotExist);
         }
@@ -141,7 +157,7 @@ namespace Sola::Python {
 
     auto Interpreter::getAttribute(const std::string &ModuleName, const std::string &AttributeName)
         -> std::expected<PyObject *, InterpreterError> {
-        if (!Modules.contains(ModuleName)) {
+        if (!this->Initialized || !Modules.contains(ModuleName)) {
             return std::unexpected(InterpreterError::NoModulesAvailable);
         }
 
@@ -151,7 +167,7 @@ namespace Sola::Python {
 
     auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, PyObject *Value)
         -> std::expected<PyObject *, InterpreterError> {
-        if (Object == nullptr || Value == nullptr) {
+        if (!this->Initialized || Object == nullptr || Value == nullptr) {
             return std::unexpected(InterpreterError::SetAttributeFailed);
         }
         PyObject *PyAttributeName = PyUnicode_FromString(AttributeName.c_str());
@@ -170,7 +186,7 @@ namespace Sola::Python {
     auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, const std::string &Value)
         -> std::expected<PyObject *, InterpreterError> {
         PyObject *PyValue = PyUnicode_FromString(Value.c_str());
-        if (PyValue == nullptr) {
+        if (!this->Initialized || PyValue == nullptr) {
             return std::unexpected(InterpreterError::TransformStringToUnicodeFailed);
         }
         return setAttribute(Object, AttributeName, PyValue);
@@ -179,7 +195,7 @@ namespace Sola::Python {
     auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, i64 Value)
         -> std::expected<PyObject *, InterpreterError> {
         PyObject *PyValue = PyLong_FromInt64(Value);
-        if (PyValue == nullptr) {
+        if (!this->Initialized || PyValue == nullptr) {
             return std::unexpected(InterpreterError::SetAttributeFailed);
         }
         return setAttribute(Object, AttributeName, PyValue);
@@ -188,7 +204,7 @@ namespace Sola::Python {
     auto Interpreter::setAttribute(PyObject *Object, const std::string &AttributeName, u64 Value)
         -> std::expected<PyObject *, InterpreterError> {
         PyObject *PyValue = PyLong_FromUInt64(Value);
-        if (PyValue == nullptr) {
+        if (!this->Initialized || PyValue == nullptr) {
             return std::unexpected(InterpreterError::SetAttributeFailed);
         }
         return setAttribute(Object, AttributeName, PyValue);
@@ -196,8 +212,8 @@ namespace Sola::Python {
 
     auto Interpreter::deleteAttribute(PyObject *Object, const std::string &AttributeName)
         -> std::expected<void, InterpreterError> {
-        if (Object == nullptr) {
-            return std::unexpected(InterpreterError::SetAttributeFailed);
+        if (!this->Initialized || Object == nullptr) {
+            return std::unexpected(InterpreterError::DelAttributeFailed);
         }
         PyObject *PyAttributeName = PyUnicode_FromString(AttributeName.c_str());
         if (PyAttributeName == nullptr) {

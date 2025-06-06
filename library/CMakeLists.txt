@@ -117,9 +117,9 @@ add_dependencies(${PROJECT_NAME} python)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC python)
 
-add_custom_target(solalib_python_cache COMMAND py -m compileall -j 0 -o 1 "${SOLA_PYTHON}")
+add_custom_target(solalib-python-cache COMMAND py -m compileall -j 0 -o 1 "${SOLA_PYTHON}")
 
-add_dependencies(${PROJECT_NAME} solalib_python_cache)
+add_dependencies(${PROJECT_NAME} solalib-python-cache)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC SDL3::SDL3)
 
@@ -129,22 +129,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC TracyClient)
 
 add_dependencies(${PROJECT_NAME} cppcheck)
 
-if(BUILD_DOCS)
-    set(DOXYGEN_PROJECT_NAME "Sola")
-    set(DOXYGEN_PROJECT_BRIEF "Framework, made with love")
-    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs)
-    set(DOXYGEN_FILE_PATTERNS "*.hpp" "*.cpp" "*.md")
-    doxygen_add_docs(solalib_docs ${CMAKE_CURRENT_SOURCE_DIR} ALL)
-    add_dependencies(${PROJECT_NAME} solalib_docs)
-
-    set(DOXYGEN_PROJECT_NAME "Sola Python Library")
-    set(DOXYGEN_PROJECT_BRIEF "Framework, made with love")
-    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs_python)
-    set(DOXYGEN_FILE_PATTERNS "*.py" "*.pyi" "*.md")
-    set(DOXYGEN_OPTIMIZE_OUTPUT_JAVA YES)
-    doxygen_add_docs(sola_pythonlib_docs ${CMAKE_CURRENT_SOURCE_DIR} ALL)
-    add_dependencies(${PROJECT_NAME} sola_pythonlib_docs)
-endif()
+add_dependencies(${PROJECT_NAME} sola-lib-docs)
+add_dependencies(${PROJECT_NAME} sola-pythonlib-docs)
 
 # This is not really neeeded for the library to build or run,
 # but it is much more convinient for building the entire Sola framework
@@ -182,12 +168,3 @@ install(TARGETS ${PROJECT_NAME}
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
 )
-
-if(BUILD_DOCS)
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs/html/
-        DESTINATION ${CMAKE_INSTALL_DOCDIR}/${PROJECT_NAME}
-    )
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs_python/html/
-        DESTINATION ${CMAKE_INSTALL_DOCDIR}/${PROJECT_NAME}_python
-    )
-endif()

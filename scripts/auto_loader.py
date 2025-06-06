@@ -106,6 +106,7 @@ def main() -> None:
     for arg in argv[1:]:
         if arg == "--no-update":
             update = False
+            print("Update is disabled. Vendored libraries will not be updated.")
     try:
         vendor_dir = Path(".") / "vendor"
         vendored = vendor_dir / "vendored.json"

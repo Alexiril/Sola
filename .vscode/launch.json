@@ -13,8 +13,7 @@
             "name": "MSVC Editor debug",
             "type": "cppvsdbg",
             "request": "launch",
-            // TODO#1
-            "program": "build/artifacts/bin/sola-editor.exe",
+            "program": "build/artifacts/bin/sola-runtime-editor.exe",
             "args": [
                 "test"
             ],

@@ -12,7 +12,8 @@ namespace Sola::Application {
     auto Application::initApplication(bool IsEditor, const std::string &AppProjectDir, u64 Argc, char *const *Argv,
                                       const std::string &AppName, const std::string &AppVersion,
                                       const std::string &AppIdentifier, const std::string &AppCreator,
-                                      const std::string &AppCopyright, const std::string &AppUrl)
+                                      const std::string &AppCopyright, const std::string &AppUrl,
+                                      std::vector<Python::InternalModule> &PythonModules)
         -> std::expected<Application *, ApplicationError> {
 #ifdef SOLA_PROFILER_INTERNAL_SECTION
         ZoneScopedC(Graphics::Color::Amber);
@@ -24,7 +25,7 @@ namespace Sola::Application {
         Instance = new Application(IsEditor, AppProjectDir, Argc, Argv, AppName, AppVersion, AppIdentifier, AppCreator,
                                    AppCopyright, AppUrl);
 
-        auto pythonInitResult = Instance->initializePython();
+        auto pythonInitResult = Instance->initializePython(PythonModules);
         if (!pythonInitResult.has_value()) {
             delete Instance;
             Instance = nullptr;
@@ -47,6 +48,12 @@ namespace Sola::Application {
     }
 
     auto Application::get() noexcept -> Application * { return Instance; }
+
+    void Application::quitApplication() noexcept {
+        delete Instance; // delete the instance of the application
+        Instance = nullptr; // set the instance to nullptr to avoid dangling pointer
+        // Hope that nothing will break. Though, not sure.
+    }
 
     auto Application::isEditor() const noexcept -> bool { return IsEditor; }
 
@@ -89,7 +96,8 @@ namespace Sola::Application {
         quitSDL();
     }
 
-    auto Application::initializePython() -> std::expected<void, ApplicationError> {
+    auto Application::initializePython(std::vector<Python::InternalModule> &InternalModules)
+        -> std::expected<void, ApplicationError> {
         /* -- Initializing Python interpreter -- */
 
         PyConfig Config;
@@ -111,7 +119,8 @@ namespace Sola::Application {
         }
         Python::InternalModule Module = {.ModuleName = Python::API::ModuleName,
                                          .moduleInit = Python::API::createPythonModule};
-        Interpreter = std::make_shared<Python::Interpreter>(Config, std::vector<Python::InternalModule>{Module});
+        InternalModules.push_back(Module);
+        Interpreter = std::make_shared<Python::Interpreter>(Config, InternalModules);
         if (!Interpreter->isInitialized()) {
             printError("Python interpreter was not initialized");
             return std::unexpected(ApplicationError::PythonInitializationFailed);
@@ -248,7 +257,7 @@ namespace Sola::Application {
         /* -- SDL3 finished -- */
     }
 
-    auto Application::getPythonInterpreter() const noexcept -> std::shared_ptr<Python::Interpreter> {
+    auto Application::getPythonInterpreter() const noexcept -> std::weak_ptr<Python::Interpreter> {
         return Interpreter;
     }
 

@@ -4,9 +4,22 @@ Sola is a software suite aimed at providing third-party software developers with
 
 Current version is 0.1.0
 
-### Usage
-
 ### Building
+
+You need to have these executables installed and be accessible with `path` environment variable:
+
+- Python version 3 (tested with version 3.12)
+- CMake version 3.30 and higher (tested with CMake version 4.0.1)
+- Git executable
+- Any configured C++ compiler (developed with MSVC)
+- Doxygen (for docs, tested with version 1.13.2)
+
+Moreover, Graphviz might be used.
+
+To actually build the framework, do the `install` CMake command in the repository directory.
+```sh
+cmake --install .
+```
 
 ### Third-party software
 
@@ -21,7 +34,7 @@ Current version is 0.1.0
     - *in development... SDL3 Mixer library ([github](https://github.com/libsdl-org/SDL_mixer))*
     - *in development... SDL3 TTF library ([github](https://github.com/libsdl-org/SDL_ttf))*
 
-- Vulkan - *in development... Is not used yet. But it will be :)*
+- [Vulkan](https://www.vulkan.org/) ([github](https://github.khronos.org/), [wiki](https://docs.vulkan.org/)) - *in development... Is not used yet. But it will be :)*
 
 - [Python](https://www.python.org) ([github](https://github.com/python/cpython), [wiki](https://docs.python.org), [license](https://github.com/python/cpython/blob/main/LICENSE)) - a high-level, general-purpose programming language.
 

@@ -7,6 +7,7 @@
 #include <SDL3/SDL.h>
 
 #include <array>
+#include <concepts>
 #include <cstdint>
 #include <expected>
 #include <filesystem>
@@ -19,6 +20,7 @@
 #include <optional>
 #include <sstream>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 #include <vector>
 

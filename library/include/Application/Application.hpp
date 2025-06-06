@@ -35,12 +35,14 @@ namespace Sola::Application {
         /// @param AppCreator the name of the application creator (optional).
         /// @param AppCopyright the copyright of the application (should be readable, like "© 2025 Company Ltd.").
         /// @param AppUrl the URL for the application (optional).
+        /// @param PythonModules a vector of internal Python modules to be imported into the application.
         /// @return a pointer to the application object if everything is ok, an error code otherwise.
         /// @note **This function should be called only once**, otherwise it will return an error code.
         EXPORTED static auto initApplication(bool IsEditor, const std::string &ProjectDir, u64 Argc, char *const *Argv,
                                              const std::string &AppName, const std::string &AppVersion,
                                              const std::string &AppIdentifier, const std::string &AppCreator,
-                                             const std::string &AppCopyright, const std::string &AppUrl)
+                                             const std::string &AppCopyright, const std::string &AppUrl,
+                                             std::vector<Python::InternalModule> &PythonModules)
             -> std::expected<Application *, ApplicationError>;
 
         /// @brief Gets the current application instance.
@@ -48,6 +50,10 @@ namespace Sola::Application {
         /// yet).
         /// @note Do not try to pass something to this function, it will not work :)
         EXPORTED static auto get() noexcept -> Application *;
+
+        /// @brief Finalizes the application and cleans up all resources.
+        /// @attention This function should be called only once, when the application is about to exit.
+        EXPORTED static void quitApplication() noexcept;
 
         /// @brief No copy constructor, no copy assignment operator.
         Application(const Application &) = delete;
@@ -103,7 +109,7 @@ namespace Sola::Application {
 
         /// @brief Gets the Python interpreter instance.
         /// @return Smart shared pointer to the Python interpreter instance.
-        EXPORTED auto getPythonInterpreter() const noexcept -> std::shared_ptr<Python::Interpreter>;
+        EXPORTED auto getPythonInterpreter() const noexcept -> std::weak_ptr<Python::Interpreter>;
 
     private:
         Application(bool IsEditor, std::string ProjectDir, u64 Argc, char *const *Argv, std::string AppName,
@@ -111,7 +117,8 @@ namespace Sola::Application {
                     std::string AppUrl);
         ~Application() noexcept;
 
-        auto initializePython() -> std::expected<void, ApplicationError>;
+        auto initializePython(std::vector<Python::InternalModule> &InternalModules)
+            -> std::expected<void, ApplicationError>;
         auto initializeProject() -> std::expected<void, ApplicationError>;
         auto initializeSDL() -> std::expected<void, ApplicationError>;
 

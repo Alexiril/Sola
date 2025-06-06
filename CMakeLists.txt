@@ -8,6 +8,12 @@ set(SOLA_VERSION_MINOR 1)
 set(SOLA_VERSION_PATCH 0)
 set(SOLA_VERSION_STRING "${SOLA_VERSION_MAJOR}.${SOLA_VERSION_MINOR}.${SOLA_VERSION_PATCH}")
 
+# Runtime & editor related stuff
+set(SOLA_APP_IDENTIFIER "com.sola.application")
+set(SOLA_APP_CREATOR "Alex Kirel")
+set(SOLA_APP_COPYRIGHT "Copyright (c) 2025 Alexey Kirilov")
+set(SOLA_APP_URL "")
+
 set(SOLA_PROFILER_INTERNAL_SECTION ON)
 set(SOLA_PROFILER_EXTERNAL_SECTION ON)
 
@@ -25,7 +31,7 @@ option(TRACY_ENABLE "Enable Tracy" ON)
 set(LOAD_VENDORED 1)
 
 # Get vendored
-if(!UPDATE_VENDORED)
+if(UPDATE_VENDORED EQUAL FALSE)
     set(VENDORED_AUTO_LOADER_ARGS "${VENDORED_AUTO_LOADER_ARGS} --no-update")
 endif()
 if(LOAD_VENDORED)
@@ -110,7 +116,8 @@ if(CMAKE_CXX_CPPCHECK)
             "-i./build"
             "-i./.vscode"
             "-I./library/include"
-            "-I./editor/include"
+            "-I./runtime/include"
+            "-I./runtime/editor/include"
             "."
             )
         add_custom_target(cppcheck
@@ -136,7 +143,9 @@ if(BUILD_DOCS)
     set(DOXYGEN_BUILTIN_STL_SUPPORT YES)
     set(DOXYGEN_CPP_CLI_SUPPORT YES)
     set(DOXYGEN_EXTENSION_MAPPING "pyi=Python")
-    set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "README.md")
+    set(DOXYGEN_ENABLE_PREPROCESSING YES)
+    set(DOXYGEN_PREDEFINED "EDITOR_APPLICATION")
+    set(DOXYGEN_USE_MDFILE_AS_MAINPAGE ${CMAKE_SOURCE_DIR}/library/README.md)
     set(DOXYGEN_GENERATE_HTML YES)
     set(DOXYGEN_HTML_COLORSTYLE_HUE 0)
     set(DOXYGEN_HTML_COLORSTYLE_SAT 0)
@@ -169,6 +178,26 @@ if(BUILD_DOCS)
         ${CMAKE_SOURCE_DIR}/vendor/doxygen_awesome/doxygen-awesome-sidebar-only-darkmode-toggle.css
     )
     set(DOXYGEN_HTML_HEADER ${CMAKE_SOURCE_DIR}/scripts/docs-header.html)
+
+    set(DOXYGEN_PROJECT_NAME "Sola")
+    set(DOXYGEN_PROJECT_BRIEF "Framework, made with love")
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/docs)
+    set(DOXYGEN_FILE_PATTERNS "*.hpp" "*.cpp" "*.md")
+    doxygen_add_docs(sola-lib-docs ${CMAKE_SOURCE_DIR}/library ${CMAKE_SOURCE_DIR}/runtime ALL)
+
+    set(DOXYGEN_PROJECT_NAME "Sola Python Library")
+    set(DOXYGEN_PROJECT_BRIEF "Framework, made with love")
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/docs_python)
+    set(DOXYGEN_FILE_PATTERNS "*.py" "*.pyi" "*.md")
+    set(DOXYGEN_OPTIMIZE_OUTPUT_JAVA YES)
+    doxygen_add_docs(sola-pythonlib-docs ${CMAKE_SOURCE_DIR}/library ${CMAKE_SOURCE_DIR}/runtime ALL)
+
+    install(DIRECTORY ${CMAKE_BINARY_DIR}/docs/html/
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}/sola
+    )
+    install(DIRECTORY ${CMAKE_BINARY_DIR}/docs_python/html/
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}/sola_python
+    )
 endif()
 
 # Add vendored
@@ -189,6 +218,11 @@ if(LOAD_VENDORED)
 endif()
 
 add_subdirectory(library)
-add_subdirectory(editor)
+
+set(MAKE_EDITOR_APPLICATION OFF)
+add_subdirectory(runtime)
+
+set(MAKE_EDITOR_APPLICATION ON)
+add_subdirectory(runtime runtime-editor)
 
 install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} \"${CMAKE_SOURCE_DIR}/scripts/build_final_structure.py\" \"${PYTHON_ARCH}\" \"${CMAKE_BINARY_DIR}\" \"${CMAKE_INSTALL_PREFIX}\" \"${CMAKE_INSTALL_LIBDIR}\" \"${CMAKE_INSTALL_BINDIR}\" \"${CMAKE_SOURCE_DIR}/vendor\")")

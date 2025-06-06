@@ -79,13 +79,15 @@ namespace Sola::Graphics::WindowsManager {
     /// not intercepted and processed. It should be used as a less lethal version of showFatalMessageBox,
     /// when it is still possible to continue running the application without aborting.
     /// @param Message Text to show inside the message box
+    /// @throws Sola::Exception::GeneralException if the "Quit" button is clicked.
     EXPORTED void showErrorMessageBox(const std::string &Message);
     /// @brief Calls showMessageBox with predefined values. The only button is "Quit", which throws
     /// Sola::Exception::GeneralException, trying to terminate the program. Although, it can be caught in some
     /// outer code (like in the application main function or something like it) to handle the exit process
     /// correctly.
     /// @param Message Text to show inside the message box
-    /// @note Returns nothing. It's too late to return something, right? :)
+    /// @note Returns nothing. Everything is already broken anyway, right? :)
+    /// @throws Sola::Exception::GeneralException
     EXPORTED void showFatalMessageBox(const std::string &Message);
 } // namespace Sola::Graphics::WindowsManager
 
